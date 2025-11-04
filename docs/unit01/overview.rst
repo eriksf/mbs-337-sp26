@@ -1,0 +1,14 @@
+Unit 1: Onboarding and Essential Skills
+=======================================
+
+We will use the first few days of class to set expectations and define
+requirements for the upcoming semester. We will begin to set up some necessary
+accounts and onboard students into the TACC / class ecosystem. We will also
+review essential Linux, Python, and Version Control (Git) skills that will be
+necessary for the rest of this course.
+
+
+.. toctree::
+   :maxdepth: 1
+
+   class_intro
