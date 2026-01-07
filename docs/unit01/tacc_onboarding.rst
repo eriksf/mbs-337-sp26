@@ -108,7 +108,7 @@ Even as biology progressed into the 20th century, the pace of discovery remained
 
 X-ray crystallography revolutionized molecular biology by letting scientists "see" proteins in atomic detail, but only after *years* of purification, coaxing proteins into crystal form, collecting their diffraction patterns, and building up an atomic model by hand. Solving one structure could easily take an entire Ph.D. 
 
-Biology was become more precise, but not necessarily faster, and certainly not scalable.
+Biology was becoming more precise, but not necessarily faster, and certainly not scalable.
 
 .. figure:: ./images/myoglobin.jpg
     :width: 500px
@@ -118,7 +118,7 @@ Biology was become more precise, but not necessarily faster, and certainly not s
 
 **A New Era of Biology**
 
-In 1990s, biology began to undergo a transformation unlike anything in its history. 
+In the 1990s, biology began to undergo a transformation unlike anything in its history. 
 
 Launched in 1990 and completed in 2003, the **Human Genome Project** produced the first sequence of the entire human genome: 2.85 billion nucleotides spanning ~20,000–25,000 protein-coding genes. 
 
@@ -144,8 +144,8 @@ All of a sudden, the tools required to do biology changed almost overnight. Biol
 - **Python** — to analyze datasets too large for Excel or point-and-click interfaces 
 - **Common biological data formats** such as FASTA, FASTQ, SAM/BAM, and VCF — the new "language" of biology
 - **Git & Version Control** — to collaborate across institutions and ensure reproducibility of analyses
-- **Containerization** — to package scientific softwre so it can run anywhere
-- **High-performance computing (HPC)** — to run computationaly demanding genome assemblies, alignments, simulations, and and machine learning models too large for personal computers
+- **Containerization** — to package scientific software so it can run anywhere
+- **High-performance computing (HPC)** — to run computationally demanding genome assemblies, alignments, simulations, and machine learning models too large for personal computers
 - **Artificial intelligence** — emerging methods that now drive breakthroughs across all domains of science
 
 In short, **biology became a computational science**, and the next era of biological discovery will come from researchers who can move fluently between data analysis, computer science, and biological insight. 
@@ -157,7 +157,7 @@ This is one of the most exciting moments in the history of biology.
 
 Just a few years ago in 2020, the `protein folding problem` — a grand challenge that had stumped scientists for over 50 years — was finally solved. 
 
-**AlphaFold2**, a revolutionary AI system developed by Google DeepMind, demostrated that deep learning could predict a protein's 3D structure from its amino acid sequence alone with near-experimental accuracy. Since its inception, AlphaFold has predicted the structures for *over 200 million* proteins, covering nearly all cataloged proteins known to science. 
+**AlphaFold2**, a revolutionary AI system developed by Google DeepMind, demonstrated that deep learning could predict a protein's 3D structure from its amino acid sequence alone with near-experimental accuracy. Since its inception, AlphaFold has predicted the structures for *over 200 million* proteins, covering nearly all cataloged proteins known to science. 
 
 .. figure:: ./images/casp14_predictions.gif
     :width: 700px
@@ -165,7 +165,7 @@ Just a few years ago in 2020, the `protein folding problem` — a grand challeng
 
     Comparison between experimentally determined protein structures (green) and predictions made by AlphaFold2 (blue), indicating the remarkable accuracy of AI-based computational methods in protein structure prediction. Source: `GitHub/Google-Deepmind <https://github.com/google-deepmind/alphafold>`_
 
-AlphaFold unlocked a completely new way of doing structural biology, and the possibilities of biological research are exanding faster than ever. Those who understand computational methods will be well-positioned at the forefront of discovery. 
+AlphaFold unlocked a completely new way of doing structural biology, and the possibilities of biological research are expanding faster than ever. Those who understand computational methods will be well-positioned at the forefront of discovery. 
 
 ----
 
@@ -175,9 +175,9 @@ Over the course of the semester, you will understand not only *why* biology requ
 
 You will learn how to:
 
-- **Submit and manage jobs on a HPC system**, just like resesarchers working at TACC
+- **Submit and manage jobs on a HPC system**, just like researchers working at TACC
 - **Analyze real genomics, transcriptomics, and medical datasets** using command-line and Python tools
-- **Work with core bioinformatics file formats** (FASTA, FASTQ, SAM/BAM/ VCF) and understand how data flows through computational pipelines
+- **Work with core bioinformatics file formats** (FASTA, FASTQ, SAM/BAM/VCF) and understand how data flows through computational pipelines
 - **Package and share scientific software** using containers
 - **Deploy an interactive scientific dashboard** similar to those used by active research labs for real-time analysis and visualization
 

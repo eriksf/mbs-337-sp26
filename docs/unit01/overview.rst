@@ -13,6 +13,5 @@ necessary for the rest of this course.
 
    class_intro
    tacc_onboarding
-   student_goals
    linux_essentials
    

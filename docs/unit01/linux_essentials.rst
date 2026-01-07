@@ -69,7 +69,7 @@ From the terminal, connect to the TACC login VM (replace ``username`` with your 
 
 **Windows**
 
-Widows does not include a native Linux shell by default to run the SSH protocol. That's okay – you just need to download an **SSH client**, which is a program that securely connects your computer to a remote Linux system. We recommend `PuTTY <https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html>`_ (Choose the 64-bit x86 installer). 
+Windows does not include a native Linux shell by default to run the SSH protocol. That's okay – you just need to download an **SSH client**, which is a program that securely connects your computer to a remote Linux system. We recommend `PuTTY <https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html>`_ (Choose the 64-bit x86 installer). 
 
 To connect:
 
@@ -160,7 +160,7 @@ At this point, you are successfully logged in to your personal Linux VM for the 
 Creating and Navigating Folders
 -------------------------------
 
-On most personal computrs, your location is shown visually using a graphical interface. For example, you might use your mouse to navigate to your Desktop or open files inside your Documents folder. 
+On most personal computers, your location is shown visually using a graphical interface. For example, you might use your mouse to navigate to your Desktop or open files inside your Documents folder. 
 
 In a Linux CLI, there is no visual file browser. Instead, you interact with the system by typing commands that ask the computer where you are and what files exist. 
 
@@ -218,7 +218,7 @@ Let's list the contents again:
 
 **Moving Around**
 
-Now that we have some folders to work with, let's navigate into one of them. To move into a directory, use ``cd`` (*change directory*). This is analagous to double-clicking a folder on Windows or Mac.
+Now that we have some folders to work with, let's navigate into one of them. To move into a directory, use ``cd`` (*change directory*). This is analogous to double-clicking a folder on Windows or Mac.
 
 .. code-block:: console
 
@@ -336,7 +336,7 @@ So far, we've learned how to navigate the filesystem and perform operations with
 
 First, let's make sure we are in our home directory and create a few directories and files. 
 
-We'll use the ``touch`` comand to create an empty file:
+We'll use the ``touch`` command to create an empty file:
 
 .. code-block:: console
 
@@ -397,11 +397,11 @@ Move and copy commands can also be used to change the name of a file:
 
 .. tip::
 
-   By now, you may have discovered that Linux is very unforgiving of typos. Two habits will save you a lot of frustration:
+   By now, you may have discovered that Linux is very unforgiving of typos. Three habits will save you a lot of frustration:
 
    * Press ``<Tab>`` to auto-complete file and directory names
    * Use ``<UpArrow>`` to cycle through previous commands
-   * Avoid spaces and special characers in file names. Stick to:
+   * Avoid spaces and special characters in file names. Stick to:
   
     .. code-block:: text
 
@@ -445,7 +445,7 @@ First, make sure you are in your home directory and copy a public file from the 
    $ ls
    words
 
-Try to use ``<Tab>`` to autocomplete the name of the file. Also, please notice the single dot ``.`` at the end of the copy command, which indicates that you want to copy the file to your **current location** (the home diretory).
+Try to use ``<Tab>`` to autocomplete the name of the file. Also, please notice the single dot ``.`` at the end of the copy command, which indicates that you want to copy the file to your **current location** (the home directory).
 
 The ``words`` file is a standard dictionary file found on many Linux systems. It contains 479,828 words, each on its own line. To print the entire contents of the file to the screen, use ``cat``. 
 
@@ -464,7 +464,7 @@ The ``words`` file is a standard dictionary file found on many Linux systems. It
    ABM's
    ...
 
-This is a long file! Printing everything to the screen is not very useful. We can use a few other commands to look the contents of the file with "more" control. 
+This is a long file! Printing everything to the screen is not very useful. We can use a few other commands to look at the contents of the file with "more" control. 
 
 Instead of dumping everything to the screen at once, we can view files one screen at a time with the ``more`` command:
 
@@ -548,7 +548,7 @@ Network and File Transfers
 
 In biological research, you'll often need to transfer files between your local computer and remote computing systems. HPC systems like your course VM have computational resources and specialized software that aren't available on typical personal computers. File transfer allows you to leverage the strengths of both systems by moving data and results between them as needed.
 
-To login or transfer files to a remote Linux file system you must know the hostname (the unique network identifier of the computer you are connecting to) and the username (who you are). If you are already on a Linux file system, those are easy to determine using the following commands:
+To log in or transfer files to a remote Linux file system you must know the hostname (the unique network identifier of the computer you are connecting to) and the username (who you are). If you are already on a Linux file system, those are easy to determine using the following commands:
 
 .. code-block:: console
 
@@ -586,7 +586,7 @@ In this command, you specify:
 
 * The file you want to transfer (``my_file``)
 * Your TACC username (replace ``kbeavers`` with your actual TACC username)
-* The hostname (``student-login-tacc.utexas.edu``)
+* The hostname (``student-login.tacc.utexas.edu``)
 * The destination path (in this case, your home directory)
 
 Take careful notice of the separators including spaces, the ``@`` symbol, and the ``:``.
@@ -655,6 +655,38 @@ This is just the basics of copying files. If you want to learn more, check out t
 
 * `scp usage <https://en.wikipedia.org/wiki/Secure_copy>`_ and example
 * `rsync usage <https://en.wikipedia.org/wiki/Rsync>`_ for more info.
+
+Text Editing with Nano 
+----------------------
+
+Nano is a simple, beginner-friendly text editor that is available on most Linux systems.
+Nano operates in a single mode, making it easier to use for those new to command-line text editing.
+
+.. code-block:: console
+
+   $ nano file_name
+
+Once nano opens, you can immediately start typing to edit the file. The editor displays helpful keyboard shortcuts at the bottom of the screen.
+
+**Basic Nano Commands:**
+
+The most important commands in nano are:
+
+* ``Ctrl+O`` - Save (write **Out**) the file
+* ``Ctrl+X`` - Exit nano
+* ``Ctrl+K`` - Cut (delete) the current line
+* ``Ctrl+U`` - Paste (uncut) the last cut line
+* ``Ctrl+W`` - Search for text in the file
+* ``Ctrl+\`` - Search and replace text
+
+.. tip::
+
+   When you try to exit with ``Ctrl+X``, nano will prompt you to save if you've made changes. Press ``Y`` to save, ``N`` to discard changes, or ``Ctrl+C`` to cancel and continue editing.
+
+   The ``^`` symbol in nano's help text represents the ``Ctrl`` key. For example, ``^X`` means ``Ctrl+X``.
+
+Nano is a great choice for quick edits and for users who prefer a more straightforward editing experience. For more advanced text manipulation, many users eventually learn VIM, which offers more powerful features but has a steeper learning curve.
+
 
 Text Editing with VIM
 ---------------------
@@ -830,7 +862,7 @@ Review of Topics Covered
 +------------------------------------+-------------------------------------------------+
 | ``<arrow keys>``                   |  navigate the file                              |
 +------------------------------------+-------------------------------------------------+
-| ``:q``                             |  quit ending the file                           |
+| ``:q``                             |  quit editing the file                          |
 +------------------------------------+-------------------------------------------------+
 | ``:q!``                            |  quit editing the file without saving           |
 +------------------------------------+-------------------------------------------------+

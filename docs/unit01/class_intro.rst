@@ -28,8 +28,7 @@ Class Introduction
 
 **Catalog Description:**
 
-Develop essential computational skill for modern biological research. Practice skills in software engineering, data management, containerization, workflow automation,
-dashboard development, and cloud computing through projects with applications in bioimaging, genomics, protein folding, and drug discovery.
+Develop essential computational skills for modern biological research. Practice skills in software engineering, data management, containerization, workflow automation, dashboard development, and cloud computing through projects with applications in bioimaging, genomics, protein folding, and drug discovery.
 
 **Prerequisites:**
 
@@ -45,43 +44,27 @@ Or:
 
 **Overview of the Class**:
 
-*Research Computing in Biology* is a hands-on, project-driven course designed for upper-level undergraduate biology majors and graduate students seeking practial
-experience with essential computing skills used in modern biological research settings. The course teaches core principles of research software engineering, 
-reproducibility, automation, scientific data management, development and operations (DevOps), cloud computing, and high-performance computing to address real-world
-applications in bioimaging, genomics, protein folding, and drug discovery. Students will gain practial experience working with real biological datasets and computational
-tools commonly used in research settings across bioinformatics, structural biology, and neuroscience. Emphasis is placed on building and practicing foundational skills
-in Linux, Python programming, version control systems, containerization, workflow managers, and dashboard development. By the end of the course, studnets will be 
-equipped to design, implement, and share robust computational pipelines for a variety of biological research problems. 
+*Research Computing in Biology* is a hands-on, project-driven course designed for upper-level undergraduate biology majors and graduate students seeking practical experience with essential computing skills used in modern biological research settings. The course teaches core principles of research software engineering, reproducibility, automation, scientific data management, development and operations (DevOps), cloud computing, and high-performance computing to address real-world applications in bioimaging, genomics, protein folding, and drug discovery. Students will gain practical experience working with real biological datasets and computational tools commonly used in research settings across bioinformatics, structural biology, and neuroscience. Emphasis is placed on building and practicing foundational skills in Linux, Python programming, version control systems, containerization, workflow managers, and dashboard development. By the end of the course, students will be equipped to design, implement, and share robust computational pipelines for a variety of biological research problems. 
 
 **Knowledge, Skills and Abilities Students Should Have Before Entering This Course:**
 
-Students should have a foundational understanding of biological concepts and basic familiarity with working on computers. Prior exposure to a command-line terminal
-environment and a programming language is helpful, but not required. Prerequisite coursework may include INB 321G: Principles of Computational Biology, or BCH: 339N: 
-Systems Biology and Bioinformatics, or CS 303E: Elements of Computers and Programming, or permission of Instructor. 
+Students should have a foundational understanding of biological concepts and basic familiarity with working on computers. Prior exposure to a command-line terminal environment and a programming language is helpful, but not required. Prerequisite coursework may include INB 321G: Principles of Computational Biology, or BCH 339N: Systems Biology and Bioinformatics, or CS 303E: Elements of Computers and Programming, or permission of Instructor. 
 
 **Knowledge, Skills, and Abilities Students Gain From This Course (Learning Outcomes):**
 
-Students will learn to write and manage scientific code using software engineering best practices, build automated and reproducible pipelines using containerization
-platforms and workflow managers, interact with and manage scientific datasets, deploy pipelines and dashboards into cloud resources, and scale pipelines efficiently
-on high-performance computing resources. Students will learn and reinforce these skills by applying them to class projects with include real-world biological
-research problems in image analysis, bioinformatics, protein modeling, and drug discovery. 
+Students will learn to write and manage scientific code using software engineering best practices, build automated and reproducible pipelines using containerization platforms and workflow managers, interact with and manage scientific datasets, deploy pipelines and dashboards into cloud resources, and scale pipelines efficiently on high-performance computing resources. Students will learn and reinforce these skills by applying them to class projects which include real-world biological research problems in image analysis, bioinformatics, protein modeling, and drug discovery. 
 
 **Class Format:**
 
-The class will be delivered in person in a standard classroom setting. Most class meetings will be comprised of lectures/demonstrations and hands-on labs. Students
-are expected to attend every lecture and actively participate in the hands-on labs during the class. The hands-on portions will often solve parts of homework
-assignments. Lecture materials with worked examples will be posted to the class website right before the class meeting. Additionally, there will be a class Slack channel
-for discussing ideas about the course with your fellow students and instructors. 
+The class will be delivered in person in a standard classroom setting. Most class meetings will be comprised of lectures/demonstrations and hands-on labs. Students are expected to attend every lecture and actively participate in the hands-on labs during the class. The hands-on portions will often solve parts of homework assignments. Lecture materials with worked examples will be posted to the class website right before the class meeting. Additionally, there will be a class Slack channel for discussing ideas about the course with your fellow students and instructors. 
 
 **Required Devices:**
 
-The entire course will be computer-based. The instructors will provide a remote server for students to work on. Students are expected to have access to a personal /
-laptop computer with a web browser, a terminal (or SSH client), and an integrated development environment (e.g. Visual Studio Code). 
+The entire course will be computer-based. The instructors will provide a remote server for students to work on. Students are expected to have access to a personal/laptop computer with a web browser, a terminal (or SSH client), and an integrated development environment (e.g. Visual Studio Code). 
 
 **Attendance:**
 
-Regular attendance is expected but will not count against the students' grades. We expect students to give us a week notice in advance of their absence if known
-ahead of time. 
+Regular attendance is expected but will not count against the students' grades. We expect students to give us a week notice in advance of their absence if known ahead of time. 
 
 **Class Topics:** (Tentative, subject to change)
 
@@ -186,7 +169,7 @@ Grades for the course will be based on the following:
 - **20% Midterm** — A midterm design project will include concepts from the first half of the semester and build on the first 4-5 homework assignments. A written component will also be required.
 - **30% Final Project** — Students will work independently OR form groups to work on a final class project consisting of a web-accessible dashboard for running a scientific application. The project will draw from and build upon work done throughout the semester in homework assignments. The project will also need to be pitched to the instructors for approval, and a written component will also be required. 
 
-Letter grade cutofs are as follows (tentative, final grades may be curved up):
+Letter grade cutoffs are as follows (tentative, final grades may be curved up):
 
 .. list-table::
     :align: center
@@ -234,56 +217,32 @@ Letter grade cutofs are as follows (tentative, final grades may be curved up):
 
 **Homework Policy:**
 
-We encourage collaboration on homework assignments. Engaging in discussions and comparing notes with other students about the homework assignments can be a valuable
-learning experience. However, each student is expected to complete and turn in their own homework assignment. We do not allow students to copy directly from others. 
-All homework assignments will be turned in as Git repositories on GitHub. Homework respositories should be set to private and shared with the course instructors. The 
-course instructor will pull homework from the repositories at the posted due date / time. Instructions on setting up the repositories and sharing them with the course
-instructor will be covered in class. 
+We encourage collaboration on homework assignments. Engaging in discussions and comparing notes with other students about the homework assignments can be a valuable learning experience. However, each student is expected to complete and turn in their own homework assignment. We do not allow students to copy directly from others. All homework assignments will be turned in as Git repositories on GitHub. Homework repositories should be set to private and shared with the course instructors. The course instructor will pull homework from the repositories at the posted due date / time. Instructions on setting up the repositories and sharing them with the course instructor will be covered in class. 
 
 **Academic Integrity Expectations:**
 
-Academic integrity is foundational to scholarly work. To learn more about academic integrity standards, tips for avoiding a potential academic misconduct violation and
-the overall conduct process, please visit the `Student Conduct and Academic Integrity <https://deanofstudents.utexas.edu/conduct/report-a-misconduct-incident.php>`_ website.
+Academic integrity is foundational to scholarly work. To learn more about academic integrity standards, tips for avoiding a potential academic misconduct violation and the overall conduct process, please visit the `Student Conduct and Academic Integrity <https://deanofstudents.utexas.edu/conduct/report-a-misconduct-incident.php>`_ website.
 
 **Artificial Intelligence:**
 
-The creation of artifical intelligence tools for widespread use is an exciting innovation. These tools have both appropriate and inappropriate uses in classwork. **The use of 
-artifical intelligence tools (such as ChatGPT) in this class shall be permitted on a limited basis.** You will be informed as to the assignments for which AI may be utilized. 
-You are also welcome to seek my prior-approval to use AI writing tools on any assignment. In either instance, AI writing tools should be used with caution and proper citation, 
-and the use of AI should be properly attributed. Using AI writing tools without my permission or authorization, or failing to properly cite AI even where permitted, shall 
-constitute a violation of UT Austin's Institutional Rules on academic integrity. If you are considering the use of AI writing tools but are unsure if you are allowed, or 
-are unsure regarding the extent to which they may be utilized appropriately, please ask. 
+The creation of artificial intelligence tools for widespread use is an exciting innovation. These tools have both appropriate and inappropriate uses in classwork. **The use of artificial intelligence tools (such as ChatGPT) in this class shall be permitted on a limited basis.** You will be informed as to the assignments for which AI may be utilized. You are also welcome to seek my prior-approval to use AI writing tools on any assignment. In either instance, AI writing tools should be used with caution and proper citation, and the use of AI should be properly attributed. Using AI writing tools without my permission or authorization, or failing to properly cite AI even where permitted, shall constitute a violation of UT Austin's Institutional Rules on academic integrity. If you are considering the use of AI writing tools but are unsure if you are allowed, or are unsure regarding the extent to which they may be utilized appropriately, please ask. 
 
 **Disability and Access (D&A):**
 
-The University of Texas at Austin is committed to creating an accessible and inclusive learning environment consistent with university policy and federal and state law.
-Please let me know if you experience any barriers to learning so I can work with you to ensure you have equal opportunity to participate fully in this course.
-If you are a student with a disability, or think you may have a disability, and need accommodations please contact Disability & Access (D&A). Please refer to the D&A 
-website for more information: http://diversity.utexas.edu/disability/. If you are already registered with D&A, please deliver your Accommodation Letter to me as early 
-as possible in the semester so we can discuss your approved accommodations and needs in this course.
+The University of Texas at Austin is committed to creating an accessible and inclusive learning environment consistent with university policy and federal and state law. Please let me know if you experience any barriers to learning so I can work with you to ensure you have equal opportunity to participate fully in this course. If you are a student with a disability, or think you may have a disability, and need accommodations please contact Disability & Access (D&A). Please refer to the D&A website for more information: http://diversity.utexas.edu/disability/. If you are already registered with D&A, please deliver your Accommodation Letter to me as early as possible in the semester so we can discuss your approved accommodations and needs in this course.
 
 **Title IX Disclosure:**
 
-Beginning January 1, 2020, Texas Education Code, Section 51.252 (formerly known as Senate Bill 212) requires all employees of Texas universities, including faculty, 
-to report to the `Title IX Office <https://titleix.utexas.edu/>`_ any information regarding incidents of sexual harassment, sexual assault, dating violence, or stalking that is disclosed to them. 
-Texas law requires that all employees who witness or receive information about incidents of this type (including, but not limited to, written forms, applications, 
-one-on-one conversations, class assignments, class discussions, or third-party reports) must report it to the Title IX Coordinator. Before talking with me, or with 
-any faculty or staff member about a Title IX-related incident, please remember that I will be required to report this information.
+Beginning January 1, 2020, Texas Education Code, Section 51.252 (formerly known as Senate Bill 212) requires all employees of Texas universities, including faculty, to report to the `Title IX Office <https://titleix.utexas.edu/>`_ any information regarding incidents of sexual harassment, sexual assault, dating violence, or stalking that is disclosed to them. Texas law requires that all employees who witness or receive information about incidents of this type (including, but not limited to, written forms, applications, one-on-one conversations, class assignments, class discussions, or third-party reports) must report it to the Title IX Coordinator. Before talking with me, or with any faculty or staff member about a Title IX-related incident, please remember that I will be required to report this information.
 
-Although graduate teaching and research assistants are not subject to Texas Education Code, Section 51.252, they are 
-`mandatory reporters <https://titleix.utexas.edu/mandatory-reporters>`_ under federal Title IX regulations and are required to report `a wide range of behaviors we refer
-to as sexual misconduct <https://titleix.utexas.edu/what-is-title-ix>`_, including the types of misconduct covered under Texas Education Code, Section 51.252.
-Title IX of the Education Amendments of 1972 is a federal civil rights law that prohibits discrimination on the basis of sex – including pregnancy and parental status 
-– in educational programs and activities. The Title IX Office has developed supportive ways and compiled campus resources to support all impacted by
-a Title IX matter.
+Although graduate teaching and research assistants are not subject to Texas Education Code, Section 51.252, they are `mandatory reporters <https://titleix.utexas.edu/mandatory-reporters>`_ under federal Title IX regulations and are required to report `a wide range of behaviors we refer
+to as sexual misconduct <https://titleix.utexas.edu/what-is-title-ix>`_, including the types of misconduct covered under Texas Education Code, Section 51.252. Title IX of the Education Amendments of 1972 is a federal civil rights law that prohibits discrimination on the basis of sex – including pregnancy and parental status – in educational programs and activities. The Title IX Office has developed supportive ways and compiled campus resources to support all impacted by a Title IX matter.
 
-If you would like to speak with a case manager, who can provide support, resources, or academic
-accommodations, in the Title IX Office, please email: supportandresources@austin.utexas.edu.
+If you would like to speak with a case manager, who can provide support, resources, or academic accommodations, in the Title IX Office, please email: supportandresources@austin.utexas.edu.
 
 Case managers can also provide support, resources, and accommodations for pregnant, nursing, and parenting students. 
 
-For more information about reporting options and resources, please visit:
-https://titleix.utexas.edu, contact the Title IX Office via email at: titleix@austin.utexas.edu, or call 512-471-0419.
+For more information about reporting options and resources, please visit: https://titleix.utexas.edu, contact the Title IX Office via email at: titleix@austin.utexas.edu, or call 512-471-0419.
 
 **University Resources:**
 
@@ -293,7 +252,7 @@ For a list of university resources that may be helpful to you as you engage with
 Additional help
 ---------------
 
-Our main goal for this class if you success. Please contact us if you need help:
+Our main goal for this class is your success. Please contact us if you need help:
 
 - Joe Allen, wallen@tacc.utexas.edu
 - Kelsey Beavers, kbeavers@tacc.utexas.edu
