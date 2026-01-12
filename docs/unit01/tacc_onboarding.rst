@@ -14,7 +14,7 @@ In this course, you will use cloud computing resources at TACC to learn how mode
 
 .. code-block:: console
 
-    To: kbeavers@tacc.utexas.edu
+    To: kbeavers@tacc.utexas.edu, wallen@tacc.utexas.edu, eferlanti@tacc.utexas.edu
     From: you
     Subject: MBS-337 TACC Account
     Body: Please include your name, EID, and TACC username.
@@ -181,3 +181,11 @@ You will learn how to:
 - **Package and share scientific software** using containers
 - **Deploy an interactive scientific dashboard** similar to those used by active research labs for real-time analysis and visualization
 
+.. attention::
+
+   **Reminder**: If you haven't already, please send the required email to the course instructors 
+   (see instructions at the beginning of this document). This email includes your name, EID, TACC 
+   username, and answers to the programming experience and course goals questions. 
+   
+   **This email counts as your first homework assignment**, so please complete it as soon as possible.
+    

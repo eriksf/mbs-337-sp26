@@ -96,11 +96,11 @@ Regular attendance is expected but will not count against the students' grades. 
       - K Beavers
     * - Week 2
       - Version Control with Git
-      - TBD
+      - Homework 1
       - K Beavers
     * - Week 3
       - Working with JSON, CSV, XML, YAML
-      - TBD
+      - Homework 2
       - K Beavers
     * - Week 4
       - Working with FASTA, FASTQ, BAM/SAM, VCF, PDB, CIF
