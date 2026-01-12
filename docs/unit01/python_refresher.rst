@@ -36,62 +36,37 @@ To connect from your own computer, you will use the **Secure Shell (SSH)** proto
 
    Replace ``username`` with your TACC username.
 
----- 
-
 **Mac / Linux**
-
-From the terminal, connect to the TACC login VM:
 
 .. code-block:: console
 
+   Open the application 'Terminal'
    ssh username@student-login.tacc.utexas.edu
    (enter password)
    (enter MFA token)
 
-Once connected to ``student-login``, connect to your course VM:
-
-.. code-block:: console
-
-   ssh mbs-337
-
-----
-
-**Windows**
-
-To connect:
+**Windows (use WSL or an SCP client like PuTTY)**
 
 .. code-block:: console
 
    Open the application 'PuTTY'
    Enter Host Name: student-login.tacc.utexas.edu
-   (Click 'Open')
-   (Enter username)
-   (Enter password)
-   (Enter MFA token)
-
-Once connected to ``student-login``, connect to your course VM:
-
-.. code-block:: console
-
-   ssh mbs-337
-
-----
-
-**Chromebook**
-
-1. Open **Settings**
-2. Go to **Advanced -> Developers**
-3. Enable **Linux development environment**
-
-Once enabled, you can open the Terminal app from your launcher and connect using SSH:
-
-.. code-block:: console
-
-   ssh username@student-login.tacc.utexas.edu
+   Click 'Open'
+   (enter username)
    (enter password)
    (enter MFA token)
 
-----
+**Chromebook** 
+
+.. code-block:: console
+
+   Open Settings
+   Go to Advanced -> Developers
+   Enable Linux development environment
+   Open Terminal app
+   ssh username@student-login.tacc.utexas.edu
+   (enter password)
+   (enter MFA token)
 
 Once connected to ``student-login``, connect to your course VM:
 
@@ -199,13 +174,13 @@ Alternatively, you can assign new variables as a different type of the original 
 
 .. code-block:: python3
 
-   >>> gene_count_new = int(gene_count)
+   >>> gene_count_int = int(gene_count)
    >>> type(gene_count)
-   >>> type(gene_count_new)
+   >>> type(gene_count_int)
    >>>
-   >>> protein_mass_new = float(protein_mass)
+   >>> protein_mass_float = float(protein_mass)
    >>> type(protein_mass)
-   >>> type(protein_mass_new)
+   >>> type(protein_mass_float)
 
 Arithmetic Operations
 ---------------------
@@ -290,9 +265,9 @@ Create an empty list and add things to it:
    >>> expression_levels.append(5.2)     # 'append()' is a method of the list class
    >>> expression_levels.append(3.8)
    >>> expression_levels.append(12.1)
-   >>> expression_levels.append(2**2)
+   >>> expression_levels.append(2**3)
    >>> print(expression_levels)
-   [5.2, 3.8, 12.1, 4]
+   [5.2, 3.8, 12.1, 8]
    >>> type(expression_levels)
    <class 'list'>
    >>> type(expression_levels[1])
@@ -935,18 +910,20 @@ Test your understanding of the materials above by attempting the following exerc
    best way to learn. If you get stuck, review the material above, work with a classmate,
    or ask your instructor for help.
 
-**Exercise 1:** Using BioPython's ``Seq`` class, write a script that:
+**Exercise 1:** Create a list of ~10 different integers. Write a function (using modulus and conditionals) to determine if each integer is even or odd. Print to screen each digit followed by the word ‘even’ or ‘odd’ as appropriate.
+
+**Exercise 2:** Using BioPython's ``Seq`` class, write a script that:
 
   a) Creates a DNA sequence object from the following string ('GAACCGGGAGGTGGGAATCCGTCACATATGAGAAGGTATTTGCCCGATAA')
   b) Finds all stop codons in the sequence
   c) Prints the number of times a stop codon appears
   d) Prints the positions (starting base-pair) where each stop codon is found. 
 
-**Exercise 2:** Using nested for loops, write a program that generates all possible 3-base DNA codons (combinations of A, T, G, C). Print each codon on its own line. How many total codons should you get?
+**Exercise 3:** Using nested for loops, write a program that generates all possible 3-base DNA codons (combinations of A, T, G, C). Print each codon on its own line. How many total codons should you get?
 
-**Exercise 3:** Write a function that calculates the percentage of each base (A, T, G, C) in a DNA sequence. The function should return a dictionary with bases as keys and percentages as values. Test it with a sequence of your choice and print the results formatted to 2 decimal places. 
+**Exercise 4:** Write a function that calculates the percentage of each base (A, T, G, C) in a DNA sequence. The function should return a dictionary with bases as keys and percentages as values. Test it with a sequence of your choice and print the results formatted to 2 decimal places. 
 
-**Exercise 4:** You're analyzing gene expression data with three replicates for each sample under control and treatment conditions. Create a dictionary to store expression data for 3 samples, where each sample has control and treatment values as follows:
+**Exercise 5:** You're analyzing gene expression data with three replicates for each sample under control and treatment conditions. Create a dictionary to store expression data for 3 samples, where each sample has control and treatment values as follows:
 
   - Sample 1: Control values = 10.5, 11.2, 10.8; Treatment values = 25.3, 24.7, 26.1
   - Sample 2: Control values = 8.2, 8.5, 8.0; Treatment values = 12.1, 11.8, 12.5
