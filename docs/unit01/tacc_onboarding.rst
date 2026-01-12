@@ -26,7 +26,7 @@ In this course, you will use cloud computing resources at TACC to learn how mode
 About TACC
 ----------
 
-TACC is a Research Center within UT Austin, located at the J.J. Pickle Research Campus. 
+TACC is a Research Center within UT Austin, located at the J.J. Pickle Research Campus. TACC is primarily funded by the National Science Foundation (NSF) to provide large scale computing resources to the open science community. We are the research computing facility for UT Austin and the UT System – and the largest academic supercomputing center in the United States.
 
 .. figure:: images/tacc_map.jpeg
     :width: 500px
@@ -51,20 +51,14 @@ TACC is a Research Center within UT Austin, located at the J.J. Pickle Research 
     :align: center
 
     Sabey Data Center, the home of TACC's new Horizon Supercomputer. 
-
-**What is TACC?**
-
-TACC is primarily funded by the National Science Foundation (NSF) to provide large scale computing resources to the open science community.
-We are the research computing facility for UT Austin and the UT System – and the largest academic supercomputing center in the United States. 
-
-We have *by far* the most computing resources of any university in the country (and often the world).
+    
+**Key Facts:**
 
 - 200+ staff (including ~80 Ph.D. research scientists)
 - 40,000+ active users working on 3,000+ projects per year
 - >100,000 total users since 2001 – including 90,000 students
-- TACC users have earned 4 Nobel prizes, multiple Gordon Bell prizes, and numerous "first-of-its-kind" achievements
+- TACC users have earned 4 Nobel prizes and numerous "first-of-its-kind" achievements
 - ~20,000 servers, >1 million CPU cores, >1,000 GPUs
-- ~7 billion core-hours over several million jobs per year
 
 Our mission: *Enable discoveries that advance science and society through the application of advanced computing technologies.*
 
@@ -76,12 +70,6 @@ Our mission: *Enable discoveries that advance science and society through the ap
 
     The first direct image of Sagittarius A — the supermassive black hole at the center of the Milky Way — enabled by large-scale data analysis on TACC supercomputers. Credit: Event Horizon Telescope/NSF.
 
-.. figure:: images/florida.jpg 
-    :width: 400px
-    :align: center
-
-    Snapshot from the `Coastal Emergency Risks Assessment (CERA) <https://cera.coastalrisk.live/>`_ platform showing predicted storm surge levels during Hurricane Beryl. CERA relies on TACC supercomputers to run hundreds of real-time simulations that support coastal risk assessment and emergency management. 
-
 .. figure:: images/rosetta-fold.jpg 
     :width: 700px
     :align: center
@@ -92,15 +80,7 @@ Our mission: *Enable discoveries that advance science and society through the ap
 Why Biologists are Turning to HPC
 ----------------------------------
 
-For most of its history, biology advanced through **slow, manual observation** — from Linnaeus naming and organizing species one at a time, to van Leeuwenhoek sketching the first microbes under handmade microscopes, to Mendel tracking inheritance in pea plants generation by generation. 
-
-.. figure:: ./images/animacules.png
-    :width: 500px
-    :align: center
-
-    Antonie van Leeukenhoek's first drawings of "animacules" including spheres, rods, and spirals (i.e., cocci, bacilli, and spirochetes). Source: `Funk et al. 2009 <https://doi.org/10.1016/j.ccc.2008.12.003>`_.
-
-Early biologists believed that if we could catalog every part — every organism, every trait, every cell — we would eventually understand the whole. Although these approaches uncovered the fundamental principles of life, they were **limited by human speed, human vision, and human comprehension.** Once you moved beyond observable traits, the complexity of living systems quickly starts to exceed what humans can reason through unaided. 
+For most of its history, biology advanced through **slow, manual observation** — limited by human speed, human vision, and human comprehension. Think Linnaeus naming and organizing species one at a time and Mendel tracking inheritance in pea plants generation by generation. 
 
 Even as biology progressed into the 20th century, the pace of discovery remained bound by these limits. 
 
@@ -138,7 +118,7 @@ As the Human Genome Project unfolded:
 - New **sequencing technologies** were being invented and improved almost yearly, making data generation faster and cheaper
 - Entirely new fields such as **computational biology** and **bioinformatics** emerged because the volume of data far exceeded what humans could analyze manually
 
-All of a sudden, the tools required to do biology changed almost overnight. Biologists suddenly needed to learn technologies and methods once associated only with computer science:
+All of a sudden, the tools required to do biology changed almost overnight. Biologists needed to learn technologies and methods once associated only with computer science:
 
 - **Linux and the command-line interface** — because sequencing data no longer fit on personal computers
 - **Python** — to analyze datasets too large for Excel or point-and-click interfaces 
@@ -153,11 +133,7 @@ In short, **biology became a computational science**, and the next era of biolog
 Where This Course Fits In
 ------------------------
 
-This is one of the most exciting moments in the history of biology. 
-
-Just a few years ago in 2020, the `protein folding problem` — a grand challenge that had stumped scientists for over 50 years — was finally solved. 
-
-**AlphaFold2**, a revolutionary AI system developed by Google DeepMind, demonstrated that deep learning could predict a protein's 3D structure from its amino acid sequence alone with near-experimental accuracy. Since its inception, AlphaFold has predicted the structures for *over 200 million* proteins, covering nearly all cataloged proteins known to science. 
+This is one of the most exciting moments in the history of biology. Just a few years ago in 2020, the `protein folding problem` — a grand challenge that had stumped scientists for over 50 years — was finally solved by **AlphaFold2**, a revolutionary AI system that can predict protein structures with near-experimental accuracy. 
 
 .. figure:: ./images/casp14_predictions.gif
     :width: 700px
@@ -167,19 +143,18 @@ Just a few years ago in 2020, the `protein folding problem` — a grand challeng
 
 AlphaFold unlocked a completely new way of doing structural biology, and the possibilities of biological research are expanding faster than ever. Those who understand computational methods will be well-positioned at the forefront of discovery. 
 
-----
-
 This course is designed to equip you with the necessary tools and skills required for modern biological research. Whether your interests lie in genomics, ecology, neuroscience, medicine, microbiology, or biotechnology, the computational foundations you build here will prepare you for how biological research is done in practice. 
 
 Over the course of the semester, you will understand not only *why* biology requires HPC, but also *how to use it* to solve real scientific problems. 
 
 You will learn how to:
 
-- **Submit and manage jobs on a HPC system**, just like researchers working at TACC
 - **Analyze real genomics, transcriptomics, and medical datasets** using command-line and Python tools
 - **Work with core bioinformatics file formats** (FASTA, FASTQ, SAM/BAM/VCF) and understand how data flows through computational pipelines
+- **Use Git and GitHub** for version control, collaboration, and managing computational workflows
 - **Package and share scientific software** using containers
 - **Deploy an interactive scientific dashboard** similar to those used by active research labs for real-time analysis and visualization
+- ... and much more!
 
 .. attention::
 

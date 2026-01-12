@@ -16,7 +16,7 @@ Class Introduction
 
 **Time:** Tue/Thur 11:00 — 12:30pm
 
-**Location**: WEL 2.310 (in person)
+**Location**: WEL 3.310 (in person)
 
 **Office Hours**: Fridays 10:00 — 11:00am, or by appointment (Zoom)
 

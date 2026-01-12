@@ -27,15 +27,15 @@ In this section, students will learn how to:
 * Describe basic functions of essential Linux commands
 * Use Linux commands to navigate a file system and manipulate files
 * Transfer data to / from a remote Linux file system
-* Edit files directly on a Linux system using a command line utility (e.g., ``vim``, ``nano``)
+* Edit files directly on a Linux system using a command line utility (``vim``)
 
 Topics covered in this module include:
 
 * Creating and navigating folders (``pwd``, ``ls``, ``mkdir``, ``cd``, ``rmdir``)
 * Creating and manipulating files (``touch``, ``rm``, ``mv``, ``cp``)
-* Looking at the contents of files (``cat``, ``more``, ``less``, ``head``, ``tail``, ``grep``)
-* Network and file transfers (``ssh``, ``scp``, ``rsync``)
-* Text editing (``vim``, ``nano``)
+* Looking at the contents of files (``cat``, ``less``, ``head``, ``tail``, ``grep``)
+* Network and file transfers (``ssh``, ``scp``)
+* Text editing (``vim``)
 
 Log in to the Class Server
 --------------------------
@@ -44,6 +44,12 @@ All computing for this course will take place on Linux virtual machines (VMs). T
 
 1. First, we'll connect to ``student-login.tacc.utexas.edu``. This is a persistent Linux VM at TACC that acts as a login gateway (jump host). 
 2. Second, from ``student-login``, you'll connect to your own personal course VM. This VM is named ``mbs-337`` and is hosted on JetStream2. 
+
+.. figure:: ./images/ssh-process.png
+   :width: 500px
+   :align: center
+
+   Controlled access architecture for Jetstream2 VMs.
 
 To connect from your own computer, you will use the **Secure Shell (SSH)** protocol through a CLI or an SSH client. The exact steps depend slightly on your computer's operating system. 
 
@@ -129,7 +135,7 @@ You have successfully connected to ``student-login`` when you see a message simi
    kbeavers@student-login:~$ 
 
 
-Once you are connected to ``student-login``, the next step is the same for everyone regardless of the operating system of your computer (since we are now all on the same Linux VM). 
+Once you are connected to ``student-login``, the next step is the same for everyone regardless of the operating system of your computer (since we are now all on the same Linux login host). 
 
 From the ``student-login`` prompt, type:
 
@@ -170,9 +176,9 @@ In a Linux CLI, there is no visual file browser. Instead, you interact with the 
 
     .. code-block:: console
       
-      kbeavers@mbs-337:~$
+      ubuntu@mbs-337:~$
 
-    * ``kbeavers`` = who you are logged in as
+    * ``ubuntu`` = who you are logged in as (this is the default user account on Ubuntu VMs)
     * ``mbs-337`` = the system you are connected to
     * ``~`` = your current location (more on this later)
    
@@ -185,7 +191,7 @@ To print your current location in the filesystem, use ``pwd`` (*print working di
 .. code-block:: console
 
    $ pwd
-   /home/kbeavers
+   /home/ubuntu
 
 This is your **home directory**. This is where you start when you log in, and where your files and folders are stored. 
 
@@ -223,10 +229,10 @@ Now that we have some folders to work with, let's navigate into one of them. To 
 .. code-block:: console
 
    $ pwd
-   /home/kbeavers
+   /home/ubuntu
    $ cd folder1
    $ pwd
-   /home/kbeavers/folder1
+   /home/ubuntu/folder1
 
 Now that we are inside ``folder1``, make a few subdirectories:
 
@@ -245,7 +251,7 @@ contents. What do you expect to see?
 
    $ cd subfolderA
    $ pwd
-   /home/kbeavers/folder1/subfolderA
+   /home/ubuntu/folder1/subfolderA
    $ ls
 
 There is nothing there because we have not made any files or directories here yet.
@@ -258,20 +264,20 @@ You can specify the full **path**, which is the "address" to a file or directory
 .. code-block:: console
 
    $ pwd
-   /home/kbeavers/folder1/subfolderA
-   $ cd /home/kbeavers/folder1
+   /home/ubuntu/folder1/subfolderA
+   $ cd /home/ubuntu/folder1
    $ pwd
-   /home/kbeavers/folder1
+   /home/ubuntu/folder1
 
 Or, we could use the shortcut ``..``, which refers to the **parent directory** (the directory immediately above the current one).
 
 .. code-block:: console
 
    $ pwd
-   /home/kbeavers/folder1
+   /home/ubuntu/folder1
    $ cd ..
    $ pwd
-   /home/kbeavers
+   /home/ubuntu
 
 .. tip::
 
@@ -281,12 +287,12 @@ Or, we could use the shortcut ``..``, which refers to the **parent directory** (
       
       $ cd ~
       $ pwd
-      /home/kbeavers
+      /home/ubuntu
       $ cd folder1
       $ pwd
-      /home/kbeavers/folder1
+      /home/ubuntu/folder1
       $ cd
-      /home/kbeavers
+      /home/ubuntu
 
 **Removing Directories**
 
@@ -342,7 +348,7 @@ We'll use the ``touch`` command to create an empty file:
 
    $ cd     # cd on an empty line will automatically take you back to the home directory
    $ pwd
-   /home/kbeavers
+   /home/ubuntu
    $ mkdir folder1
    $ mkdir folder2
    $ mkdir folder3
@@ -440,7 +446,7 @@ First, make sure you are in your home directory and copy a public file from the 
 
    $ cd ~ 
    $ pwd
-   /home/kbeavers
+   /home/ubuntu
    $ cp /usr/share/dict/words .
    $ ls
    words
@@ -464,23 +470,7 @@ The ``words`` file is a standard dictionary file found on many Linux systems. It
    ABM's
    ...
 
-This is a long file! Printing everything to the screen is not very useful. We can use a few other commands to look at the contents of the file with "more" control. 
-
-Instead of dumping everything to the screen at once, we can view files one screen at a time with the ``more`` command:
-
-.. code-block:: console
-
-   $ more words
-
-Controls:
-
-* Press the ``<Enter>`` key to scroll one line at a time
-* Press the ``<Space>`` key to scroll one page at a time
-* Press ``q`` to quit.
-
-A progress indicator (``%``) at the bottom shows how far you are through the file. This is still a little bit messy and fills up the screen. 
-
-A more commonly used alternative is the ``less`` command:
+This is a long file! Printing everything to the screen is not very useful. Instead, we can view files one screen at a time with the ``less`` command:
 
 .. code-block:: console
 
@@ -553,7 +543,7 @@ To log in or transfer files to a remote Linux file system you must know the host
 .. code-block:: console
 
    $ whoami
-   kbeavers
+   ubuntu
    $ hostname
    mbs-337
 
@@ -566,51 +556,38 @@ Logging out of a remote system is done using the ``logout`` command, or the shor
 
 .. code-block:: console
 
-   [kbeavers@mbs-337]$ logout
+   [ubuntu@mbs-337]$ logout
    [kbeavers@student-login]$ logout
    [local]$ 
 
-Copying files from your local computer to your home folder on your Jetstream2 VM requires the same two-step process. 
+Copying files from your local computer to your Jetstream2 VM requires a two-step process using the ``scp`` command (Windows users can use WinSCP):
 
 *Step 1: Transfer from your local computer to the jump host*
 
-We use the ``scp`` command (Windows users use a client "WinSCP") to first copy files from your local computer to the jump host:
-
 .. code-block:: console
 
-   [local]$ scp my_file kbeavers@student-login.tacc.utexas.edu:/home/kbeavers
+   [local]$ scp my_file username@student-login.tacc.utexas.edu:~
    (enter password)
    (enter MFA token)
 
-In this command, you specify:
-
-* The file you want to transfer (``my_file``)
-* Your TACC username (replace ``kbeavers`` with your actual TACC username)
-* The hostname (``student-login.tacc.utexas.edu``)
-* The destination path (in this case, your home directory)
-
-Take careful notice of the separators including spaces, the ``@`` symbol, and the ``:``.
-
 *Step 2: Transfer from the jump host to your course VM*
-
-Now, log into the jump host and transfer the file to your course VM:
 
 .. code-block:: console
 
    [local]$ ssh username@student-login.tacc.utexas.edu
    (enter password)
    (enter MFA token)
-   [student-login]$ scp my_file mbs-337:/home/username
+   [student-login]$ scp my_file mbs-337:~
 
 Notice that when transferring from ``student-login`` to ``mbs-337``, you don't need to specify a username or password because your credentials are automatically forwarded.
 
 **Copying files from your VM to your local computer**
 
-To copy files in the opposite direction (from your course VM to your local computer), reverse the process:
+To copy files in the opposite direction, reverse the process:
 
 .. code-block:: console
 
-   [student-login]$ scp mbs-337:/home/username/my_file . 
+   [student-login]$ scp mbs-337:/home/ubuntu/my_file .
    [student-login]$ logout
    [local]$ scp username@student-login.tacc.utexas.edu:/home/username/my_file .
    (enter password)
@@ -626,67 +603,14 @@ To copy files in the opposite direction (from your course VM to your local compu
 
 **Transferring Directories**
 
-Instead of individual files, full directories can be copied using the "recursive" flag (``scp -r ...``). For example:
+To copy entire directories, use the recursive flag (``scp -r``):
 
 .. code-block:: console
 
    [local]$ scp -r my_folder username@student-login.tacc.utexas.edu:/home/username
-   (enter password)
-   (enter MFA token)
-   ...
-   [student-login]$ scp -r my_folder mbs-337:/home/username
+   [student-login]$ scp -r my_folder mbs-337:/home/ubuntu
 
-**Alternative: Using rsync**
-
-The ``rsync`` tool is an advanced copy tool that is useful for syncing data between two sites. It works similarly to ``scp`` but provides more options and can be more efficient for large transfers. Example usage:
-
-.. code-block:: console
-
-   [local]$ rsync -azv my_file username@student-login.tacc.utexas.edu:/home/username
-   [student-login]$ rsync -azv my_file mbs-337:/home/username
-
-The flags used here are:
-
-* ``-a`` = archive mode (preserves permissions, timestamps, etc.)
-* ``-z`` = compress data during transfer
-* ``-v`` = verbose (show what's being transferred in the CLI)
-
-This is just the basics of copying files. If you want to learn more, check out these resources:
-
-* `scp usage <https://en.wikipedia.org/wiki/Secure_copy>`_ and example
-* `rsync usage <https://en.wikipedia.org/wiki/Rsync>`_ for more info.
-
-Text Editing with Nano 
-----------------------
-
-Nano is a simple, beginner-friendly text editor that is available on most Linux systems.
-Nano operates in a single mode, making it easier to use for those new to command-line text editing.
-
-.. code-block:: console
-
-   $ nano file_name
-
-Once nano opens, you can immediately start typing to edit the file. The editor displays helpful keyboard shortcuts at the bottom of the screen.
-
-**Basic Nano Commands:**
-
-The most important commands in nano are:
-
-* ``Ctrl+O`` - Save (write **Out**) the file
-* ``Ctrl+X`` - Exit nano
-* ``Ctrl+K`` - Cut (delete) the current line
-* ``Ctrl+U`` - Paste (uncut) the last cut line
-* ``Ctrl+W`` - Search for text in the file
-* ``Ctrl+\`` - Search and replace text
-
-.. tip::
-
-   When you try to exit with ``Ctrl+X``, nano will prompt you to save if you've made changes. Press ``Y`` to save, ``N`` to discard changes, or ``Ctrl+C`` to cancel and continue editing.
-
-   The ``^`` symbol in nano's help text represents the ``Ctrl`` key. For example, ``^X`` means ``Ctrl+X``.
-
-Nano is a great choice for quick edits and for users who prefer a more straightforward editing experience. For more advanced text manipulation, many users eventually learn VIM, which offers more powerful features but has a steeper learning curve.
-
+This covers the basics of copying files. For more advanced file transfer options, you can explore tools like ``rsync`` in your own time.
 
 Text Editing with VIM
 ---------------------
@@ -804,8 +728,6 @@ Review of Topics Covered
 +------------------------------------+-------------------------------------------------+
 | ``cat file_name > new_file``       |  redirect output to new file                    |
 +------------------------------------+-------------------------------------------------+
-| ``more file_name``                 |  scroll through file contents                   |
-+------------------------------------+-------------------------------------------------+
 | ``less file_name``                 |  scroll through file contents                   |
 +------------------------------------+-------------------------------------------------+
 | ``head file_name``                 |  output beginning of file                       |
@@ -840,10 +762,6 @@ Review of Topics Covered
 | ``scp local remote``               |  copy a file from local to remote               |
 +------------------------------------+-------------------------------------------------+
 | ``scp remote local``               |  copy a file from remote to local               |
-+------------------------------------+-------------------------------------------------+
-|  ``rsync -azv local remote``       |  sync files between local and remote            |
-+------------------------------------+-------------------------------------------------+
-|  ``rsync -azv remote local``       |  sync files between remote and local            |
 +------------------------------------+-------------------------------------------------+
 |  ``<Ctrl+d>``                      |  logout of host                                 |
 +------------------------------------+-------------------------------------------------+
