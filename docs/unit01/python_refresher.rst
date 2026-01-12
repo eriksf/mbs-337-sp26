@@ -712,76 +712,88 @@ write (``w``), append (``a``), or create (``x``).
 
 For example, to read a file do the following:
 
-
 .. code-block:: python3
    :linenos:
 
    with open('/usr/share/dict/words', 'r') as f:
-       for x in range(5):
-           print(f.readline())
+       for i in range(5):
+           print(f.readline())               
 
 .. code-block:: text
 
-   1080
+   A
 
-   10-point
+   AA
 
-   10th
+   AAA
 
-   11-point
+   AA's
 
-   12-point
+   AB
 
 .. tip::
 
-   By opening the file with the ``with`` statement above, you get built in
-   exception handling, and it automatically will close the file handle for you.
-   It is generally recommended as the best practice for file handling.
+   ``with open() as f:`` – This is a **context manager**. It ensures the file is automatically closed
+   when you're done, even if an error occurs. The code inside the ``with`` block has access to the file
+   through the variable ``f``. Opening files using the ``with`` statement is generally recommended as 
+   best practice for file handling. 
 
+You may have noticed in the output above that there are blank lines between each word. 
+Every line in a text file ends with a hidden newline character (``\n``) so that when 
+you view the file, each word appears on its own line. ``f.readline()`` will return
+the line *including* its trailing newline character:
 
-You may have noticed in the above that there seems to be an extra space between
-each word. What is actually happening is that the file being read has newline
-characters on the end of each line (``\n``). When read into the Python script,
-the original new line is being printed, followed by another newline added by the
-``print()`` function. Stripping the newline character from the original string
+.. code-block:: python3
+
+   f.readline()  # returns "A\n"
+
+``print()`` adds its own newline character by default. The result you end up with is
+two newline chacters per line:
+
+.. code-block:: text
+
+   "A\n" + "\n"
+
+Stripping the newline character from the original string
 is the easiest way to solve this problem:
 
 .. code-block:: python3
    :linenos:
 
    with open('/usr/share/dict/words', 'r') as f:
-       for x in range(5):
+       for i in range(5):
            print(f.readline().strip('\n'))
 
 .. code-block:: text
 
-   1080
-   10-point
-   10th
-   11-point
-   12-point
+   A
+   AA
+   AAA
+   AA's
+   AB
 
-
-Read the whole file and store it as a list:
+If we wanted to read the whole file and store it as a list, we can use the ``.read()`` method to read the entire file
+as one string (``"A\nAA\nAAA\n..."``) followed by the ``.splitlines()`` method that will split the string into a list
+of lines and automatically remove the newline characters from each line:
 
 .. code-block:: python3
    :linenos:
 
-   gene_names = []
+   word_names = []
 
    with open('/usr/share/dict/words', 'r') as f:
-       gene_names = f.read().splitlines()                # careful of memory usage
+       word_names = f.read().splitlines()
 
-   for x in range(5):
-       print(gene_names[x])
+   for i in range(5):
+       print(word_names[i])
 
 .. code-block:: text
 
-   1080
-   10-point
-   10th
-   11-point
-   12-point
+   A
+   AA
+   AAA
+   AA's
+   AB
 
 
 Write output to a new file on the file system; make sure you are attempting to
@@ -801,9 +813,8 @@ write somewhere where you have permissions to write:
    (in gene_list.txt)
    BRCA1TP53EGFRMYC
 
-
-You may notice the output file is lacking in newlines this time. Try adding
-newline characters to your output:
+Hmm... the output file is lacking in newlines this time.
+Try adding newline characters to your output:
 
 .. code-block:: python3
    :linenos:
@@ -838,18 +849,18 @@ has a method for generating random numbers called 'random'.
 .. code-block:: python3
    :linenos:
 
-   import random
+   import random  # Load `random` library into your program
 
    for i in range(5):
-       print(random.random())
+       print(random.random())  # From the `random` library, run the `random()` function
 
 .. code-block:: bash
 
-   0.47115888799541383
-   0.5202615354150987
-   0.8892412583071456
-   0.7467080997595558
-   0.025668541754695906
+   0.09816538597136149
+   0.3602086014874525
+   0.5582198241503482
+   0.49855010922872045
+   0.14930820354681074
 
 More information about using the ``random`` library can be found in the
 `Python docs <https://docs.python.org/3/library/random.html>`_
@@ -861,21 +872,30 @@ downloaded to your local environment using a tool called ``pip3``.
 
 For example, if you wanted to download the
 `BioPython <https://pypi.org/project/biopython/>`_ library (a popular library for
-biological data analysis) and use it in your Python
-code, you would do the following:
+biological data analysis) and use it in your Python code, you would first create a 
+virtual environment:
 
 .. code-block:: bash
 
-   [mbs-337]$ pip3 install --user biopython
+   [mbs-337]$ python3 -m venv myenv
+   [mbs-337]$ source myenv/bin/activate
+   (myenv) [mbs-337]$ pip3 install biopython
    Collecting biopython
-     Downloading ...
-   Installing collected packages: biopython
-   Successfully installed biopython-x.x.x
+      Downloading ...
+   Installing collected packages: numpy, biopython
+   Successfully installed biopython-x.xx numpy-x.x.x
 
-Notice the library is installed above with the ``--user`` flag. The class server
-is a shared system and non-privileged users can not download or install packages
-in root locations. The ``--user`` flag instructs ``pip3`` to install the library
-in your own home directory.
+.. note::
+
+   **Virtual environments** are isolated Python environments that allow you to
+   install packages without affecting the system Python installation. This is 
+   the recommended way to manage Python packages. After activating a virtual 
+   environment you'll see ``myenv``) in your prompt, and you can safely use 
+   ``pip3 install`` to install new Python packages to this virtual environment.
+
+   To deactivate the virtual environment later, simply type ``deactivate``. 
+
+Now we can use the BioPython library in our Python code:
 
 .. code-block:: python3
    :linenos:
@@ -883,39 +903,60 @@ in your own home directory.
    from Bio.Seq import Seq
 
    dna_sequence = Seq("ATGCGATCGATCG")
-   print(f"DNA sequence: {dna_sequence}")
-   print(f"Reverse complement: {dna_sequence.reverse_complement()}")
+   print(type(dna_sequence))
+   print(dna_sequence)
+   print(dna_sequence.transcribe())
+
+Before running this, let's break down what's happening:
+
+ * **Line 1**: Imports the ``Seq`` class from BioPython's ``Bio.Seq`` library. The ``Seq`` class is designed to work with biological sequences (DNA, RNA, proteins).
+ * **Line 3**: Creates a ``Seq`` object from a DNA sequence string. This is similar to how we've created strings and lists, but now we're creating a sequence object. 
+ * **Line 4**: The ``Seq`` object can be printed just like a string.
+ * **Line 5**: Use the ``.transcribe()`` method to transcribe your DNA into RNA!
 
 
 .. code-block:: bash
 
-   DNA sequence: ATGCGATCGATCG
-   Reverse complement: CGATCGATCGCAT
+   <class 'Bio.Seq.Seq'>
+   ATGCGATCGATCG
+   AUGCGAUCGAUCG
+
+You can read more about BioPython `here <https://biopython.org/wiki/Documentation>`_ and about the Seq class `here <https://biopython.org/wiki/Seq>`_.
 
 
 Exercises
 ---------
 
-Test your understanding of the materials above by attempting the following
-exercises.
+Test your understanding of the materials above by attempting the following exercises.
 
-* Create a list of ~10 different gene names. Write a function (using modulus and
-  conditionals) to determine if each gene name has an even or odd number of characters. Print to screen
-  each gene name followed by the word 'even' or 'odd' as appropriate.
-* Using nested for loops and if statements, write a program that iterates over
-  every integer from 3 to 100 (inclusive) and prints out the number only if it
-  is a prime number. (This could represent finding positions in a sequence that
-  are prime-numbered.)
-* Create three lists containing 10 expression values each. The first list should contain
-  all the integers sequentially from 1 to 10 (inclusive). The second list
-  should contain the squares of each element in the first list (representing
-  squared fold changes). The third list
-  should contain the cubes of each element in the first list. Print all three
-  lists side-by-side in three columns. E.g. the first row should contain 1, 1, 1
-  and the second row should contain 2, 4, 8.
-* Write a script to read in /usr/share/dict/words and print just the last 10
-  lines of the file. Write another script to only print words beginning with the
-  letters "gen" (hint: this might find some biology-related terms).
+.. attention::
+
+   **Please complete these exercises without using AI tools like ChatGPT or other code generators.** These exercises are designed to help you practice and build your programming skills. Working through them yourself is the 
+   best way to learn. If you get stuck, review the material above, work with a classmate,
+   or ask your instructor for help.
+
+**Exercise 1:** Using BioPython's ``Seq`` class, write a script that:
+
+  a) Creates a DNA sequence object from the following string ('GAACCGGGAGGTGGGAATCCGTCACATATGAGAAGGTATTTGCCCGATAA')
+  b) Finds all stop codons in the sequence
+  c) Prints the number of times a stop codon appears
+  d) Prints the positions (starting base-pair) where each stop codon is found. 
+
+**Exercise 2:** Using nested for loops, write a program that generates all possible 3-base DNA codons (combinations of A, T, G, C). Print each codon on its own line. How many total codons should you get?
+
+**Exercise 3:** Write a function that calculates the percentage of each base (A, T, G, C) in a DNA sequence. The function should return a dictionary with bases as keys and percentages as values. Test it with a sequence of your choice and print the results formatted to 2 decimal places. 
+
+**Exercise 4:** You're analyzing gene expression data with three replicates for each sample under control and treatment conditions. Create a dictionary to store expression data for 3 samples, where each sample has control and treatment values as follows:
+
+  - Sample 1: Control values = 10.5, 11.2, 10.8; Treatment values = 25.3, 24.7, 26.1
+  - Sample 2: Control values = 8.2, 8.5, 8.0; Treatment values = 12.1, 11.8, 12.5
+  - Sample 3: Control values = 15.0, 14.8, 15.2; Treatment values = 18.5, 18.2, 18.8
+  
+  Then, write a script that:
+  
+  a) Calculates the mean expression for control and treatment for each sample
+  b) Calculates the fold change (treatment mean/control mean) for each sample
+  c) Prints the results, and identifies which samples show significant changes (use a threshold of fold change > 2.0 OR fold change < 0.5)
 
 
 Additional Resources
