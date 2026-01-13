@@ -13,6 +13,7 @@ necessary for the rest of this course.
 
    class_intro
    tacc_onboarding
+   vscode
    linux_essentials
    python_refresher
-   
+
