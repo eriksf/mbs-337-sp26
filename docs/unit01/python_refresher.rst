@@ -885,7 +885,8 @@ Test your understanding of the materials above by attempting the following exerc
 
 **Exercise 4:** Write a function that calculates the percentage of each base (A, T, G, C) in a DNA sequence. The function should return a dictionary with bases as keys and percentages as values. Test it with a sequence of your choice and print the results formatted to 2 decimal places. 
 
-**Exercise 5:** You're analyzing gene expression data with three replicates for each sample under control and treatment conditions. Create a dictionary to store expression data for 3 samples, where each sample has control and treatment values as follows:
+**Exercise 5:** You are analyzing gene expression data from three samples under control and treament conditions, with three replicates per condition. 
+Create a dictionary to store expression data for 3 samples, where each sample has control and treatment values as follows:
 
   - Sample 1: Control values = 10.5, 11.2, 10.8; Treatment values = 25.3, 24.7, 26.1
   - Sample 2: Control values = 8.2, 8.5, 8.0; Treatment values = 12.1, 11.8, 12.5

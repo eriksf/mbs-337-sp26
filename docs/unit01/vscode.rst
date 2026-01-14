@@ -302,3 +302,40 @@ complete listing.
     :alt: Remote listing of files on the VM
 
     Remote listing of files on the VM
+
+Summary
+-------
+
+That was a lot of steps! Let's make sure we understand what we just did:
+
+**The Challenge:**
+We want to edit files and run code through the VSCode IDE interface, but we want everything to actually happen on the VM instead of our local machine.
+However, your course VM is behind a firewall for security, which means you can't connect directly to it from your laptop.
+
+**What We Set Up:**
+
+1. **SSH Keys**: We generated a key pair (private key stays on your laptop, public key goes on the VM). This acts like a digital ID card that lets you connect without typing passwords every time.
+
+2. **SSH Config File**: We created a configuration file that tells SSH:
+   
+   - How to connect to the jump host (``student-login``)
+   - How to connect to your VM (``mbs-337``) through the jump host using ProxyJump
+   - Which SSH key to use for authentication
+
+3. **VSCode Remote-SSH**: We configured VSCode to use your SSH config, so it can automatically connect to your VM and run a VSCode server there.
+
+**How It Works:**
+
+When you click "Connect to Host" in VSCode:
+
+- VSCode reads your SSH config file
+- Uses your SSH key to authenticate automatically (no passwords!)
+- Connects through the jump host (``student-login``) to reach your VM (``mbs-337``)
+- Installs and runs a VSCode server component on the VM
+- Your local VSCode becomes a remote client
+
+**The Result:**
+
+You now have the full VSCode experience (syntax highlighting, code completion, debugging, integrated terminal) while editing files and running code directly on the VM. Everything happens on the VM -- your laptop is just the interface!
+
+From now on, you can simply open VSCode, connect to ``mbs-337``, and start coding!
