@@ -158,7 +158,15 @@ For more details and alternatives, see the documentation for Remote SSH [1].
 
 2. Install the Remote-SSH client (if not already installed -- go to Extensions (``Ctrl+Shift+X`` or ``Cmd+Shift+X`` on Mac), type "Remote-SSH" and click ``Install``)
 
-3. **Set up SSH keys for passwordless authentication**
+3. **Set up SSH keys for VSCode Remote-SSH**
+
+    VSCode Remote-SSH requires SSH key authentication to connect to remote servers. Your course VMs 
+    (``mbs-337``) are Jetstream2 VMs that cannot be accessed directly from the internet - they are 
+    behind TACC's firewall. To reach them, VSCode must connect through a bastion (jump host) called 
+    ``student-login``, which is a persistent VM at TACC that also exists behind TACC's firewall. 
+    The SSH keys allow VSCode to authenticate to your VM through this jump host. You will still need 
+    to provide your username, password, and MFA token when connecting to ``student-login``, but once 
+    through the jump host, VSCode will use your SSH key to authenticate to ``mbs-337`` automatically.
 
     First, check if you already have SSH keys on your local machine:
 
@@ -306,36 +314,34 @@ complete listing.
 Summary
 -------
 
-That was a lot of steps! Let's make sure we understand what we just did:
-
 **The Challenge:**
-We want to edit files and run code through the VSCode IDE interface, but we want everything to actually happen on the VM instead of our local machine.
-However, your course VM is behind a firewall for security, which means you can't connect directly to it from your laptop.
+We want to edit files and run code through the VSCode IDE interface, but we want everything to actually 
+happen on the VM instead of our local machine. However, your course VMs are Jetstream2 VMs that cannot 
+be accessed directly from the internet - they are behind TACC's firewall. To reach them, we must connect 
+through a bastion (jump host) called ``student-login``, which is a persistent VM at TACC.
 
 **What We Set Up:**
 
-1. **SSH Keys**: We generated a key pair (private key stays on your laptop, public key goes on the VM). This acts like a digital ID card that lets you connect without typing passwords every time.
+1. **SSH Keys**: We generated a key pair (private key stays on your laptop, public key goes on the VM). 
+   VSCode Remote-SSH requires SSH key authentication to work. The SSH keys allow VSCode to authenticate 
+   to your VM (``mbs-337``) through the jump host (``student-login``).
 
 2. **SSH Config File**: We created a configuration file that tells SSH:
    
    - How to connect to the jump host (``student-login``)
    - How to connect to your VM (``mbs-337``) through the jump host using ProxyJump
-   - Which SSH key to use for authentication
+   - Which SSH key to use for authentication to the VM
 
-3. **VSCode Remote-SSH**: We configured VSCode to use your SSH config, so it can automatically connect to your VM and run a VSCode server there.
+3. **VSCode Remote-SSH**: We configured VSCode to use your SSH config, so it can automatically route 
+   through the bastion (``student-login``) to connect to your VM and run a VSCode server there.
 
 **How It Works:**
 
 When you click "Connect to Host" in VSCode:
 
 - VSCode reads your SSH config file
-- Uses your SSH key to authenticate automatically (no passwords!)
-- Connects through the jump host (``student-login``) to reach your VM (``mbs-337``)
+- You'll be prompted for your username, password, and MFA token to connect to ``student-login`` (the bastion/jump host)
+- Once through the jump host, VSCode uses your SSH key to authenticate to ``mbs-337``
+- Connects through the jump host (``student-login``) to reach your VM (``mbs-337``) using ProxyJump
 - Installs and runs a VSCode server component on the VM
 - Your local VSCode becomes a remote client
-
-**The Result:**
-
-You now have the full VSCode experience (syntax highlighting, code completion, debugging, integrated terminal) while editing files and running code directly on the VM. Everything happens on the VM -- your laptop is just the interface!
-
-From now on, you can simply open VSCode, connect to ``mbs-337``, and start coding!
