@@ -16,4 +16,5 @@ necessary for the rest of this course.
    linux_essentials
    vscode
    python_refresher
+   version_control_1
    
