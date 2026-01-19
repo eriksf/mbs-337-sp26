@@ -184,7 +184,7 @@ Also, carefully consider how arithmetic options may affect type:
 
 .. admonition:: Check Your Understanding
 
-   Which operator can we use if we want ``concentration2`` to to be an integer instead of a float?
+   Which operator can we use if we want ``concentration2`` to be an integer instead of a float?
 
 Lists and Dictionaries
 ----------------------
@@ -235,7 +235,7 @@ to demonstrate:
 
    >>> mixed_data = gene_list + expression_levels
    >>> print(mixed_data)
-   ['BRCA1', 'TP53', 'EGFR', 'MYC', 5.2, 3.8, 12.1, 4]
+   ['BRCA1', 'TP53', 'EGFR', 'MYC', 5.2, 3.8, 12.1, 8]
 
 Another way to access the contents of lists is by slicing. Slicing supports a
 start index, stop index, and step taking the form: ``mylist[start:stop:step]``.
@@ -295,7 +295,7 @@ Add new key:value pairs to the dictionary as follows:
 
 
 Many other methods exist to access, manipulate, interpolate, copy, etc., lists
-and dictionaries. We will learn more about them out as we encounter them later
+and dictionaries. We will learn more about them as we encounter them later
 in this course.
 
 Conditionals and Control Loops
@@ -510,11 +510,27 @@ We'll use VSCode to create and edit these files.
 If you haven't already, make sure you're connected to your VM using VSCode Remote-SSH
 (see the VSCode setup instructions earlier in this unit).
 
-To create a new Python file in VSCode:
+.. note::
+   Any extensions you downloaded on your local VSCode (including the Python extension)
+   will also need to be downloaded and installed on the virtual machine. Make sure to install the **Python**,
+   **Pylance**, and **Ruff** extensions that we installed on your local machine. 
 
-1. In VSCode, click **File → New File** (or press ``Ctrl+N`` / ``Cmd+N``)
-2. Save the file with a ``.py`` extension (e.g., ``function_test.py``) by pressing ``Ctrl+S`` / ``Cmd+S``
-3. Make sure you're saving in the ``/home/ubuntu`` directory (or a subdirectory you've created)
+1. Open the integrated terminal in VSCode
+2. Create a directory called ``mbs-337`` in ``/home/ubuntu`` and navigate into it:
+
+   .. code-block:: console
+
+      [mbs-337]$ pwd
+      /home/ubuntu
+      [mbs-337]$ mkdir mbs-337
+      [mbs-337]$ cd mbs-337
+
+3. Create a new Python file in VSCode:
+
+   - Click **File → New File** (or press ``Ctrl+N`` / ``Cmd+N``)
+   - Save the file as ``function_test.py``
+   - Make sure you're saving in the current directory (``/home/ubuntu/mbs-337``) 
+
 
 Enter the following text into the script:
 
@@ -526,7 +542,7 @@ Enter the following text into the script:
 
    print_gene_name()
 
-To execute the script, open the integrated terminal in VSCode (``Ctrl+` `` or ``Cmd+` ``) and run:
+To execute the script, run it from the terminal (you should already be in the ``mbs-337`` directory):
 
 .. code-block:: console
 
@@ -539,65 +555,22 @@ To execute the script, open the integrated terminal in VSCode (``Ctrl+` `` or ``
    to create and edit Python files, and executing scripts using the integrated terminal.
    We will just be showing the contents of the script and console output.
 
-More advanced functions can take parameters and return results. Before we look at an example,
-let's understand **dot notation** and **methods**. 
-
-**Dot Notation and Methods**
-
-In Python, many data types have built-in **methods** -- functions that are attached to the data
-itself. You call a method using **dot notation**: ``variable.method()``
-
-For example, strings have a ``.count()`` method that counts how many times a character or substring appears:
-
-.. code-block:: python3
-
-   >>> dna_seq = 'ATGCGATCGATCG'
-   >>> len(dna_seq)           # len() function counts characters in a string
-   13
-   >>> dna_seq.count('G')     # .count() method counts how many 'G' characters are in the string
-   4
-   >>> dna_seq.count('AT')    # you can also count substrings
-   3
-
-.. admonition:: Terminology
-
-   **Methods vs Functions**: Methods are called with dot notation (``string.count()``), while functions
-   are called directly (``len(string)``). Both ``len()`` and ``.count()`` can give you information
-   about a string, but they're used differently. 
-
-   Functions like ``len()``, ``print()``, and ``type()`` are **built-in functions** -- they come with
-   Python and are always available. Functions you create yourself using ``def`` are **user-defined functions**.
-   Both work the same way (they're blocks of code that execute when called), but built-in functions are 
-   already written for you, while user-defined ones are ones you write to solve your specific problems. 
-
-Let's write a function to calculate the GC content of our DNA sequence:
+More advanced functions can take parameters and return results. 
 
 .. code-block:: python3
    :linenos:
 
-   def calculate_gc_content(sequence):
-       gc_count = sequence.count('G') + sequence.count('C')
-       total_bases = len(sequence)
-       return (gc_count / total_bases) * 100
+   def add5(value):
+      return(value + 5)
 
-   dna_seq = 'ATGCGATCGATCG'
-   gc_percent = calculate_gc_content(dna_seq)
-   print(f'GC content: {gc_percent:.2f}%')
-
-The function above does the following:
-
-1. The function definition takes one parameter called ``sequence`` (a DNA sequence string)
-2. It then counts how many 'G' and 'C' bases are in the string, and adds them together to get the total GC count
-3. Then, it calculates the total number of bases in the sequence
-4. Finally, it calculates the percentage by dividing GC count by total bases and multiplying by 100. The ``return`` statement sends this value back to whoever called the function.
-
-The ``.2f`` in the f-string formats the number to 2 decimal places.
+   final_number = add5(10)
+   print(final_number)
 
 .. code-block:: console
 
-   GC content: 53.85%
+   15
 
-Pass multiple parameters to a function:
+We can also pass multiple parameters to a function:
 
 .. code-block:: python3
    :linenos:
@@ -620,23 +593,18 @@ to iterate over multiple lists:
 
    def find_genes_starting_with(mylist, prefix):
        for gene in mylist:
-           if (gene.startswith(prefix)):      # check if string starts with prefix
+           if (gene[0] == prefix):  # a string (gene) can be interpreted as a list of chars!
                print(gene)
 
-   gene_list1 = ['BRCA1', 'BRCA2', 'TP53', 'EGFR']
-   gene_list2 = ['MYC', 'MYCN', 'TP53', 'RB1']
-
-   find_genes_starting_with(gene_list1, 'BRC')
-   find_genes_starting_with(gene_list2, 'MYC')
+   gene_list = ['BRCA1', 'BRCA2', 'TP53', 'EGFR']
+   find_genes_starting_with(gene_list, 'B')
 
 .. code-block:: console
 
    BRCA1
    BRCA2
-   MYC
-   MYCN
 
-There are many more ways to call functions, including handing an arbitrary
+There are many more ways to call functions, including handling an arbitrary
 number of arguments, passing keyword / unordered arguments, assigning default
 values to arguments, and more.
 
@@ -874,18 +842,13 @@ Test your understanding of the materials above by attempting the following exerc
 
 **Exercise 1:** Create a list of ~10 different integers. Write a function (using modulus and conditionals) to determine if each integer is even or odd. Print to screen each digit followed by the word ‘even’ or ‘odd’ as appropriate.
 
-**Exercise 2:** Using BioPython's ``Seq`` class, write a script that:
-
-  a) Creates a DNA sequence object from the following string ('GAACCGGGAGGTGGGAATCCGTCACATATGAGAAGGTATTTGCCCGATAA')
-  b) Finds all stop codons in the sequence
-  c) Prints the number of times a stop codon appears
-  d) Prints the positions (starting base-pair) where each stop codon is found. 
+**Exercise 2:** Using BioPython's ``Seq`` class, determine the GC content of the following DNA sequence: GAACCGGGAGGTGGGAATCCGTCACATATGAGAAGGTATTTGCCCGATAA
 
 **Exercise 3:** Using nested for loops, write a program that generates all possible 3-base DNA codons (combinations of A, T, G, C). Print each codon on its own line. How many total codons should you get?
 
 **Exercise 4:** Write a function that calculates the percentage of each base (A, T, G, C) in a DNA sequence. The function should return a dictionary with bases as keys and percentages as values. Test it with a sequence of your choice and print the results formatted to 2 decimal places. 
 
-**Exercise 5:** You are analyzing gene expression data from three samples under control and treament conditions, with three replicates per condition. 
+**Exercise 5:** You are analyzing gene expression data from three samples under control and treatment conditions, with three replicates per condition. 
 Create a dictionary to store expression data for 3 samples, where each sample has control and treatment values as follows:
 
   - Sample 1: Control values = 10.5, 11.2, 10.8; Treatment values = 25.3, 24.7, 26.1
