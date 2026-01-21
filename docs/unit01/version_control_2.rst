@@ -131,14 +131,7 @@ We could use something else, but ``origin`` is the standard convention.
 Pushing Your Code to GitHub
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Now that everything is set up, we can push our local changes to GitHub. First,
-make sure your branch is named ``main``:
-
-.. code-block:: console
-
-   [mbs-337]$ git branch -M main
-
-Then push your code:
+Now that everything is set up, we can push our local changes to GitHub:
 
 .. code-block:: console
 
