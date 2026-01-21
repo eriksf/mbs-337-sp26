@@ -24,6 +24,7 @@ research problems.
    :caption: Homeworks:
 
    homework/homework01
+   homework/homework02
 
 
 .. toctree::
