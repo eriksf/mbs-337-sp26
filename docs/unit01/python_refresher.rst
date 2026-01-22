@@ -870,7 +870,7 @@ Create a dictionary to store expression data for 3 genes, where each gene has co
 .. code-block:: python3
 
    >>> print(expression_data)
-   {'Gene1': {'control': [1], 'treatment': [2]}
+   {'Gene1': {'control': [1], 'treatment': [2]}}
    >>> for gene in expression_data:
    ...      print(gene)
    ...      print(expression_data[gene]['control'])
