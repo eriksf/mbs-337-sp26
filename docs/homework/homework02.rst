@@ -23,7 +23,7 @@ Here are the requirements for the Git repository:
 * **Must contain a minimum of four commits - use git log to see commits**
 * Must be pushed to GitHub, and be either public or private (if private, make
   sure to add kbeavers@tacc.utexas.edu, wallen@tacc.utexas.edu, and
-  eferlani@tacc.utexas.edu as collaborators on the repo)
+  eferlanti@tacc.utexas.edu as collaborators on the repo)
 
 A sample Git repository may contain the following files after completing
 homework 02:
@@ -43,7 +43,7 @@ What to Turn In
 ---------------
 
 Send an email to kbeavers@tacc.utexas.edu, wallen@tacc.utexas.edu, and
-eferlani@tacc.utexas.edu with the link to your GitHub repository and include 
+eferlanti@tacc.utexas.edu with the link to your GitHub repository and include 
 "Homework 02" in the subject line. We will clone all of your repos at the due date / time for evaluation.
 
 Note on Using AI
