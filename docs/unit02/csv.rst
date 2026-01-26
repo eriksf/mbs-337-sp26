@@ -106,7 +106,7 @@ comma-delimited.
 .. note::
 
    Check out the list of uniprot proteins we worked with in the JSON section, but
-   now in CSV format `here <>`_.
+   now in CSV format `here <https://raw.githubusercontent.com/kbeavers/mbs-337-sp26/refs/heads/main/docs/unit02/sample-data/uniprot_proteins_simple.csv>`_.
 
 
 Read CSV from File
