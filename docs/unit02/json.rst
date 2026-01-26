@@ -116,7 +116,7 @@ last time and create a new directory within there called ``working-with-json``:
 
 (You can also right-click from within the file explorer view and select New Folder...)
 
-Find a sample JSON file using `this link <./sample-data/uniprot_proteins_simple.json>`_ and copy and paste the contents into a new file called ``Protein_List.json``.
+Find a sample JSON file using `this link <https://raw.githubusercontent.com/kbeavers/mbs-337-sp26/refs/heads/main/docs/unit02/sample-data/uniprot_proteins_simple.json>`_ and copy and paste the contents into a new file called ``Protein_List.json``.
 
 .. note::
 
@@ -685,7 +685,8 @@ working directory. Open it and check that it looks like valid JSON!
 
 Additional Resources
 --------------------
-
+* Many of the materials in this module were adapted from `COE 332: Software Engineering & Design <https://coe-332-sp26.readthedocs.io/en/latest/unit02/json.html>`_
 * `Reference for the JSON library <https://docs.python.org/3/library/json.html>`_
+* `More info on Pydantic <https://docs.pydantic.dev/latest/>`_
 * `Validate JSON with JSONLint <https://jsonlint.com/>`_
 * `UniProt <https://www.uniprot.org/>`_ — protein sequence and functional annotation
