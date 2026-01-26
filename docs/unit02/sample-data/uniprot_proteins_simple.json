@@ -1,0 +1,76 @@
+{
+  "protein_entries": [
+    {
+      "proteinName": "Myoglobin",
+      "organism": "Homo sapiens",
+      "className": "oxygen carrier",
+      "mass": 17184,
+      "length": 154
+    },
+    {
+      "proteinName": "Hemoglobin subunit beta",
+      "organism": "Homo sapiens",
+      "className": "oxygen carrier",
+      "mass": 15998,
+      "length": 147
+    },
+    {
+      "proteinName": "Insulin",
+      "organism": "Canis lupus familiaris",
+      "className": "hormone",
+      "mass": 12190,
+      "length": 110
+    },
+    {
+      "proteinName": "Cytochrome c oxidase subunit 12, mitochondrial",
+      "organism": "Saccharomyces cerevisiae",
+      "className": "oxidoreductase",
+      "mass": 9788,
+      "length": 83
+    },
+    {
+      "proteinName": "Green fluorescent protein",
+      "organism": "Montastraea cavernosa",
+      "className": "fluorescence",
+      "mass": 25679,
+      "length": 224
+    },
+    {
+      "proteinName": "Collagen alpha-1(I) chain",
+      "organism": "Homo sapiens",
+      "className": "structural",
+      "mass": 138911,
+      "length": 1464
+    },
+    {
+      "id": "O76742",
+      "proteinName": "Ras-related protein Rab7",
+      "organism": "Drosophila melanogaster",
+      "geneName": "Rab7",
+      "className": "transport",
+      "mass": 23331,
+      "length": 207
+    },
+    {
+      "proteinName": "Nuclear factor NF-kappa-B p105 subunit",
+      "organism": "Mus musculus",
+      "className": "immunity",
+      "mass": 105615,
+      "length": 971
+    },
+    {
+      "proteinName": "Toll-like receptor 9",
+      "organism": "Bos taurus",
+      "className": "immunity",
+      "mass": 115407,
+      "length": 1029
+    },
+    {
+      "proteinName": "Hemagglutinin",
+      "organism": "Influenza A virus",
+      "className": "virulence",
+      "mass": 63686,
+      "length": 565
+    }
+  ]
+}

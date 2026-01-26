@@ -17,6 +17,7 @@ author = 'Texas Advanced Computing Center'
 extensions = [
     'sphinx_rtd_theme',
     'sphinx_design',
+    'sphinx_togglebutton',
 ]
 
 templates_path = ['_templates']

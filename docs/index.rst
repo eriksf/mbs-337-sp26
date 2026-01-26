@@ -17,6 +17,7 @@ research problems.
    :caption: Course Schedule:
 
    unit01/overview
+   unit02/overview
 
 
 .. toctree::
