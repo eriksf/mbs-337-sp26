@@ -43,10 +43,8 @@
       "length": 1464
     },
     {
-      "id": "O76742",
       "proteinName": "Ras-related protein Rab7",
       "organism": "Drosophila melanogaster",
-      "geneName": "Rab7",
       "className": "transport",
       "mass": 23331,
       "length": 207
