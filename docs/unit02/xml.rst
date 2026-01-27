@@ -1,18 +1,16 @@
 XML Reference
-=============
+================
 
 This reference guide is designed to introduce you to XML syntax. XML (Extensible
-Markup Language) was designed as a way to store, transmit, and reconstruct
-arbitrary data sets, particularly over the internet. You'll sometimes see it
-as standalone documents, or as streaming data without a definite endpoint. For
-this class, we will focus on the standalone documents / datasets.
-
-
+Markup Language) was designed as a way to store and transport structured data
+across different systems, especially the Internet. XML is widely used in bioinformatics
+to standardize the representation and exchange of complex biological data, particularly
+for datasets with intricate, hierarchical structures. 
 
 XML Basics
 ----------
 
-Much like JSON, XML can be used to store arbitrary data sets in a dictionary-esque
+Much like JSON, XML can be used to store datasets in a dictionary-esque
 format of key:value pairs. However, there are a few key differences between XML
 and JSON:
 
@@ -49,51 +47,48 @@ The same data shown above in JSON format would appear as:
 
 Things get a little tricky with our favorite data structure, a **dictionary with
 one key, whose value is a list of dictionaries**. This is because of the way
-XML represents lists of dictionaries. Consider the following snippet of JSON data:
+XML represents lists of dictionaries. Consider the following snippet of JSON data
+containing protein information:
 
 .. code-block:: json
 
    {
-     "instructors": [
-       {
-         "firstname": "joe",
-         "lastname": "allen",
-         "id": 123
-       },
-       {
-         "firstname": "charlie",
-         "lastname": "dey",
-         "id": 456
-       },
-       {
-         "firstname": "joe",
-         "lastname": "stubbs",
-         "id": 789
-       }
-     ]
-   }
+   "protein_entries": [
+      {
+         "proteinName": "Myoglobin",
+         "organism": "Homo sapiens",
+         "className": "oxygen carrier",
+         "mass": 17184,
+         "length": 154
+      },
+      {
+         "proteinName": "Hemoglobin subunit beta",
+         "organism": "Homo sapiens",
+         "className": "oxygen carrier",
+         "mass": 15998,
+         "length": 147
+      }
 
 If we try to translate this directly to XML, it would take the form:
 
 .. code-block:: xml
 
-    <instructors>
-            <firstname>joe</firstname>
-            <lastname>allen</lastname>
-            <id>123</id>
-    </instructors>
-    <instructors>
-            <firstname>charlie</firstname>
-            <lastname>dey</lastname>
-            <id>456</id>
-    </instructors>
-    <instructors>
-            <firstname>joe</firstname>
-            <lastname>stubbs</lastname>
-            <id>789</id>
-    </instructors>
+    <protein_entries>
+            <proteinName>Myoglobin</proteinName>
+            <organism>Homo sapiens</organism>
+            <className>oxygen carrier</className>
+            <mass>17184</mass>
+            <length>154</length>
+    </protein_entries>
+    <protein_entries>
+            <proteinName>TP53</proteinName>
+            <organism>Homo sapiens</organism>
+            <className>oxygen carrier</className>
+            <mass>15998</mass>
+            <length>147</length>
+    </protein_entries>
 
-The ``instructors`` key appears multiple times at the root level, once for each
+The ``protein_entries`` key appears multiple times at the root level, once for each
 element in the list. In XML, you cannot have multiple roots, even if it is the
 same root repeated more than once. You need exactly one root only. A simple
 trick to fix this is to create a new dictionary with one key, e.g. "data", whose
@@ -103,35 +98,26 @@ format:
 .. code-block:: xml
 
    <data>
-        <instructors>
-                <firstname>joe</firstname>
-                <lastname>allen</lastname>
-                <id>123</id>
-        </instructors>
-        <instructors>
-                <firstname>charlie</firstname>
-                <lastname>dey</lastname>
-                <id>456</id>
-        </instructors>
-        <instructors>
-                <firstname>joe</firstname>
-                <lastname>stubbs</lastname>
-                <id>789</id>
-        </instructors>
+      <protein_entries>
+            <proteinName>Myoglobin</proteinName>
+            <organism>Homo sapiens</organism>
+            <className>oxygen carrier</className>
+            <mass>17184</mass>
+            <length>154</length>
+      </protein_entries>
+      <protein_entries>
+            <proteinName>TP53</proteinName>
+            <organism>Homo sapiens</organism>
+            <className>oxygen carrier</className>
+            <mass>15998</mass>
+            <length>147</length>
+      </protein_entries>
    </data>
-
-
-
-
-
-
-
 
 .. note::
 
-   Check out the list of meteorite landing sites we worked with in the JSON
-   section, but now in XML format
-   `here <https://raw.githubusercontent.com/tacc/coe-332-sp25/main/docs/unit02/sample-data/Meteorite_Landings.xml>`_.
+   Check out the list of uniprot proteins we worked with in the JSON and CSV sections, but
+   now in XML format `here <https://raw.githubusercontent.com/kbeavers/mbs-337-sp26/refs/heads/main/docs/unit02/sample-data/uniprot_proteins_simple.xml>`_.
 
 
 Read XML from File
@@ -148,39 +134,40 @@ Python module which works directly in dictionary space.
 
 .. warning::
 
-   Install the ``xmltodict`` library before proceeding:
+   Install the ``xmltodict`` library before proceeding. Make sure your virtual
+   environment is activated:
 
    .. code-block:: console
 
-      [coe332-vm]$ pip3 install --user xmltodict
+      (myenv) [mbs-337]$ pip3 install xmltodict
 
 
-You can read in an XML file (e.g. the Meteorite Landings data linked above) and
-store it as a dictionary as follows:
+You can read in an XML file (e.g., protein data) and store it as a dictionary as follows:
 
 .. code-block:: python3
 
    import xmltodict
 
-   with open('Meteorite_Landings.xml', 'r') as f:
+   with open('Protein_List.xml', 'r') as f:
        data = xmltodict.parse(f.read())
 
 Then to access the data within that dictionary, remember to include an extra key
 for the root-level, which we added in to make valid XML. For example, you could
-call out the first meteorite in the list with the following:
+call out the first protein in the list with the following:
 
 .. code-block:: python3
 
-   print(data['data']['meteorite_landings'][0])
+   print(data['data']['protein_entries'][0])
 
 
 .. note::
 
-   The original Meteorite Landings data had the key ``mass (g)``. The open and
-   close parentheses ``()`` are invalid characters when it comes to XML tags. The
-   data linked above was modified to use the key ``mass_g`` instead. Don't be
-   surprised when working with datasets if you have to make manual modifications
-   to the data in order to make it valid in a particular format.
+   XML tags cannot contain certain characters like parentheses ``()``, spaces, or
+   special symbols. If your data has keys with these characters, you'll need to
+   modify them. For example, a key like ``mass (g)`` would need to be changed to
+   something like ``mass_g`` or ``mass_grams``. Don't be surprised when working with
+   datasets if you have to make manual modifications to the data in order to make
+   it valid in a particular format.
 
 
 Write XML to File
@@ -188,7 +175,7 @@ Write XML to File
 
 As mentioned above, a dictionary must have exactly one "root" element in order
 to write valid XML. The following example below assembles a dictionary with
-multiple keys at the root level ("class", "title", "subjects"). In fact the
+multiple keys at the root level ("dataset_id", "title", "keywords"). In fact the
 following code will yield an error:
 
 
@@ -198,13 +185,12 @@ following code will yield an error:
    import xmltodict
 
    data = {}
-   data['class'] = 'COE332'
-   data['title'] = 'Software Engineering and Design'
-   data['subjects'] = []
-   data['subjects'].append( {'unit': 1, 'topic': ['linux', 'python3', 'git']} )
-   data['subjects'].append( {'unit': 2, 'topic': ['json', 'csv', 'xml', 'yaml']} )
+   data['accession'] = 'PRJNA1412539'
+   data['id'] = '1412539'
+   data['title'] = 'Transposon-insertion sequencing uncovers nlpD as the essential gene for intracellular persistence and infectivity of Salmonella'
+   data['dataType'] = 'Raw sequence reads'
 
-   with open('class.xml', 'w') as o:
+   with open('dataset.xml', 'w') as o:
        o.write(xmltodict.unparse(data, pretty=True))
 
 Error:
@@ -224,38 +210,27 @@ entire ``data`` dictionary:
    import xmltodict
 
    data = {}
-   data['class'] = 'COE332'
-   data['title'] = 'Software Engineering and Design'
-   data['subjects'] = []
-   data['subjects'].append( {'unit': 1, 'topic': ['linux', 'python3', 'git']} )
-   data['subjects'].append( {'unit': 2, 'topic': ['json', 'csv', 'xml', 'yaml']} )
+   data['accession'] = 'PRJNA1412539'
+   data['id'] = '1412539'
+   data['title'] = 'Transposon-insertion sequencing uncovers nlpD as the essential gene for intracellular persistence and infectivity of Salmonella'
+   data['dataType'] = 'Raw sequence reads'
 
    root = {}
    root['data'] = data
 
-   with open('class.xml', 'w') as o:
+   with open('dataset.xml', 'w') as o:
        o.write(xmltodict.unparse(root, pretty=True))
 
 Output:
 
 .. code-block:: xml
 
+   <?xml version="1.0" encoding="utf-8"?>
    <data>
-        <class>COE332</class>
-        <title>Software Engineering and Design</title>
-        <subjects>
-                <unit>1</unit>
-                <topic>linux</topic>
-                <topic>python3</topic>
-                <topic>git</topic>
-        </subjects>
-        <subjects>
-                <unit>2</unit>
-                <topic>json</topic>
-                <topic>csv</topic>
-                <topic>xml</topic>
-                <topic>yaml</topic>
-        </subjects>
+      <accession>PRJNA1412539</accession>
+      <id>1412539</id>
+      <title>Transposon-insertion sequencing uncovers nlpD as the essential gene for intracellular persistence and infectivity of Salmonella</title>
+      <dataType>Raw sequence reads</dataType>
    </data>
 
 
@@ -264,3 +239,4 @@ Additional Resources
 
 * `The xmltodict Library <https://github.com/martinblech/xmltodict>`_
 * `XML Linter <https://xmllint.com/>`_
+* Many biological databases provide XML formats — check out NCBI's XML formats for gene and protein data

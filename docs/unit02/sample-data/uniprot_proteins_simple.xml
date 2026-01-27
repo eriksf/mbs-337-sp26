@@ -1,0 +1,72 @@
+<data>
+    <protein_entries>
+        <proteinName>Myoglobin</proteinName>
+        <organism>Homo sapiens</organism>
+        <className>oxygen carrier</className>
+        <mass>17184</mass>
+        <length>154</length>
+    </protein_entries>
+    <protein_entries>
+        <proteinName>Hemoglobin subunit beta</proteinName>
+        <organism>Homo sapiens</organism>
+        <className>oxygen carrier</className>
+        <mass>15998</mass>
+        <length>147</length>
+    </protein_entries>
+    <protein_entries>
+        <proteinName>Insulin</proteinName>
+        <organism>Canis lupus familiaris</organism>
+        <className>hormone</className>
+        <mass>12190</mass>
+        <length>110</length>
+    </protein_entries>
+    <protein_entries>
+        <proteinName>Cytochrome c oxidase subunit 12, mitochondrial</proteinName>
+        <organism>Saccharomyces cerevisiae</organism>
+        <className>oxidoreductase</className>
+        <mass>9788</mass>
+        <length>83</length>
+    </protein_entries>
+    <protein_entries>
+        <proteinName>Green fluorescent protein</proteinName>
+        <organism>Montastraea cavernosa</organism>
+        <className>fluorescence</className>
+        <mass>25679</mass>
+        <length>224</length>
+    </protein_entries>
+    <protein_entries>
+        <proteinName>Collagen alpha-1(I) chain</proteinName>
+        <organism>Homo sapiens</organism>
+        <className>structural</className>
+        <mass>138911</mass>
+        <length>1464</length>
+    </protein_entries>
+    <protein_entries>
+        <proteinName>Ras-related protein Rab7</proteinName>
+        <organism>Drosophila melanogaster</organism>
+        <className>transport</className>
+        <mass>23331</mass>
+        <length>207</length>
+    </protein_entries>
+    <protein_entries>
+        <proteinName>Nuclear factor NF-kappa-B p105 subunit</proteinName>
+        <organism>Mus musculus</organism>
+        <className>immunity</className>
+        <mass>105615</mass>
+        <length>971</length>
+    </protein_entries>
+    <protein_entries>
+        <proteinName>Toll-like receptor 9</proteinName>
+        <organism>Bos taurus</organism>
+        <className>immunity</className>
+        <mass>115407</mass>
+        <length>1029</length>
+    </protein_entries>
+    <protein_entries>
+        <proteinName>Hemagglutinin</proteinName>
+        <organism>Influenza A virus</organism>
+        <className>virulence</className>
+        <mass>63686</mass>
+        <length>565</length>
+    </protein_entries>
+</data>
