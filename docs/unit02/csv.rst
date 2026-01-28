@@ -207,6 +207,41 @@ This code:
 3. Writes the header row to the CSV file
 4. Writes all the protein entries as rows in the CSV file
 
+**Handling Nested Fields:**
+
+If your data contains nested dictionaries or lists (e.g., ``organism`` is a dictionary with
+``scientificName``, ``commonName``, etc.), you'll need to flatten the structure or select
+specific nested fields. In this case, manually create the header row using ``.writerow()``:
+
+.. code-block:: python3
+   :linenos:
+
+   with open('Protein_List.csv', 'w') as o:
+       csv_writer = csv.writer(o)
+       
+       # Manually write header row with flattened field names
+       header = ['proteinName',
+                 'organism_scientificName',
+                 'organism_commonName'
+                 ]
+       csv_writer.writerow(header)
+       
+       # Write data rows, extracting nested values
+       for protein in data['protein_entries']:
+           row = [
+               protein['proteinName'],
+               protein['organism']['scientificName'],
+               protein['organism']['commonName']
+               ]
+           csv_writer.writerow(row)
+
+This code:
+
+1. Creates a regular CSV writer (not DictWriter)
+2. Manually writes the header row with flattened field names (using underscores to indicate nesting)
+3. Iterates through entries and extracts nested values to create each row
+4. Writes each flattened row to the CSV file
+
 
 
 Additional Resources

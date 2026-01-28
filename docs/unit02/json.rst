@@ -29,23 +29,9 @@ JSON is built from a small number of basis data types. These types can be combin
 and nested inside one another, which allows JSON to represent complex biological 
 data in a structured way.
 
-1. **Primitive types**: These are the simplest possible values in JSON:
- * Numbers: integers and floating-point values (``-1``, ``12``, ``3.14``)
- * Strings: text values, always written in double quotes (``"abc"``)
- * Booleans: logical true/false values (must be written in lowercase: ``true``, ``false``)
- * Null: represents missing or unknown data (``null``)
-
-2. **Objects (also called dictionaries)**: Objects store named values using ``name: value`` pairs
-and are enclosed in curly braces ``{ }``.
- * The name (key) must always be a string
- * Each key must be unique
- * The value can be *any valid JSON type* (including another object or a list)
-
-3. **Arrays (also called lists)**: Arrays store ordered collections of values and are enclosed
-in square brackets ``[ ]``.
- * Values can be of mixed types
- * Duplicate values are allowed
- * Items are separated by commas
+1. **Primitive types**: includes numeric types (integers and floats), strings, and booleans
+2. **Objects (also called dictionaries)**: Objects store named values using ``name: value`` and are enclosed in curly braces ``{ }``
+3. **Arrays (also called lists)**: Arrays store ordered collections of values and are enclosed in square brackets ``[ ]``
 
 Each of the following is a valid JSON value:
 
