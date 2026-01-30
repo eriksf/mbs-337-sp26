@@ -136,7 +136,7 @@ Python3 standard library:
    with open('Protein_List.csv', 'r') as f:
        reader = csv.DictReader(f)
        for row in reader:
-           data['protein_entries'].append(row))
+           data['protein_entries'].append(row)
 
 Let's break this down:
 
