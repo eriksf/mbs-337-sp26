@@ -1,5 +1,5 @@
-Working with FASTQ
-==================
+Working with Sequence Data (FASTQ)
+====================================
 
 In this hands-on module, we will learn how to work with the FASTQ data format.
 FASTQ extends FASTA by storing quality scores alongside sequence data from

@@ -1,5 +1,5 @@
-Working with FASTA
-===================
+Working with Sequence Data (FASTA)
+====================================
 
 In this hands-on module, we will learn how to work with the FASTA data format.
 This is one of the most fundamental file formats in bioinformatics, used extensively
