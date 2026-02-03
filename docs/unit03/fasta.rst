@@ -100,7 +100,7 @@ and create a new directory called ``working-with-bio-data``.
 
 Then, let's create our input file:
 
-* Copy and paste the contents of `this file <https://raw.githubusercontent.com/kbeavers/mbs-337-sp26/refs/heads/main/docs/unit03/sample-data/uniprot_sequences.fasta>`_ into a new file called ``sequences.fasta`` 
+* Copy and paste the contents of `this file <https://raw.githubusercontent.com/TACC/mbs-337-sp26/refs/heads/main/docs/unit03/sample-data/sequences.fasta>`_ into a new file called ``sequences.fasta`` 
 
 Helpful Linux Commands
 ~~~~~~~~~~~~~~~~~~~~~~

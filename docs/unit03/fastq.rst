@@ -128,7 +128,7 @@ Open a VSCode RemoteSSH session (``Cmd+Shift+P`` -> ``RemoteSSH``) and create a 
 (``Cmd+Shift+P`` -> ``Terminal: Create New Terminal``).
 
 We'll create an example FASTQ file within our ``working-with-bio-data`` directory. 
-Copy and paste the contents of `this file <https://raw.githubusercontent.com/kbeavers/mbs-337-sp26/refs/heads/main/docs/unit03/sample-data/raw_reads.fastq>`_ into a new file called ``raw_reads.fastq``
+Copy and paste the contents of `this file <https://raw.githubusercontent.com/TACC/mbs-337-sp26/refs/heads/main/docs/unit03/sample-data/raw_reads.fastq>`_ into a new file called ``raw_reads.fastq``
 
 Helpful Linux Commands
 ~~~~~~~~~~~~~~~~~~~~~~

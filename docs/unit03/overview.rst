@@ -22,4 +22,5 @@ foundations from Unit 2.
 
    fasta
    fastq
+   mmCIF
 
