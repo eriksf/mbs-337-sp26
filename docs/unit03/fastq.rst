@@ -127,12 +127,8 @@ Let's get some practice working with FASTQ files. We'll use VSCode for these exe
 Open a VSCode RemoteSSH session (``Cmd+Shift+P`` -> ``RemoteSSH``) and create a new terminal
 (``Cmd+Shift+P`` -> ``Terminal: Create New Terminal``).
 
-Within the terminal inside VSCode on your class VM, navigate to your ``mbs-337`` project directory
-and create a new directory called ``working-with-fastq``. 
-
-Then, let's create our input file:
-
-* Copy and paste the contents of `this file <https://raw.githubusercontent.com/kbeavers/mbs-337-sp26/refs/heads/main/docs/unit03/sample-data/raw_reads.fastq>`_ into a new file called ``raw_reads.fastq``
+We'll create an example FASTQ file within our ``working-with-bio-data`` directory. 
+Copy and paste the contents of `this file <https://raw.githubusercontent.com/kbeavers/mbs-337-sp26/refs/heads/main/docs/unit03/sample-data/raw_reads.fastq>`_ into a new file called ``raw_reads.fastq``
 
 Helpful Linux Commands
 ~~~~~~~~~~~~~~~~~~~~~~

@@ -96,7 +96,7 @@ Open a VSCode RemoteSSH session (``Cmd+Shift+P`` -> ``RemoteSSH``) and create a 
 (``Cmd+Shift+P`` -> ``Terminal: Create New Terminal``).
 
 Within the terminal inside VSCode on your class VM, navigate to your ``mbs-337`` project directory
-and create a new directory called ``working-with-fasta``. 
+and create a new directory called ``working-with-bio-data``. 
 
 Then, let's create our input file:
 
