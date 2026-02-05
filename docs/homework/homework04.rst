@@ -3,27 +3,36 @@ Homework 04
 
 **Due Date: Tuesday, February 10 by 11:00am CST**
 
-FASTA, FASTQ, and mmCIF
+From Sequence to Structure
 ------------------------
 
-This homework builds on Unit 3 (FASTA, FASTQ, and mmCIF) with **different input files**
-and **more challenging tasks** than the in-class activities. You will use the same tools
+This homework builds on Unit 3 (FASTA, FASTQ, and mmCIF). You will use the same tools
 (Biopython ``SimpleFastaParser``, ``SeqIO``, ``MMCIFParser``) but to solve new problems:
 FASTA statistics and length-based filtering, FASTQ quality filtering and output, and
 mmCIF multi-chain analysis and coordinate extraction.
 
 **Input files (different from class):**
 
-* **FASTA:** A multi-sequence FASTA file named ``immune_proteins.fasta``. Your instructor will provide this file or a download link (e.g. via Canvas or the course repo). It contains many protein sequences with standard FASTA headers.
-* **FASTQ:** A FASTQ file named ``sample1_rawReads.fastq``. Your instructor will provide this file or a download link. It uses **Phred+33 (Sanger)** quality encoding.
+* **FASTA:** A multi-sequence FASTA file named ``immune_proteins.fasta``. Download with:
+
+.. code-block:: console
+
+   wget https://github.com/TACC/mbs-337-sp26/raw/refs/heads/main/docs/unit03/sample-data/immune_proteins.fasta.gz
+   gunzip immune_proteins.fasta.gz
+
+* **FASTQ:** A FASTQ file named ``sample1_rawReads.fastq``.
+
+.. code-block:: console
+
+   wget https://github.com/TACC/mbs-337-sp26/raw/refs/heads/main/docs/unit03/sample-data/sample1_rawReads.fastq.gz
+   gunzip sample1_rawReads.fastq.gz
+
 * **mmCIF:** The hemoglobin structure **4HHB** (four chains). Download with:
 
-  .. code-block:: console
+.. code-block:: console
 
-      wget https://files.rcsb.org/download/4HHB.cif.gz
-      gunzip 4HHB.cif.gz
-
-  Use the resulting ``4HHB.cif`` in your scripts.
+   wget https://files.rcsb.org/download/4HHB.cif.gz
+   gunzip 4HHB.cif.gz
 
 Exercise 1: Count Residues in FASTA File
 -----------------------------------------
@@ -110,7 +119,7 @@ Example Output:
    Chain C: 141 residues, 1069 atoms
    Chain D: 146 residues, 1123 atoms
 
-.. note:: Warnings
+.. note:: 
 
    You may get multiple lines of the following warning printed to the terminal:
 
