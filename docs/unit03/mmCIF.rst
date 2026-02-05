@@ -550,7 +550,9 @@ Example output: ``Chain A: 155 residues``.
         for model in structure:
             for chain in model:
                 chain_id = chain.get_id()
-                num_residues = len(list(chain.get_residues()))
+                num_residues = 0
+                for residue in chain:
+                    num_residues += 1
                 print(f"Chain {chain_id}: {num_residues} residues")
 
 Exercise 2: List All Hetero-residues in a Chain
