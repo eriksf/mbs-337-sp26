@@ -76,7 +76,7 @@ mmCIF Format Basics
 -------------------
 
 While mmCIF files can be intimidating at first, they are built from just a few core concepts.
-At a high level, an mmCIF file consits of:
+At a high level, an mmCIF file consists of:
 
 * **Data Blocks**: contain information for one structure (some mmCIF files contain multiple structures)
 * **Data items**: single name-value pairs for metadata fields 
@@ -131,7 +131,7 @@ All mmCIF data item names begin with a leading underscore and have the form
     * Values may be numbers, short strings (quoted or unquoted), or special placeholders:
 
        * ``?`` = value is missing
-       * ``.`` = value is not applicable or intentially omitted 
+       * ``.`` = value is not applicable or intentionally omitted 
 
 **Text Values and Multi-line Strings**
 
@@ -203,8 +203,7 @@ Working with mmCIF files
 Let's get some practice working with mmCIF files. We'll use VSCode for these exercises.
 Open a VSCode RemoteSSH session and create a new terminal.
 
-Within the terminal inside VSCode on your class VM, navigate to your ``mbs-337`` project directory
-and create a new directory called ``working-with-mmCIF``.
+Within the terminal inside VSCode on your class VM, navigate to your ``mbs-337/working-with-bio-data`` project directory.
 
 We're going to use a new command called ``wget`` to download a mmCIF file directly from 
 `RCSB PDB <https://www.rcsb.org/>`_. This command allows us to retrieve files directly from the internet
@@ -245,7 +244,7 @@ The ``.gz`` file ending should be gone now, and you should be able to view your 
 file in the text editor.
 
 Helpful Linux Commands
-~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++
 
 You can inspect an mmCIF file from the command line:
 
@@ -260,62 +259,8 @@ You can inspect an mmCIF file from the command line:
     # Find lines that start a data block
     [mbs-337]$ grep "^data_" 1MBN.cif
 
-Explore the mmCIF file with Python
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Before using a parser, it helps to see what the file actually contains. As in the CSV
-and FASTA modules, we open the file and work with its contents. Here we read the ``.cif``
-as plain text to see the **data block**, **key–value** lines, and **loop_** tables.
-
-Create a short script (e.g. ``explore_cif.py``) that (1) prints the first 20 lines—like
-``head -n 20``—and (2) collects category names. In mmCIF, any line that starts with
-``_`` and contains ``.`` has a category name before the dot (e.g. ``_atom_site.label_atom_id``
-→ category ``_atom_site``).
-
-.. code-block:: python3
-
-    with open('1MBN.cif', 'r') as f:
-        lines = f.readlines()
-
-    # Step 1: Print the first 20 lines
-    for line in lines[:20]:
-        print(line, end='')
-
-    # Step 2: Collect category names (one per unique _category)
-    categories = set()
-    for line in lines:
-        line = line.strip()
-        if line.startswith('_') and '.' in line:
-            category = line.split('.')[0]
-            categories.add(category)
-
-    print("Number of categories:", len(categories))
-    print("First 10 categories:", sorted(categories)[:10])
-
-**What this does:** We use ``readlines()`` to get a list of lines (as in working with
-other text files). We print the first 20 with a slice ``lines[:20]``. Then we loop over
-all lines: if a line starts with ``_`` and contains ``.``, the part before the dot is
-a category name; we add it to a set so each category is counted once. At the end we
-print the count and the first 10 category names.
-
-.. code-block:: console
-
-    data_1MBN
-    #
-    _entry.id   1MBN
-    _entry.name   ?
-    ...
-    Number of categories: 42
-    First 10 categories: ['_atom_site', '_atom_site_anisotrop', '_audit_author', ...]
-
-So the file really does start with a **data block** (``data_1MBN``), then **key–value**
-entries (e.g. ``_entry.id   1MBN``), and later **loop_** sections with table headers
-and rows. The ``_atom_site`` category is the one that holds the atomic coordinates;
-Biopython’s parser will turn that (and related categories) into the Structure →
-Model → Chain → Residue → Atom hierarchy we use next.
-
 Read mmCIF from File
-~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++
 
 Biopython provides **MMCIFParser** in ``Bio.PDB`` for reading ``.cif`` files. The parser
 converts the text file into a **Structure** object that you can query and iterate over.
@@ -325,68 +270,18 @@ Activate your Python virtual environment and create a file called ``mmcif_ex.py`
 
     from Bio.PDB.MMCIFParser import MMCIFParser
 
+    # Create a parser using the MMCIFParser Class (blueprint)
     parser = MMCIFParser()
 
     with open('1MBN.cif', 'r') as f:
+        # Use .get_structure method on our parser to create a structure object
         structure = parser.get_structure('myoglobin', f)
+        print(structure)
 
 The ``get_structure()`` method takes two inputs:
 
 1. **An ID** — a short name you choose (e.g. ``'myoglobin'``)
 2. **A file handle** — the open mmCIF file
-
-Understanding the structure hierarchy
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Biopython represents a structure using a hierarchy:
-
-* **Structure** (top-level, one per file)
-  * **Model** (some files contain multiple models, e.g. NMR ensembles)
-    * **Chain** (e.g. chain A, B)
-      * **Residue** (amino acids: GLY, ALA, VAL, ...)
-        * **Atom** (individual atoms with 3D coordinates)
-
-You typically iterate with nested loops over ``structure`` → ``model`` → ``chain`` →
-``residue`` → ``atom``. For example, to count chains, residues, and atoms:
-
-.. code-block:: python3
-
-    num_chains = 0
-    num_residues = 0
-    num_atoms = 0
-
-    for model in structure:
-        for chain in model:
-            num_chains += 1
-            for residue in chain:
-                num_residues += 1
-                for atom in residue:
-                    num_atoms += 1
-
-    print(f"Chains: {num_chains}")
-    print(f"Residues: {num_residues}")
-    print(f"Atoms: {num_atoms}")
-
-.. code-block:: console
-
-    Chains: 1
-    Residues: 153
-    Atoms: 1210
-
-Each object has an ``id`` (e.g. ``chain.get_id()`` returns ``'A'``, ``residue.get_resname()``
-returns the three-letter code). Atoms have ``.get_coord()`` for x, y, z coordinates. You
-can use this same pattern to filter chains, extract sequences, or work with coordinates.
-
-**Connecting the file structure to the hierarchy**
-
-When we explored the raw mmCIF file, we saw a **data block** (``data_1MBN``), **key–value**
-entries (e.g. ``_struct.title``), and **loop_** tables such as ``_atom_site`` with columns
-for atom IDs, residue names, chain IDs, and coordinates. Biopython’s ``MMCIFParser`` reads
-those categories and builds the **Structure → Model → Chain → Residue → Atom** hierarchy.
-So the same information you saw in the text file (atoms, residues, chains) is now
-accessible as Python objects you can iterate over and query. Understanding both the
-raw mmCIF structure and the Biopython hierarchy helps when you need to extract specific
-data (e.g. B-factors, occupancy) or write structures back to mmCIF.
 
 .. tip::
 
@@ -394,8 +289,244 @@ data (e.g. B-factors, occupancy) or write structures back to mmCIF.
     it easily. For most single-protein structures this is fine; very large complexes may
     require more memory or streaming approaches.
 
+Understanding the structure hierarchy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Biopython represents a structure using a hierarchy:
+
+.. code-block:: text
+
+    Structure: top-level, one per file
+    └──Model: Possible 3D arrangement of the atoms (usually just 1)
+        └──Chain: Continuous polymers (e.g., hemoglobin is composed of four globin chains)
+            └──Residue: Monomers (e.g., GLY, ALA, VAL, etc.)
+                └──Atom: Individual atoms (e.g., N, C, O, etc.) with 3D coordinates
+
+For example, imagine this structure:
+
+.. code-block:: text
+
+    Structure
+    └── Model 0
+        └── Chain A
+            └── Residue 1: LEU
+                └── Atom: N
+                └── Atom: CA
+                └── Atom: C
+                └── Atom: O
+            └── Residue 2: VAL
+                └── Atom: N
+                └── Atom: CA
+                └── Atom: C
+                └── Atom: O
+                └── Atom: CB
+                └── Atom: CG1
+                └── Atom: CG2
+
+English translation: One structure file, with one model, containing one protein chain (A) made of 
+amino acids, each built from atoms. 
+
+You typically iterate with nested loops over ``structure`` → ``model`` → ``chain`` →
+``residue`` → ``atom``. For example, to count chains, residues, and atoms:
+
+.. code-block:: python3
+
+    num_models = 0
+    num_chains = 0
+    num_residues = 0
+    num_atoms = 0
+
+    for model in structure:
+        num_models += 1
+        for chain in model:
+            num_chains += 1
+            for residue in chain:
+                num_residues += 1
+                for atom in residue:
+                    num_atoms += 1
+
+    print(f"Models: {num_models}")
+    print(f"Chains: {num_chains}")
+    print(f"Residues: {num_residues}")
+    print(f"Atoms: {num_atoms}")
+
+.. code-block:: console
+
+    Models: 1
+    Chains: 1
+    Residues: 153
+    Atoms: 1210
+
+Each object in our structure has an ``id`` (e.g., ``model.get_id()``, ``chain.get_id()``, etc.)
+
+.. code-block:: python3
+
+    for model in structure:
+        print(f"Model: {model.get_id()}")
+        for chain in model:
+            print(f"Chain: {chain.get_id()}")
+
+.. code-block:: console
+
+    Model: 0
+    Chain: A
+
+Most structures, like this one, have only one model. Some NMR or computationally-predicted structures
+may have many models (an **ensemble**). If we had an ensemble of models, their IDs would be printed 
+in numerical order, starting at 0. 
+
+We also see that our structure only has one chain (A). This is because myoglobin is made up of 
+a single polypeptide chain. Some structures are made up of multiple polymers. For example, 
+hemoglobin is a **tetramer**, consisting of four polypeptide chains. In this case, 
+we would have Chains A, B, C, and D. 
+
+.. figure:: images/myoglobin_vs_hemoglobin.png
+    :width: 400px
+    :align: center
+
+    Structures of myoglobin and hemoglobin. Notice how hemoglobin is composed of four 
+    polypeptide chains: two alpha chains and two beta chains.
+    Source: `Eaton 2021 <https://link.springer.com/article/10.1007/s10867-021-09588-3?utm_source=researchgate.net&utm_medium=article>`_
+
+Let's see what happens when we use ``residue.get_id()``. We'll also use ``residue.get_resname()`` 
+to print the name of each residue:
+
+.. code-block:: python3
+
+    for model in structure:
+        for chain in model:
+            for residue in chain:
+                print(residue.get_resname(), residue.get_id())
+
+.. code-block:: console
+
+    VAL (' ', 1, ' ')
+    LEU (' ', 2, ' ')
+    SER (' ', 3, ' ')
+    ...
+    GLY (' ', 153, ' ')
+    OH ('H_OH', 154, ' ')
+    HEM ('H_HEM', 155, ' ')
+
+Now this is interesting! When we use ``residue.get_resname()``, we see the actual names 
+of each residue within Chain A (e.g., VAL, LEU, etc.). We know from earlier that our 
+chain is made up of 155 residues, but not all of these are amino acids! The last two lines in 
+our output show that residue 154 is OH (a hydroxide ion), and residue 155 is HEM (a heme group).
+
+The output of ``residue.get_id()`` is much different from what we've seen thus far. Each 
+residue ID is a **tuple** with three elements:
+
+.. code-block:: text
+
+    (hetfield, resseq, icode)
+
+* ``hetfield`` = The **hetero-field** identifies whether the residue is a standard amino/nucleic acid or something else:
+
+   * ``' '`` = standard amino acids and nucleic acids
+   * ``W`` = water molecule
+   * ``H_name`` = Other hetero-residues (e.g., H_OH for hydroxide ion)
+
+* ``resseq`` = The **sequence identifier** is an integer describing the position of the residue in the chain 
+
+* ``icode`` = The **insertion code** is a string that is sometimes used to preserve a certain desirable numbering scheme.
+
+   * For example, a Ser 80 insertion mutant (inserted between a Thr 80 and an Asn 81 residue) could look like this:
+
+    .. code-block:: text
+
+        THR (' ', 80, 'A')
+        SER (' ', 80, 'B')
+        ASN (' ', 81, ' ')
+
+Finally, we can use ``atom.get_id()`` with ``atom.get_coord`` to print each atom and its 3D
+coordinates (*x, y, z*) for the first residue:
+
+.. code-block:: python3
+
+    for model in structure:
+        for chain in model:
+            for residue in chain:
+                for atom in residue:
+                    print(residue.get_resname(), atom.get_id(), atom.get_coord())
+                break
+
+.. code-block:: text
+
+    VAL N [-2.9 17.6 15.5]
+    VAL CA [-3.6 16.4 15.3]
+    VAL C [-3.  15.3 16.2]
+    VAL O [-3.7 14.7 17. ]
+    VAL CB [-3.5 16.  13.8]
+    VAL CG1 [-2.1 15.7 13.3]
+    VAL CG2 [-4.6 14.9 13.4]
+
+This code returned the residue name of the first residue in our chain (VAL), along with 
+each atom (N, CA, C, etc.) and its 3D coordinates. 
+
+Summary of Structure Methods
+---------------------------
+
+The table below summarizes the most commonly used
+methods at each level and what they return.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 5 5 10 30
+
+   * - Hierarchy Level
+     - Object Type
+     - Common Methods
+     - What They Return / Do
+
+   * - Structure
+     - ``Structure``
+     - ``get_id()``
+     - Structure identifier string (e.g. ``"myoglobin"``)
+
+   * - Model
+     - ``Model``
+     - ``get_id()``
+     - Model number (e.g. ``0``)
+
+   * - Chain
+     - ``Chain``
+     - ``get_id()``
+     - Chain identifier (e.g. ``A``)
+
+   * - Residue
+     - ``Residue``
+     - ``get_resname()``
+     - Residue name (e.g. ``VAL``)
+
+   * -
+     -
+     - ``get_id()``
+     - Tuple ``(hetfield, resseq, icode)``
+
+   * - Atom
+     - ``Atom``
+     - ``get_id()``
+     - Atom name (e.g. ``'CA'``, ``'N'``)
+
+   * -
+     -
+     - ``get_coord()``
+     - List of 3D coordinates ``[x, y, z]``
+
+   * -
+     -
+     - ``get_element()``
+     - Chemical element symbol (e.g. ``'C'``, ``'N'``)
+
+For more methods and cool things you can do with structural biology data in Biopython, 
+see `this documentation <https://biopython.org/wiki/The_Biopython_Structural_Bioinformatics_FAQ>`_.
+
+
 EXERCISE
 ---------
+
+Exercise 1: Print Chain ID: Num Residues
+++++++++++++++++++++++++++++++++++++++++
 
 Using the same structure file (e.g. ``1MBN.cif``), write a short script that:
 
@@ -403,9 +534,9 @@ Using the same structure file (e.g. ``1MBN.cif``), write a short script that:
 2. Loops over models and chains.
 3. For each chain, prints the **chain ID** and the **number of residues** in that chain.
 
-Example output: ``Chain A: 153 residues``.
+Example output: ``Chain A: 155 residues``.
 
-.. toggle:: Click to see the solution
+.. toggle:: Click 
 
     .. code-block:: python3
         :linenos:
@@ -422,11 +553,43 @@ Example output: ``Chain A: 153 residues``.
                 num_residues = len(list(chain.get_residues()))
                 print(f"Chain {chain_id}: {num_residues} residues")
 
-In this exercise, we used the same hierarchy (structure → model → chain → residue). We
-get the chain identifier with ``chain.get_id()`` and count residues by iterating over
-``chain.get_residues()`` (or ``list(chain)``). From here you can extend to extracting
-residue names for a sequence, or atom coordinates for distance calculations.
+Exercise 2: List All Hetero-residues in a Chain
+++++++++++++++++++++++++++++++++++++
 
+For this exercise, we want to find all the hetero-residues in Chain A
+and print their residue name and ID.  
+Use the fact that ``residue.get_id()`` returns a tuple 
+``(hetfield, resseq, icode)`` that we can unpack (``a, b, c = (10, 20, 30)``).
+
+*Hint: Standard amino acids and nucleic acids have* ``hetfield == ' '``.
+
+Example output:
+
+.. code-block:: text
+
+    Chain A: hetero residues
+    OH id=('H_OH', 154, ' ')
+    HEM id=('H_HEM', 155, ' ')
+
+.. toggle:: Click 
+
+    .. code-block:: python3
+        :linenos:
+
+        from Bio.PDB.MMCIFParser import MMCIFParser
+
+        parser = MMCIFParser()
+        with open('1MBN.cif', 'r') as f:
+            structure = parser.get_structure('myoglobin', f)
+
+        for model in structure:
+            for chain in model:
+                chain_id = chain.get_id()
+                print(f"Chain {chain_id}: hetero residues")
+                for residue in chain:
+                    hetfield, resseq, icode = residue.get_id()
+                    if hetfield != ' ':
+                        print(f"{residue.get_resname()} id={residue.get_id()}")
 
 Additional Resources
 --------------------
