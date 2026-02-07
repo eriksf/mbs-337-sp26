@@ -414,7 +414,7 @@ single jobs:
 
 .. code-block:: python3
     :linenos:
-    :emphasize-lines: 3, 27, 43, 44
+    :emphasize-lines: 3, 27
     :caption: fastq_summary.py 
 
     import json
