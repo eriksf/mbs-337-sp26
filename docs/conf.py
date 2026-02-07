@@ -18,6 +18,7 @@ extensions = [
     'sphinx_rtd_theme',
     'sphinx_design',
     'sphinx_togglebutton',
+    'sphinx_copybutton'
 ]
 
 templates_path = ['_templates']
