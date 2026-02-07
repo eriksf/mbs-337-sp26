@@ -609,7 +609,7 @@ Python3 code into this order:
    # Call to main function
 
 Other general tips for writing code that is easy to read can be found in the 
-`PEP 8 Style Guide <https://peps.python.org/pep-0008/>`_, including:
+`PEP 8 Style Guide <https://www.python.org/dev/peps/pep-0008/>`_, including:
 
 * Use four spaces per indentation level (no tabs)
 * Limit lines to 80 characters, wrap and indent where needed 
@@ -628,4 +628,8 @@ Other general tips for writing code that is easy to read can be found in the
     *projects* which may consist of many files. We will get into that later in the 
     semester.  
 
+Additional Resources 
+--------------------
 
+* Many of the materials in this module were adapted from `COE 332: Software Engineering & Design <https://coe-332-sp26.readthedocs.io/en/latest/unit03/organization.html#>`_
+* `PEP 8 Style Guide <https://www.python.org/dev/peps/pep-0008/>`_
