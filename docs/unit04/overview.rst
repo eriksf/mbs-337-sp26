@@ -12,3 +12,5 @@ logging, unit testing, and exception handling.
    :maxdepth: 1
 
    organization 
+   documentation
+   logging
