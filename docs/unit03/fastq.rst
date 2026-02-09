@@ -436,4 +436,4 @@ Additional Resources
 
 * `FASTQ Format Specification <https://en.wikipedia.org/wiki/FASTQ_format>`_
 * `Quality Score Encoding <https://en.wikipedia.org/wiki/FASTQ_format#Quality>`_
-* `Biopython SeqIO <https://biopython.org/wiki/SeqIO>`_ — use the format parameter (e.g., ``fastq-sanger``) when parsing FASTQ files
+* `Biopython SeqIO <https://biopython.org/wiki/SeqIO>`_

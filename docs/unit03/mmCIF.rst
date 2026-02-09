@@ -596,7 +596,7 @@ Example output:
 Additional Resources
 --------------------
 
-* `PDB-101: Beginner's Guide to PDBx/mmCIF <https://pdb101.rcsb.org/learn/guide-to-understanding-pdb-data/beginner%E2%80%99s-guide-to-pdbx-mmcif>`_ — format syntax and examples
-* `RCSB PDB <https://www.rcsb.org/>`_ — search and download structures (mmCIF)
-* `AlphaFold Protein Structure Database <https://alphafold.ebi.ac.uk/>`_ — predicted structures (mmCIF)
-* `Biopython PDB module <https://biopython.org/wiki/The_Biopython_Structural_Biology_FAQ>`_ — parsing structures
+* `PDB-101: Beginner's Guide to PDBx/mmCIF <https://pdb101.rcsb.org/learn/guide-to-understanding-pdb-data/beginner%E2%80%99s-guide-to-pdbx-mmcif>`_ 
+* `RCSB PDB <https://www.rcsb.org/>`_ 
+* `AlphaFold Protein Structure Database <https://alphafold.ebi.ac.uk/>`_ 
+* `Biopython PDB module <https://biopython.org/wiki/The_Biopython_Structural_Biology_FAQ>`_ 

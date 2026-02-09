@@ -404,5 +404,5 @@ Additional Resources
 
 * `FASTA Format Specification <https://en.wikipedia.org/wiki/FASTA_format>`_
 * `NCBI FASTA Format Guide <https://www.ncbi.nlm.nih.gov/genbank/FASTAformat/>`_
-* `Biopython Library <https://biopython.org/>`_ - A powerful Python library for bioinformatics that includes FASTA/FASTQ parsers
-* `SeqIO Module Documentation <https://biopython.org/wiki/SeqIO>`_ - Biopython's sequence input/output module (use ``SeqIO.parse`` for FASTQ and when you need full ``SeqRecord`` objects; use ``SimpleFastaParser`` for memory-efficient FASTA parsing)
+* `Biopython Library <https://biopython.org/>`_ - 
+* `SeqIO Module Documentation <https://biopython.org/wiki/SeqIO>`_ 
