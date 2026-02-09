@@ -174,9 +174,8 @@ Let's start by putting the "summarize chains" logic in a function:
     from Bio.PDB.MMCIFParser import MMCIFParser
 
     def summarize_chains(structure):
-        """
-        Print residue count for each chain in each model.
-        """
+        # Print residue count for each chain in each model.
+
         for model in structure:
             for chain in model:
                 chain_id = chain.get_id()
@@ -207,9 +206,8 @@ they are easy to find and change, and so that ``main()`` only contains the workf
     STRUCTURE_ID = "myoglobin"
 
     def summarize_chains(structure):
-        """
-        Print residue count for each chain in each model.
-        """
+        # Print residue count for each chain in each model.
+
         for model in structure:
             for chain in model:
                 chain_id = chain.get_id()
@@ -219,9 +217,8 @@ they are easy to find and change, and so that ``main()`` only contains the workf
                 print(f"Chain {chain_id}: {num_residues} residues")
 
     def main():
-        """
-        Create parser, open file, create structure object, call summarize_chains()
-        """
+        # Create parser, open file, create structure object, call summarize_chains()
+
         parser = MMCIFParser()
         with open(CIF_FILE, 'r') as f:
             structure = parser.get_structure(STRUCTURE_ID, f)
@@ -243,9 +240,8 @@ file as a script runs the workflow, but importing the file does not:
     STRUCTURE_ID = "myoglobin"
 
     def summarize_chains(structure):
-        """
-        Print residue count for each chain in each model.
-        """
+        # Print residue count for each chain in each model.
+
         for model in structure:
             for chain in model:
                 chain_id = chain.get_id()
@@ -255,9 +251,8 @@ file as a script runs the workflow, but importing the file does not:
                 print(f"Chain {chain_id}: {num_residues} residues")
 
     def main():
-        """
-        Create parser, open file, create structure object, call summarize_chains()
-        """
+        # Create parser, open file, create structure object, call summarize_chains()
+        
         parser = MMCIFParser()
         with open(CIF_FILE, 'r') as f:
             structure = parser.get_structure(STRUCTURE_ID, f)
@@ -414,7 +409,7 @@ single jobs:
 
 .. code-block:: python3
     :linenos:
-    :emphasize-lines: 3, 27
+    :emphasize-lines: 3, 25
     :caption: fastq_summary.py 
 
     import json
@@ -422,9 +417,8 @@ single jobs:
     from models import ReadSummary, FastqSummary
 
     def summarize_record(record) -> ReadSummary:
-        """
-        Convert one FASTQ record into a ReadSummary instance
-        """
+        # Convert one FASTQ record into a ReadSummary instance
+
         phred_scores = record.letter_annotations['phred_quality']
         average_phred = sum(phred_scores) / len(phred_scores)
 
@@ -436,9 +430,8 @@ single jobs:
         )
 
     def summarize_fastq_file(fastq_file: str, encoding: str) -> FastqSummary:
-        """
-        Read a FASTQ file and return a FastqSummary instance 
-        """
+        # Read a FASTQ file and return a FastqSummary instance 
+
         reads_list = []
 
         with open(fastq_file, 'r') as f:
@@ -448,9 +441,8 @@ single jobs:
         return FastqSummary(reads=reads_list)
 
     def write_summary_to_json(summary: FastqSummary, output_file: str) -> None:
-        """
-        Write FastqSummary to a JSON file
-        """
+        # Write FastqSummary to a JSON file
+
         with open(output_file, 'w') as outfile:
             json.dump(summary.model_dump(), outfile, indent=2)
 
@@ -489,9 +481,8 @@ a module:
     # Functions 
     # -------------------------
     def summarize_record(record) -> ReadSummary:
-        """
-        Convert one FASTQ record into a ReadSummary instance
-        """
+        # Convert one FASTQ record into a ReadSummary instance
+
         phred_scores = record.letter_annotations['phred_quality']
         average_phred = sum(phred_scores) / len(phred_scores)
 
@@ -503,9 +494,8 @@ a module:
         )
 
     def summarize_fastq_file(fastq_file: str, encoding: str) -> FastqSummary:
-        """
-        Read a FASTQ file and return a FastqSummary instance 
-        """
+        # Read a FASTQ file and return a FastqSummary instance 
+
         reads_list = []
 
         with open(fastq_file, 'r') as f:
@@ -515,9 +505,8 @@ a module:
         return FastqSummary(reads=reads_list)
 
     def write_summary_to_json(summary: FastqSummary, output_file: str) -> None:
-        """
-        Write FastqSummary to a JSON file
-        """
+        # Write FastqSummary to a JSON file
+
         with open(output_file, 'w') as outfile:
             json.dump(summary.model_dump(), outfile, indent=2)
 
