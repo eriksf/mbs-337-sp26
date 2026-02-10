@@ -357,6 +357,7 @@ Here's a few things we could add:
 
    .. code-block:: python3
         :linenos:
+        :emphasize-lines: 38, 51, 58, 62, 67, 70, 75
 
         import json
         import argparse
