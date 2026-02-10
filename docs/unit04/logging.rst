@@ -198,11 +198,35 @@ Here's an example format string:
         '%(filename)s:%(funcName)s:%(lineno)s - %(levelname)s: %(message)s'
     )
 
+This string tells the logging system how each log line should look. There's two kinds of 
+formatting happening: 
 
+1. **Python f-string formatting**: happens immediately when the program runs; used here to insert the hostname
+2. **Logging placeholders** (e.g. ``%(...)s```): these are filled in later by the logging system; each placeholder corresponds to information about the log event. 
 
+   * ``%(asctime)s`` – The time the log message was created 
+   * ``%(filname)s`` – The name of the Python file that logged the message
+   * ``%(funcName)s`` – The function where the log call occurred (``<module>`` means the top level of the file)
+   * ``%(linenos)s`` – The line number where the log call appears
+   * ``%(levelname)s`` – The log level (DEBUG, INFO, WARNING, etc.)
+   * ``%(message)s`` – The message you pass to ``logging.warning()``, ``logging.error()``, etc.
 
+A table explaining these attributes and more can be found `here <https://docs.python.org/3/library/logging.html#logrecord-attributes>`_.
 
+.. admonition:: Placeholders 
 
+    You can also use ``%s`` as a placeholder for anything you want! For example, we could do the following:
+
+    .. code-block:: python3 
+
+        logging.info("Reading FASTQ file %s", fastq_file) 
+
+    At runtime, logging will replace ``%s`` with the value of ``fastq_file``. If fastq_file = "reads.fastq", then the log 
+    output becomes:
+
+    .. code-block:: python3 
+
+        INFO: Reading FASTQ file reads.fastq 
 
 
 Here's an example:
@@ -235,12 +259,8 @@ Here's an example:
     logging.error('This is an ERROR message')
     logging.critical('This is a CRITICAL message')
 
-The format uses placeholders the logging module understands: ``%(asctime)s``
-(time), ``%(filename)s``, ``%(funcName)s``, ``%(lineno)s``, ``%(levelname)s``,
-``%(message)s``. A table explaining these attributes and more can be found 
+A table explaining these attributes and more can be found 
 `here <https://docs.python.org/3/library/logging.html#logrecord-attributes>`_.
-
-Your output might look like:
 
 .. code-block:: console
 
@@ -253,17 +273,37 @@ Your output might look like:
 Exercise: Add logging to the FASTQ summary script
 ------------------------------------------------
 
-The script below reads a FASTQ file, summarizes each read, and writes the
-results to JSON. **Add logging** to it, with emphasis on:
+Let's add logging to our FASTQ summary script.
+Here's a few things we could add:
 
-* **DEBUG** — e.g. when you open a file, start processing, or finish a step
-* **ERROR** — when something goes wrong (e.g. file not found, invalid data)
+.. list-table::
+    :align: center
+    :header-rows: 1
 
-Use the ``logging`` module and ``basicConfig``. Optionally support a
-command-line log level (e.g. ``-l DEBUG``) and a format that includes
-timestamp and location.
-
-Starter script (no logging yet):
+    * - Location 
+      - Level 
+      - What to log 
+    * - ``summarize_record()`` 
+      - DEBUG  
+      - Summarizing record record.id 
+    * - ``summarize_fastq_file()``
+      - INFO 
+      - Reading FASTQ file fastq_file 
+    * - ``summarize_fastq_file()``
+      - INFO 
+      - Finished reading x reads  
+    * - ``write_summary_to_json()``
+      - INFO 
+      - Writing summary to output_file 
+    * - ``write_summary_to_json()``
+      - INFO 
+      - Finished writing output_file 
+    * - ``main()``
+      - INFO 
+      - Starting FASTQ summary workfow 
+    * - ``main()``
+      - INFO 
+      - FASTQ summary workflow complete!
 
 .. code-block:: python3
    :linenos:
@@ -283,8 +323,6 @@ Starter script (no logging yet):
    # Functions
    # -------------------------
    def summarize_record(record) -> ReadSummary:
-       # Convert one FASTQ record into a ReadSummary instance
-
        phred_scores = record.letter_annotations['phred_quality']
        average_phred = sum(phred_scores) / len(phred_scores)
 
@@ -296,8 +334,6 @@ Starter script (no logging yet):
        )
 
    def summarize_fastq_file(fastq_file: str, encoding: str) -> FastqSummary:
-       # Read a FASTQ file and return a FastqSummary instance
-
        reads_list = []
 
        with open(fastq_file, 'r') as f:
@@ -307,8 +343,6 @@ Starter script (no logging yet):
        return FastqSummary(reads=reads_list)
 
    def write_summary_to_json(summary: FastqSummary, output_file: str) -> None:
-       # Write FastqSummary to a JSON file
-
        with open(output_file, 'w') as outfile:
            json.dump(summary.model_dump(), outfile, indent=2)
 
@@ -319,97 +353,91 @@ Starter script (no logging yet):
    if __name__ == '__main__':
        main()
 
-.. toggle:: Click to see the solution
-
-   One way to add DEBUG and ERROR logging, plus optional command-line log
-   level and a clear format:
+.. toggle::
 
    .. code-block:: python3
-      :linenos:
+        :linenos:
 
-      import argparse
-      import json
-      import logging
-      from pathlib import Path
+        import json
+        import argparse
+        import logging
+        import socket
+        from Bio import SeqIO
+        from models import ReadSummary, FastqSummary
 
-      from Bio import SeqIO
-      from models import ReadSummary, FastqSummary
+        # -------------------------
+        # Constants (configuration)
+        # -------------------------
+        FASTQ_FILE = 'raw_reads.fastq'
+        OUTPUT_JSON = 'fastq_summary.json'
+        ENCODING = 'fastq-sanger'
 
-      # -------------------------
-      # Constants (configuration)
-      # -------------------------
-      FASTQ_FILE = 'raw_reads.fastq'
-      OUTPUT_JSON = 'fastq_summary.json'
-      ENCODING = 'fastq-sanger'
+        # -------------------------
+        # Logging setup
+        # -------------------------
+        parser = argparse.ArgumentParser()
+        parser.add_argument(
+            '-l', '--loglevel',
+            type=str,
+            required=False,
+            default='WARNING',
+            help='set log level to DEBUG, INFO, WARNING, ERROR, or CRITICAL'
+        )
+        args = parser.parse_args()
 
-      # -------------------------
-      # Functions
-      # -------------------------
-      def summarize_record(record) -> ReadSummary:
-          phred_scores = record.letter_annotations['phred_quality']
-          average_phred = sum(phred_scores) / len(phred_scores)
-          return ReadSummary(
-              id=record.id,
-              sequence=str(record.seq),
-              total_bases=len(record.seq),
-              average_phred=round(average_phred, 2)
-          )
+        format_str = (
+            f'[%(asctime)s {socket.gethostname()}] '
+            '%(filename)s:%(funcName)s:%(lineno)s - %(levelname)s: %(message)s'
+        )
+        logging.basicConfig(level=args.loglevel, format=format_str)
 
-      def summarize_fastq_file(fastq_file: str, encoding: str) -> FastqSummary:
-          reads_list = []
-          if not Path(fastq_file).exists():
-              logging.error('Input file not found: %s', fastq_file)
-              raise FileNotFoundError(f'Input file not found: {fastq_file}')
+        # -------------------------
+        # Functions
+        # -------------------------
+        def summarize_record(record) -> ReadSummary:
+            logging.debug("Summarizing record %s", record.id)
 
-          logging.debug('Opening FASTQ file: %s', fastq_file)
-          with open(fastq_file, 'r') as f:
-              for i, record in enumerate(SeqIO.parse(f, encoding)):
-                  reads_list.append(summarize_record(record))
-                  if (i + 1) % 100 == 0:
-                      logging.debug('Processed %d reads', i + 1)
+            phred_scores = record.letter_annotations['phred_quality']
+            average_phred = sum(phred_scores) / len(phred_scores)
 
-          logging.debug('Finished reading %d reads from %s', len(reads_list), fastq_file)
-          return FastqSummary(reads=reads_list)
+            return ReadSummary(
+                id=record.id,
+                sequence=str(record.seq),
+                total_bases=len(record.seq),
+                average_phred=round(average_phred, 2)
+            )
 
-      def write_summary_to_json(summary: FastqSummary, output_file: str) -> None:
-          try:
-              logging.debug('Writing summary to %s (%d reads)', output_file, len(summary.reads))
-              with open(output_file, 'w') as outfile:
-                  json.dump(summary.model_dump(), outfile, indent=2)
-              logging.debug('Successfully wrote %s', output_file)
-          except OSError as e:
-              logging.error('Failed to write %s: %s', output_file, e)
-              raise
+        def summarize_fastq_file(fastq_file: str, encoding: str) -> FastqSummary:
+            logging.info("Reading FASTQ file %s", fastq_file)
 
-      def main():
-          parser = argparse.ArgumentParser()
-          parser.add_argument('-l', '--loglevel', type=str, default='WARNING',
-                              help='Log level: DEBUG, INFO, WARNING, ERROR, CRITICAL')
-          args = parser.parse_args()
-          logging.basicConfig(
-              level=getattr(logging, args.loglevel.upper(), logging.WARNING),
-              format='%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s'
-          )
+            reads_list = []
+            with open(fastq_file, 'r') as f:
+                for record in SeqIO.parse(f, encoding):
+                    reads_list.append(summarize_record(record))
 
-          summary = summarize_fastq_file(FASTQ_FILE, ENCODING)
-          write_summary_to_json(summary, OUTPUT_JSON)
+            logging.info("Finished reading %d reads", len(reads_list))
+            return FastqSummary(reads=reads_list)
 
-      if __name__ == '__main__':
-          main()
+        def write_summary_to_json(summary: FastqSummary, output_file: str) -> None:
+            logging.info("Writing summary to %s", output_file)
 
-   **What this solution does:**
+            with open(output_file, 'w') as outfile:
+                json.dump(summary.model_dump(), outfile, indent=2)
 
-   * **DEBUG** — Logs when the FASTQ file is opened, progress every 100 reads,
-     total reads read, and when writing the JSON file (start and success).
-   * **ERROR** — Logs when the input file is missing and when writing the
-     output file fails; then re-raises so the program still fails visibly.
-   * **Command-line** — ``-l DEBUG`` (or ``--loglevel DEBUG``) shows all
-     debug messages; default remains WARNING.
-   * **Format** — Uses timestamp, level, filename:line, and message so you can
-     trace where each log line came from.
+            logging.info("Finished writing %s", output_file)
 
-   You can add more DEBUG lines (e.g. per-read in a small file) or INFO
-   messages for normal milestones; the pattern is the same.
+        def main():
+            logging.info("Starting FASTQ summary workflow")
+
+            summary = summarize_fastq_file(FASTQ_FILE, ENCODING)
+            write_summary_to_json(summary, OUTPUT_JSON)
+
+            logging.info("FASTQ summary workflow complete")
+
+        if __name__ == '__main__':
+            main()
+
+Now try running your script specifying different logging levels with ``-l`` and compare the output.
 
 Additional resources
 --------------------
