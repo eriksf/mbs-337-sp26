@@ -465,6 +465,7 @@ a module:
 
 .. code-block:: python3
     :linenos:
+    :caption: fastq_summary.py
 
     import json
     from Bio import SeqIO
@@ -522,7 +523,7 @@ wanted:
 
 .. code-block:: python3
     :linenos:
-    :caption: new_fastq_analysis.py 
+    :caption: my_fastq_analysis.py 
 
     from fastq_summary import summarize_fastq_file, write_summary_to_json
 
