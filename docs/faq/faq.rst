@@ -113,6 +113,7 @@ Find solutions to common problems below
 
       ### Exercise 1
       ***Requires pydantic package***
+      
       Description of the exercise and what you did. Optionally describe any functions/classes defined within your code:
       1. **find_total_mass**: description
       2. **find_large_proteins**: description
