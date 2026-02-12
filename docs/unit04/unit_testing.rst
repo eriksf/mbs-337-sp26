@@ -25,9 +25,6 @@ For example, if we have a function called ``summarize_record()`` that processes 
 single FASTQ read, a unit test would verify that when we give it a specific FASTQ 
 record, it returns the expected summary data.
 
-Why Unit Testing?
------------------
-
 Unit tests help us:
 
 * **Catch bugs early**: Find problems before they affect users or other parts of the code
@@ -117,7 +114,7 @@ result. It would be more efficient if we had a way to check that the correct
 answer is returned in our test script itself. To do this, we can use the ``assert``
 statement.
 
-What is an Assertion?
+Assertions
 ---------------------
 
 An **assertion** is a statement that checks if a condition is true. If the condition
