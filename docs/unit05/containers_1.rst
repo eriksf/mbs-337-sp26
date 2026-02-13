@@ -133,9 +133,9 @@ images to identify specific versions of images. It is mostly public, and many
 Image Tags
 ~~~~~~~~~~
 
-Docker supports image tags, similar to tags in a git repository. Tags identify 
-a specific version of an image. The full name of an image on Docker Hub is 
-comprised of components separated by slashes. The components include an 
+Docker supports image tags, similar to tags in a git repository. Tags identify
+a specific version of an image. The full name of an image on Docker Hub is
+comprised of components separated by slashes. The components include an
 "owner" (which could be an individual or organization), the "name",
 and the "version". For example, an image with the full name
 
@@ -170,40 +170,39 @@ Getting Started With Docker
 Much like the ``git`` command line tools, the ``docker`` command line tools
 follow the syntax: ``docker <verb> <parameters>``. Discover all the verbs
 available by typing ``docker --help``, and discover help for each verb by typing
-``docker <verb> --help``. Open up your favorite terminal, log in to your own 
+``docker <verb> --help``. Open up your favorite terminal, log in to your own
 student VM, and try running the following:
 
 .. code-block:: console
 
-   [mbs-337-vm]$ docker version
+   [mbs337-vm]$ docker version
    Client:
-    Version:           26.1.3
-    API version:       1.45
-    Go version:        go1.22.2
-    Git commit:        26.1.3-0ubuntu1~24.04.1
-    Built:             Mon Oct 14 14:29:26 2024
+    Version:           28.2.2
+    API version:       1.50
+    Go version:        go1.23.1
+    Git commit:        28.2.2-0ubuntu1~24.04.1
+    Built:             Wed Sep 10 14:16:39 2025
     OS/Arch:           linux/amd64
     Context:           default
-   
+
    Server:
     Engine:
-     Version:          26.1.3
-     API version:      1.45 (minimum version 1.24)
-     Go version:       go1.22.2
-     Git commit:       26.1.3-0ubuntu1~24.04.1
-     Built:            Mon Oct 14 14:29:26 2024
+     Version:          28.2.2
+     API version:      1.50 (minimum version 1.24)
+     Go version:       go1.23.1
+     Git commit:       28.2.2-0ubuntu1~24.04.1
+     Built:            Wed Sep 10 14:16:39 2025
      OS/Arch:          linux/amd64
      Experimental:     false
     containerd:
-     Version:          1.7.12
-     GitCommit:        
+     Version:          1.7.28
+     GitCommit:
     runc:
-     Version:          1.1.12-0ubuntu3.1
-     GitCommit:        
+     Version:          1.3.3-0ubuntu1~24.04.3
+     GitCommit:
     docker-init:
      Version:          0.19.0
-     GitCommit:        
-
+     GitCommit:
 
 .. warning::
 
@@ -226,13 +225,16 @@ server, we will pull a 'hello-world' image from Docker Hub, then we will run the
 'hello-world' image to see what it says.
 
 List images on your server with the ``docker images`` command. This peeks
-into the Docker daemon, to see which images are available, when they were created, 
+into the Docker daemon, to see which images are available, when they were created,
 and how large they are:
 
 .. code-block:: console
 
-   [coe332-vm]$ docker images
-   REPOSITORY            TAG       IMAGE ID       CREATED        SIZE
+   [mbs337-vm]$ docker images
+   REPOSITORY                                                      TAG       IMAGE ID       CREATED         SIZE
+   registry.gitlab.com/exosphere/exosphere/guacamole/guacd         latest    b87c151e82aa   12 months ago   241MB
+   registry.gitlab.com/exosphere/exosphere/guacamole/guacamole     latest    37a59d9ff144   12 months ago   511MB
+   registry.gitlab.com/exosphere/exosphere/containrrr/watchtower   latest    e7dd50d07b86   2 years ago     14.7MB
 
 
 
@@ -242,11 +244,11 @@ image:
 
 .. code-block:: console
 
-   [coe332-vm]$ docker pull hello-world
+   [mbs337-vm]$ docker pull hello-world
    Using default tag: latest
    latest: Pulling from library/hello-world
-   0e03bdcc26d7: Pull complete
-   Digest: sha256:31b9c7d48790f0d8c50ab433d9c3b7e17666d6993084c002c2ff1ca09b96391d
+   17eec7bbc9d7: Pull complete
+   Digest: sha256:ef54e839ef541993b4e87f25e752f7cf4238fa55f017957c2eb44077083d7a6a
    Status: Downloaded newer image for hello-world:latest
    docker.io/library/hello-world:latest
 
@@ -257,7 +259,7 @@ that has been configured as the 'default command' when the image was built:
 
 .. code-block:: console
 
-   [coe332-vm]$ docker run hello-world
+   [mbs337-vm]$ docker run hello-world
 
    Hello from Docker!
    This message shows that your installation appears to be working correctly.
@@ -280,7 +282,6 @@ that has been configured as the 'default command' when the image was built:
    For more examples and ideas, visit:
     https://docs.docker.com/get-started/
 
-
 Check to see if any containers are still running using ``docker ps``:
 
 .. code-block:: console
@@ -300,7 +301,7 @@ currently running containers.
 Pull An Official Image
 ----------------------
 
-One powerful aspect of developing with containers and the Docker ecosystem is the 
+One powerful aspect of developing with containers and the Docker ecosystem is the
 large collection of container images freely available. There are 100s of thousands
 of images on Docker Hub alone (10s of millions if you count the tags), but beware:
 using an image that you don't know anything about comes with the same risks
@@ -308,33 +309,33 @@ involved with running any software.
 
 .. warning::
 
-   Be careful running container images that you are not familiar with. Some could contain 
-   security vulnerabilities or, even worse, malicious code like viruses or ransomware. 
+   Be careful running container images that you are not familiar with. Some could contain
+   security vulnerabilities or, even worse, malicious code like viruses or ransomware.
 
 To combat this, Docker Hub provides `"Official Images" <https://docs.docker.com/docker-hub/official_images/>`_,
 a well-maintained set of container images providing high-quality installations of operating
 systems, programming language environments and more.
 
-We can search through the official images on Docker Hub `here <https://hub.docker.com/search?image_filter=official&q=&type=image>`_.
+We can search through the official images on Docker Hub `here <https://hub.docker.com/search?type=image&badges=official>`_.
 
-Scroll down to find the Python official image called ``python``, then 
+Scroll down to find the Python official image called ``python``, then
 click on that `image <https://hub.docker.com/_/python>`_.
 
-We see a lot of information about how to use the image, including information about the different 
-"tags" available. We see tags such as ``3.14-rc``, ``3.13.2``, ``3.12.9``, ``3``, etc.
+We see a lot of information about how to use the image, including information about the different
+"tags" available. We see tags such as ``3.15-rc``, ``3.14.3``, ``3.13.12``, ``3``, etc.
 We'll discuss tags in detail later, but for now, does anyone have a guess as to what
-the Python tags refer to? 
+the Python tags refer to?
 
 We can pull the official Python image using command, then check to make sure it is
 available locally:
 
 .. code-block:: console
 
-   [coe332-vm]$ docker pull python
+   [mbs337-vm]$ docker pull python
    ...
-   [coe332-vm]$ docker images
+   [mbs337-vm]$ docker images
    ...
-   [coe332-vm]$ docker inspect python
+   [mbs337-vm]$ docker inspect python
    ...
 
 .. tip::
@@ -355,15 +356,15 @@ commands on your private VM (we will see why in a minute):
 
 .. code-block:: console
 
-   [coe332-vm]$ whoami
+   [mbs337-vm]$ whoami
    ubuntu
-   [coe332-vm]$ pwd
+   [mbs337-vm]$ pwd
    /home/ubuntu
-   [coe332-vm]$ cat /etc/os-release
-   PRETTY_NAME="Ubuntu 24.04.1 LTS"
+   [mbs337-vm]$ cat /etc/os-release
+   PRETTY_NAME="Ubuntu 24.04.3 LTS"
    NAME="Ubuntu"
    VERSION_ID="24.04"
-   VERSION="24.04.1 LTS (Noble Numbat)"
+   VERSION="24.04.3 LTS (Noble Numbat)"
    VERSION_CODENAME=noble
    ID=ubuntu
    ID_LIKE=debian
@@ -378,7 +379,7 @@ Now start the interactive shell inside a Python container:
 
 .. code-block:: console
 
-   [coe332-vm]$ docker run --rm -it python /bin/bash
+   [mbs337-vm]$ docker run --rm -it python /bin/bash
    root@fc5b620c5a88:/#
 
 Here is an explanation of the command options:
@@ -388,7 +389,7 @@ Here is an explanation of the command options:
   docker run       # run a container
   --rm             # remove the container when we exit
   -it              # interactively attach terminal to inside of container
-  python           # use the official python image 
+  python           # use the official python image
   /bin/bash        # execute the bash shell program inside container
 
 Try the following commands - the same commands you did above before starting the
@@ -396,16 +397,17 @@ interactive shell in the container - and note what has changed:
 
 .. code-block:: console
 
-   root@fc5b620c5a88:/# whoami
+   root@acbe88045ebb:/# whoami
    root
-   root@fc5b620c5a88:/# pwd
+   root@acbe88045ebb:/# pwd
    /
-   root@fc5b620c5a88:/# cat /etc/os-release
-   PRETTY_NAME="Debian GNU/Linux 12 (bookworm)"
+   root@acbe88045ebb:/# cat /etc/os-release
+   PRETTY_NAME="Debian GNU/Linux 13 (trixie)"
    NAME="Debian GNU/Linux"
-   VERSION_ID="12"
-   VERSION="12 (bookworm)"
-   VERSION_CODENAME=bookworm
+   VERSION_ID="13"
+   VERSION="13 (trixie)"
+   VERSION_CODENAME=trixie
+   DEBIAN_VERSION_FULL=13.3
    ID=debian
    HOME_URL="https://www.debian.org/"
    SUPPORT_URL="https://www.debian.org/support"
@@ -418,17 +420,17 @@ EXERCISE
 ~~~~~~~~
 
 Before you exit the container, try running the command ``python3``. What happens?
-Compare that with running the command ``python3`` directly on your student VM. 
+Compare that with running the command ``python3`` directly on your student VM.
 
 
 Run a Command Inside a Container
 --------------------------------
 
 Back out on your student VM, we now know we have a container image called
-``python`` that has a particular version of Python (3.12.1) that is 
-otherwise not available on your student server. The 3.12.1 Python interpreter,  
-it's standard library, and all of the dependencies of those are included in the 
-container image and 
+``python`` that has a particular version of Python (3.14.3) that is
+otherwise not available on your student server. The 3.14.3 Python interpreter,
+it's standard library, and all of the dependencies of those are included in the
+container image and
 are *isolated* from everything else. This image (``python``) is portable
 and will run the exact same way on any OS that Docker supports.
 
@@ -439,37 +441,37 @@ to use a software application inside an image. Docker allows you to spin up an
 
 .. code-block:: console
 
-   [coe332-vm]$ docker run python whoami
+   [mbs337-vm]$ docker run python whoami
    root
-   [coe332-vm]$ docker run python pwd
+   [mbs337-vm]$ docker run python pwd
    /
-   [coe332-vm]$ docker run python cat /etc/os-release
-   PRETTY_NAME="Debian GNU/Linux 12 (bookworm)"
+   [mbs337-vm]$ docker run python cat /etc/os-release
+   PRETTY_NAME="Debian GNU/Linux 13 (trixie)"
    NAME="Debian GNU/Linux"
-   VERSION_ID="12"
-   VERSION="12 (bookworm)"
-   VERSION_CODENAME=bookworm
+   VERSION_ID="13"
+   VERSION="13 (trixie)"
+   VERSION_CODENAME=trixie
+   DEBIAN_VERSION_FULL=13.3
    ID=debian
    HOME_URL="https://www.debian.org/"
    SUPPORT_URL="https://www.debian.org/support"
    BUG_REPORT_URL="https://bugs.debian.org/"
-   [coe332-vm]$ docker run -it python
-   Python 3.13.2 (main, Feb  6 2025, 22:37:13) [GCC 12.2.0] on linux
+   [mbs337-vm]$ docker run -it python
+   Python 3.14.3 (main, Feb  4 2026, 20:08:31) [GCC 14.2.0] on linux
    Type "help", "copyright", "credits" or "license" for more information.
-   >>> 
+   >>>
 
 
 In the first three commands above, we omitted the ``-it`` flags because they did not
 require an interactive terminal to run. On each of these commands, Docker finds
 the image the command refers to, spins up a new container based on that image,
-executes the given command inside, prints the result, and exits and removes the
-container.
+executes the given command inside, prints the result, and exits.
 
-The last command, which did not specify a command to run inside the container, uses the container's 
-default command. We don't know ahead of time what (if any) default command is provided for 
-any given image, but what default command was provided for the ``python`` image? 
+The last command, which did not specify a command to run inside the container, uses the container's
+default command. We don't know ahead of time what (if any) default command is provided for
+any given image, but what default command was provided for the ``python`` image?
 
-Yes, it was the ``python3`` command itself, and that requires an interactivity to use, 
+Yes, it was the ``python3`` command itself, and that requires an interactivity to use,
 so we provide the ``-it`` flags.
 
 
@@ -512,18 +514,19 @@ If all else fails, display the help text:
 
 .. code-block:: console
 
-   [coe332-vm]$ docker --help
+   [mbs337-vm]$ docker --help
    shows all docker options and summaries
 
 
 .. code-block:: console
 
-   [coe332-vm]$ docker COMMAND --help
+   [mbs337-vm]$ docker COMMAND --help
    shows options and summaries for a particular command
 
 Additional Resources
 --------------------
 
+* Many of the materials in this module were adapted from `COE 332: Software Engineering & Design <https://coe-332-sp26.readthedocs.io/en/latest/unit05/containers_1.html>`_
 * `Docker Docs <https://docs.docker.com/>`_
 * `Best practices for writing Dockerfiles <https://docs.docker.com/develop/develop-images/dockerfile_best-practices/>`_
 * `Docker Hub <https://hub.docker.com/>`_
