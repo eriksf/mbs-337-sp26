@@ -202,7 +202,7 @@ find our input FASTQ file. We should add exception handling for a FileNotFoundEr
             logging.info("FASTQ summary workflow complete")
 
         except FileNotFoundError:
-            logging.error("Input FASTQ file %s not found. Exiting.", FASTQ_FILE)
+            logging.error(f"Input FASTQ file {FASTQ_FILE} not found. Exiting.")
             sys.exit(1) # Stop the execution of the script with an error 
 
 What if we accidentally wiped our input FASTQ file and how our input is empty? 
@@ -216,7 +216,7 @@ Somtimes the best solution is to just add a **guard statement** instead of excep
     :emphasize-lines: 9-11
 
     def summarize_fastq_file(fastq_file: str, encoding: str) -> FastqSummary:
-        logging.info("Reading FASTQ file %s", fastq_file)
+        logging.info(f"Reading FASTQ file {fastq_file}")
 
         reads_list = []
         with open(fastq_file, 'r') as f:
@@ -224,10 +224,10 @@ Somtimes the best solution is to just add a **guard statement** instead of excep
                 reads_list.append(summarize_record(record))
 
         if len(reads_list) == 0:
-            logging.error("Input FASTQ file %s is empty. Exiting.", fastq_file)
+            logging.error(f"Input FASTQ file {fastq_file} is empty. Exiting.")
             sys.exit(1)
 
-        logging.info("Finished reading %d reads", len(reads_list))
+        logging.info(f"Finished reading {len(reads_list)} reads")
         return FastqSummary(reads=reads_list)
 
 

@@ -223,27 +223,12 @@ formatting happening:
 
 A table explaining these attributes and more can be found `here <https://docs.python.org/3/library/logging.html#logrecord-attributes>`_.
 
-.. admonition:: Placeholders 
-
-    You can also use ``%s`` as a placeholder for anything you want! For example, we could do the following:
-
-    .. code-block:: python3 
-
-        logging.info("Reading FASTQ file %s", fastq_file) 
-
-    At runtime, logging will replace ``%s`` with the value of ``fastq_file``. If fastq_file = "reads.fastq", then the log 
-    output becomes:
-
-    .. code-block:: python3 
-
-        INFO: Reading FASTQ file reads.fastq 
-
 
 Here's an example:
 
 .. code-block:: python3
     :linenos:
-    :emphasize-lines: 3,10,11
+    :emphasize-lines: 3,13-17
 
     import argparse
     import logging
@@ -406,7 +391,7 @@ Here's a few things we could add:
         # Functions
         # -------------------------
         def summarize_record(record) -> ReadSummary:
-            logging.debug("Summarizing record %s", record.id)
+            logging.debug(f"Summarizing record {record.id}")
 
             phred_scores = record.letter_annotations['phred_quality']
             average_phred = sum(phred_scores) / len(phred_scores)
@@ -419,23 +404,23 @@ Here's a few things we could add:
             )
 
         def summarize_fastq_file(fastq_file: str, encoding: str) -> FastqSummary:
-            logging.info("Reading FASTQ file %s", fastq_file)
+            logging.info(f"Reading FASTQ file {fastq_file}")
 
             reads_list = []
             with open(fastq_file, 'r') as f:
                 for record in SeqIO.parse(f, encoding):
                     reads_list.append(summarize_record(record))
 
-            logging.info("Finished reading %d reads", len(reads_list))
+            logging.info(f"Finished reading {len(reads_list)} reads")
             return FastqSummary(reads=reads_list)
 
         def write_summary_to_json(summary: FastqSummary, output_file: str) -> None:
-            logging.info("Writing summary to %s", output_file)
+            logging.info(f"Writing summary to {output_file}")
 
             with open(output_file, 'w') as outfile:
                 json.dump(summary.model_dump(), outfile, indent=2)
 
-            logging.info("Finished writing %s", output_file)
+            logging.info(f"Finished writing {output_file}")
 
         def main():
             logging.info("Starting FASTQ summary workflow")
