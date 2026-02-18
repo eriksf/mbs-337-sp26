@@ -9,7 +9,7 @@ application consisting of, e.g., a Flask app, a database, a message queue, an
 authentication service, and more.
 
 **Docker compose** is a tool for managing multi-container applications. A YAML
-file is used to define all of the application service, and a few simple commands
+file is used to define all of the application services, and a few simple commands
 can be used to spin up or tear down all of the services.
 
 In this module, we will get a first look at Docker compose. After going
@@ -77,7 +77,7 @@ available in the container.
    [mbs337-vm]$ docker run --rm ncbi/sra-tools:3.3.0 which fastq-dump
    /usr/local/bin/fastq-dump
 
-We'll use SRA accession number `SRR1553607 <https://www.ncbi.nlm.nih.gov/sra/?term=SRR1553607>`_ which is a run
+We'll use SRA accession number, `SRR1553607 <https://www.ncbi.nlm.nih.gov/sra/?term=SRR1553607>`_, which is a run
 from a genome sequencing experiment on Zaire ebolavirus from a 2014 outbreak in Sierra Leone on the
 Illumina HiSeq 2500 and will generate a small FASTQ file that we can use for testing.
 
