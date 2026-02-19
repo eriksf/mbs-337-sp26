@@ -342,7 +342,7 @@ also use `docker inspect` to find out more information about the image.
 
 .. code-block:: console
 
-   [mbs337-vm]$ docker inspect username/ml_data_analysis:1.0
+   [mbs337-vm]$ docker inspect username/fastq_summary:1.0
 
 
 If you need to rename your image, you can either re-tag it with ``docker tag``, or
@@ -413,7 +413,52 @@ the container once it stops.
    [2026-02-15 22:14:59,675 3ac578d80356] fastq_summary.write_summary_to_json:117 - INFO - Writing summary to '/data/fastq_summary.json'
    [2026-02-15 22:14:59,676 3ac578d80356] fastq_summary.write_summary_to_json:120 - INFO - Finished writing '/data/fastq_summary.json'
    [2026-02-15 22:14:59,676 3ac578d80356] fastq_summary.main:132 - INFO - FASTQ summary workflow complete
+   root@dc0d6bf1875c:/# ls -l /data
+   total 48
+   -rw-rw-r-- 1 1000 1000   155 Feb 17 18:11 Dockerfile
+   drwxr-xr-x 2 root root  4096 Feb 17 18:00 __pycache__
+   -rw-r--r-- 1 root root 10801 Feb 17 20:54 fastq_summary.json
+   -rwxrwxr-x 1 1000 1000  4241 Feb 17 17:50 fastq_summary.py
+   -rw-rw-r-- 1 1000 1000   199 Feb 17 17:50 models.py
+   -rw-rw-r-- 1 1000 1000 14443 Feb 17 17:50 raw_reads.fastq
 
+Alas, there is one more issue to address. The new file is owned by root, simply
+because it is root who created the file inside the container. This is one minor
+Docker annoyance that we run in to from time to time. The simplest fix is to use
+one more ``docker run`` flag (``-u``) to specify the user and group ID namespace
+that should be used inside the container.
+
+.. code-block:: console
+
+   root@dc0d6bf1875c:/# rm /data/fastq_summary.json
+   root@dc0d6bf1875c:/# exit
+   [mbs337-vm]$ docker run --rm -it -v $PWD:/data -u $(id -u):$(id -g) username/fastq_summary:1.0 /bin/bash
+   I have no name!@75ee647ed283:/$ fastq_summary.py -l INFO -f /data/raw_reads.fastq -o /data/fastq_summary.json
+   [2026-02-17 21:08:51,675 75ee647ed283] fastq_summary.main:122 - INFO - Starting FASTQ summary workflow
+   [2026-02-17 21:08:51,675 75ee647ed283] fastq_summary.summarize_fastq_file:95 - INFO - Reading FASTQ file '/data/raw_reads.fastq'
+   [2026-02-17 21:08:51,676 75ee647ed283] fastq_summary.summarize_fastq_file:102 - INFO - Finished reading 40 reads
+   [2026-02-17 21:08:51,676 75ee647ed283] fastq_summary.write_summary_to_json:116 - INFO - Writing summary to '/data/fastq_summary.json'
+   [2026-02-17 21:08:51,677 75ee647ed283] fastq_summary.write_summary_to_json:119 - INFO - Finished writing '/data/fastq_summary.json'
+   [2026-02-17 21:08:51,677 75ee647ed283] fastq_summary.main:131 - INFO - FASTQ summary workflow complete
+   I have no name!@75ee647ed283:/$ ls -l /data/
+   total 48
+   -rw-rw-r-- 1 1000 1000   155 Feb 17 18:11 Dockerfile
+   drwxr-xr-x 2 root root  4096 Feb 17 18:00 __pycache__
+   -rw-r--r-- 1 1000 1000 10801 Feb 17 21:08 fastq_summary.json
+   -rwxrwxr-x 1 1000 1000  4241 Feb 17 17:50 fastq_summary.py
+   -rw-rw-r-- 1 1000 1000   199 Feb 17 17:50 models.py
+   -rw-rw-r-- 1 1000 1000 14443 Feb 17 17:50 raw_reads.fastq
+   I have no name!@75ee647ed283:/$ exit
+   [mbs337-vm]$ pwd
+   /home/ubuntu/mbs-337/docker-exercise
+   [mbs337-vm]$ ls -l
+   total 48
+   -rw-rw-r-- 1 ubuntu ubuntu   155 Feb 17 18:11 Dockerfile
+   drwxr-xr-x 2 root   root    4096 Feb 17 18:00 __pycache__
+   -rw-r--r-- 1 ubuntu ubuntu 10801 Feb 17 21:08 fastq_summary.json
+   -rwxrwxr-x 1 ubuntu ubuntu  4241 Feb 17 17:50 fastq_summary.py
+   -rw-rw-r-- 1 ubuntu ubuntu   199 Feb 17 17:50 models.py
+   -rw-rw-r-- 1 ubuntu ubuntu 14443 Feb 17 17:50 raw_reads.fastq
 
 Everything looks like it works now! Next, exit the container and test the code
 non-interactively. Notice we are calling the container again with ``docker run``,
@@ -426,14 +471,25 @@ flag, because we need to create a volume mount so that our data
 
    [mbs337-vm]$ docker run --rm \
                          -v $PWD:/data \
+                         -u $(id -u):$(id -g) \
                          username/fastq_summary:1.0 \
                          fastq_summary.py -l INFO -f /data/raw_reads.fastq -o /data/fastq_summary.json
-   [2026-02-15 22:20:56,643 8955ed1d6e58] fastq_summary.main:123 - INFO - Starting FASTQ summary workflow
-   [2026-02-15 22:20:56,643 8955ed1d6e58] fastq_summary.summarize_fastq_file:96 - INFO - Reading FASTQ file '/data/raw_reads.fastq'
-   [2026-02-15 22:20:56,644 8955ed1d6e58] fastq_summary.summarize_fastq_file:103 - INFO - Finished reading 40 reads
-   [2026-02-15 22:20:56,644 8955ed1d6e58] fastq_summary.write_summary_to_json:117 - INFO - Writing summary to '/data/fastq_summary.json'
-   [2026-02-15 22:20:56,645 8955ed1d6e58] fastq_summary.write_summary_to_json:120 - INFO - Finished writing '/data/fastq_summary.json'
-   [2026-02-15 22:20:56,645 8955ed1d6e58] fastq_summary.main:132 - INFO - FASTQ summary workflow complete
+   [2026-02-17 21:15:18,109 01eb956402d6] fastq_summary.main:122 - INFO - Starting FASTQ summary workflow
+   [2026-02-17 21:15:18,109 01eb956402d6] fastq_summary.summarize_fastq_file:95 - INFO - Reading FASTQ file '/data/raw_reads.fastq'
+   [2026-02-17 21:15:18,110 01eb956402d6] fastq_summary.summarize_fastq_file:102 - INFO - Finished reading 40 reads
+   [2026-02-17 21:15:18,110 01eb956402d6] fastq_summary.write_summary_to_json:116 - INFO - Writing summary to '/data/fastq_summary.json'
+   [2026-02-17 21:15:18,111 01eb956402d6] fastq_summary.write_summary_to_json:119 - INFO - Finished writing '/data/fastq_summary.json'
+   [2026-02-17 21:15:18,111 01eb956402d6] fastq_summary.main:131 - INFO - FASTQ summary workflow complete
+   [mbs337-vm]$ pwd
+   /home/ubuntu/mbs-337/docker-exercise
+   [mbs337-vm]$ ls -l
+   total 48
+   -rw-rw-r-- 1 ubuntu ubuntu   155 Feb 17 18:11 Dockerfile
+   drwxr-xr-x 2 root   root    4096 Feb 17 18:00 __pycache__
+   -rw-r--r-- 1 ubuntu ubuntu 10801 Feb 17 21:15 fastq_summary.json
+   -rwxrwxr-x 1 ubuntu ubuntu  4241 Feb 17 17:50 fastq_summary.py
+   -rw-rw-r-- 1 ubuntu ubuntu   199 Feb 17 17:50 models.py
+   -rw-rw-r-- 1 ubuntu ubuntu 14443 Feb 17 17:50 raw_reads.fastq
 
 Much simpler and cleaner! Our only local dependencies are the Docker runtime and
 some input data that we provide. Then we pull and run the image, mounting our
