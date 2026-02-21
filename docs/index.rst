@@ -21,6 +21,7 @@ research problems.
    unit03/overview
    unit04/overview
    unit05/overview
+   unit06/overview
 
 
 .. toctree::
@@ -46,5 +47,5 @@ Additional Resources:
 ---------------------
 
 * Slack: https://tacc-learn.slack.com/
-* Class Docs: https://mbs-337-sp26.readthedocs.io/ 
+* Class Docs: https://mbs-337-sp26.readthedocs.io/
 * Canvas: https://utexas.instructure.com/
