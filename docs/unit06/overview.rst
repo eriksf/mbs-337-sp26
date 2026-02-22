@@ -15,3 +15,4 @@ to make HTTP requests to APIs and how to parse the responses to extract useful i
 
    intro_to_redis
    intro_to_apis
+   bio_apis
