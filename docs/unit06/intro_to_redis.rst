@@ -129,13 +129,6 @@ include:
     Example of a key-value database. `Source2 <https://redis.com/nosql/key-value-databases/>`_
 
 
-
-
-
-
-
-
-
 **SQL vs NoSQL**
 
 Comparing SQL and NoSQL is an apples to oranges comparison.
@@ -428,7 +421,7 @@ Some quick notes:
 * We are using the IP of the gateway (``127.0.0.1``) on our localhost and the
   default Redis port (``6379``).
 * Redis organizes collections into "databases" identified by an integer index.
-  Here, we are specifying ``db=<some integer>``; if that database does not exist it will be
+  Here, we are specifying ``db=<some integer>`` (we chose 0); if that database does not exist it will be
   created for us.
 
 

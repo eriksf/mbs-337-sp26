@@ -14,16 +14,16 @@ be able to:
   in a Python script, including making requests and parsing responses.
 * **Design Principles**: Additionally, we will see how designing software with APIs
   contributes to the *modularity*, *portability*, *abstraction* and *generalization*
-  of software (all four major design principles). 
+  of software (all four major design principles).
 
 
 What are APIs?
 --------------
 
 An Application Programming Interface (API) establishes the protocols and methods
-for one piece of a program to communicate with another. APIs are useful for 
+for one piece of a program to communicate with another. APIs are useful for
 allowing large software systems to be built from smaller components, allowing the
-same components to be used by different systems, and insulating consumers from 
+same components to be used by different systems, and insulating consumers from
 changes to the implementation.
 
 Some examples of where you might see APIs implemented:
@@ -51,12 +51,14 @@ interactive interpreter:
 
 .. code-block:: console
 
-   [coe332-vm]$ python3
-   Python 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] on linux
+   [mbs337-vm]$ cd $HOME/mbs-337
+   [mbs337-vm]$ source .venv/bin/activate
+   [mbs337-vm]$ python3
+   Python 3.12.3 (main, Jan 22 2026, 20:57:42) [GCC 13.3.0] on linux
    Type "help", "copyright", "credits" or "license" for more information.
-   >>> 
+   >>>
 
-And enter the following: 
+And enter the following:
 
 .. code-block:: python3
 
@@ -93,13 +95,13 @@ contract, we might say something like:
 
 
 **Design Principles.** Can you see how the existence of the API provided by the ``json`` module increases modularity of the Python
-software ecosystem? 
+software ecosystem?
 
 
 Web APIs / HTTP
 ---------------
 
-In this course, we will be building Web APIs or HTTP APIs. These are interfaces
+In this course, we will be looking at Web APIs or HTTP APIs. These are interfaces
 that are exposed over HTTP, allowing them to be consumed by software running on different
 machines.
 
@@ -249,14 +251,14 @@ API is typically comprised of many endpoints. Note that not all HTTP verbs make 
 For example, an API would probably not include a PUT ``<base_url>/users`` endpoint, because
 semantically, that would mean updating the entire list of users.
 
-.. note:: 
+.. note::
 
    Response messages often make use of some data serialization format standard such
    as JSON, CSV or XML.
 
 **Design Principles.** Note that the architecture of REST, combining URL paths that represent *resources* with
 HTTP verbs that represnt *actions* to take on resources, constitutes *abstraction* and *generalization* as a large
-number of applications can be described in this way.  
+number of applications can be described in this way.
 
 
 REST APIs - Additional Simple Examples
@@ -399,13 +401,14 @@ We can use the browser to make this request, as before. If we enter
     "is_verified": false,
     "has_organization_projects": true,
     "has_repository_projects": true,
-    "public_repos": 152,
+    "public_repos": 225,
     "public_gists": 0,
-    "followers": 0,
+    "followers": 103,
     "following": 0,
     "html_url": "https://github.com/TACC",
     "created_at": "2011-06-09T16:47:08Z",
-    "updated_at": "2021-04-07T17:34:55Z",
+    "updated_at": "2022-07-12T16:29:02Z",
+    "archived_at": null,
     "type": "Organization"
   }
 
@@ -422,20 +425,44 @@ pip3:
 
 .. code-block:: console
 
-   [coe332-vm]$ pip3 install --user requests
+   [mbs337-vm]$ cd $HOME/mbs-337
+   [mbs337-vm]$ source .venv/bin/activate
+   (.venv) [mbs337-vm]$ pip3 install requests
    ...
-   Successfully installed requests-2.25.1
+   Successfully installed certifi-2026.1.4 charset_normalizer-3.4.4 idna-3.11 requests-2.32.5 urllib3-2.6.3
+   (.venv) [mbs337-vm]$ pip3 list
+   Package            Version
+   ------------------ --------
+   annotated-types    0.7.0
+   biopython          1.86
+   certifi            2026.1.4
+   charset-normalizer 3.4.4
+   idna               3.11
+   iniconfig          2.3.0
+   numpy              2.4.1
+   packaging          26.0
+   pip                24.0
+   pluggy             1.6.0
+   pydantic           2.12.5
+   pydantic_core      2.41.5
+   Pygments           2.19.2
+   pytest             9.0.2
+   redis              7.2.0
+   requests           2.32.5
+   typing_extensions  4.15.0
+   typing-inspection  0.4.2
+   urllib3            2.6.3
 
 You might test that the install was successful by trying to import the library
 in the interactive Python interpreter:
 
 .. code-block:: console
 
-   [coe332-vm]$ python3
-   Python 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] on linux
+   [mbs337-vm]$ python3
+   Python 3.12.3 (main, Jan 22 2026, 20:57:42) [GCC 13.3.0] on linux
    Type "help", "copyright", "credits" or "license" for more information.
    >>> import requests
-   >>> 
+   >>>
 
 
 The basic usage of the ``requests`` library is as follows:
@@ -463,17 +490,62 @@ EXERCISE
 
 Let's use ``requests`` to explore the GitHub API. Write functions to return the following:
 
-* Given a GitHub organization id, retrieve all information about the organization. Return
+* Given a GitHub organization id (``tacc``), retrieve all information about the organization. Return
   the information as a Python dictionary.
 * Given a GitHub organization id, retrieve a list of all of the members of the organization.
   Return the list of members as a Python list of strings, where each string contains the member's
   ``login`` (i.e., GitHub username) attribute.
 * Given a GitHub organization id, return a list of repositories controlled by the organization.
-  Return the list f repositories as a Python list of strings, where each string contains the
+  Return the list of repositories as a Python list of strings, where each string contains the
   repository ``full_name`` attribute.
 
+.. toggle:: Click
+
+  .. code-block:: console
+
+    >>> r = requests.get(url="https://api.github.com/orgs/tacc")
+    >>> r.status_code
+    200
+    >>> tacc = r.json()
+    >>> print(tacc)
+    {'login': 'TACC', 'id': 840408, 'node_id': 'MDEyOk9yZ2FuaXphdGlvbjg0MDQwOA==', 'url': 'https://api.github.com/orgs/TACC', 'repos_url': 'https://api.github.com/orgs/TACC/repos', 'events_url': 'https://api.github.com/orgs/TACC/events', 'hooks_url': 'https://api.github.com/orgs/TACC/hooks', 'issues_url': 'https://api.github.com/orgs/TACC/issues', 'members_url': 'https://api.github.com/orgs/TACC/members{/member}', 'public_members_url': 'https://api.github.com/orgs/TACC/public_members{/member}', 'avatar_url': 'https://avatars.githubusercontent.com/u/840408?v=4', 'description': '', 'name': 'Texas Advanced Computing Center', 'company': None, 'blog': 'http://www.tacc.utexas.edu', 'location': 'Austin, TX', 'email': None, 'twitter_username': None, 'is_verified': False, 'has_organization_projects': True, 'has_repository_projects': True, 'public_repos': 225, 'public_gists': 0, 'followers': 103, 'following': 0, 'html_url': 'https://github.com/TACC', 'created_at': '2011-06-09T16:47:08Z', 'updated_at': '2022-07-12T16:29:02Z', 'archived_at': None, 'type': 'Organization'}
+    >>> type(tacc)
+    <class 'dict'>
+    >>>
+    >>>
+    >>> r = requests.get(url="https://api.github.com/orgs/TACC/members")
+    >>> r.status_code
+    200
+    >>> tacc_members = r.json()
+    >>> print(tacc_members[0])
+    {'login': 'annedara', 'id': 2905303, 'node_id': 'MDQ6VXNlcjI5MDUzMDM=', 'avatar_url': 'https://avatars.githubusercontent.com/u/2905303?v=4', 'gravatar_id': '', 'url': 'https://api.github.com/users/annedara', 'html_url': 'https://github.com/annedara', 'followers_url': 'https://api.github.com/users/annedara/followers', 'following_url': 'https://api.github.com/users/annedara/following{/other_user}', 'gists_url': 'https://api.github.com/users/annedara/gists{/gist_id}', 'starred_url': 'https://api.github.com/users/annedara/starred{/owner}{/repo}', 'subscriptions_url': 'https://api.github.com/users/annedara/subscriptions', 'organizations_url': 'https://api.github.com/users/annedara/orgs', 'repos_url': 'https://api.github.com/users/annedara/repos', 'events_url': 'https://api.github.com/users/annedara/events{/privacy}', 'received_events_url': 'https://api.github.com/users/annedara/received_events', 'type': 'User', 'user_view_type': 'public', 'site_admin': False}
+    >>> logins = [m['login'] for m in tacc_members]
+    >>> print(logins)
+    ['annedara', 'GregAbram', 'happycodemonkey', 'jamescarson3', 'mpackard', 'mrcawood', 'nathanfranklin', 'nmendoza', 'NotChristianGarcia', 'pnav', 'rstijerina', 'rtmclay', 'scottre', 'semeraro', 'stephenlienharrell', 'VictorEijkhout', 'wesleyboar', 'wjallen']
+    >>> type(logins)
+    <class 'list'>
+    >>>
+    >>>
+    >>> r = requests.get(url="https://api.github.com/orgs/TACC/repos")
+    >>> r.status_code
+    200
+    >>> tacc_repos = r.json()
+    >>> print(tacc_repos[0])
+    {'id': 2217610, 'node_id': 'MDEwOlJlcG9zaXRvcnkyMjE3NjEw', 'name': 'DisplayCluster', 'full_name': 'TACC/DisplayCluster', 'private': False, 'owner': {'login': 'TACC', 'id': 840408, 'node_id': 'MDEyOk9yZ2FuaXphdGlvbjg0MDQwOA==', 'avatar_url': 'https://avatars.githubusercontent.com/u/840408?v=4', 'gravatar_id': '', 'url': 'https://api.github.com/users/TACC', 'html_url': 'https://github.com/TACC', 'followers_url': 'https://api.github.com/users/TACC/followers', 'following_url': 'https://api.github.com/users/TACC/following{/other_user}', 'gists_url': 'https://api.github.com/users/TACC/gists{/gist_id}', 'starred_url': 'https://api.github.com/users/TACC/starred{/owner}{/repo}', 'subscriptions_url': 'https://api.github.com/users/TACC/subscriptions', 'organizations_url': 'https://api.github.com/users/TACC/orgs', 'repos_url': 'https://api.github.com/users/TACC/repos', 'events_url': 'https://api.github.com/users/TACC/events{/privacy}', 'received_events_url': 'https://api.github.com/users/TACC/received_events', 'type': 'Organization', 'user_view_type': 'public', 'site_admin': False}, 'html_url': 'https://github.com/TACC/DisplayCluster', 'description': 'a collaborative software environment for large-scale tiled display systems', 'fork': False, 'url': 'https://api.github.com/repos/TACC/DisplayCluster', 'forks_url': 'https://api.github.com/repos/TACC/DisplayCluster/forks', 'keys_url': 'https://api.github.com/repos/TACC/DisplayCluster/keys{/key_id}', 'collaborators_url': 'https://api.github.com/repos/TACC/DisplayCluster/collaborators{/collaborator}', 'teams_url': 'https://api.github.com/repos/TACC/DisplayCluster/teams', 'hooks_url': 'https://api.github.com/repos/TACC/DisplayCluster/hooks', 'issue_events_url': 'https://api.github.com/repos/TACC/DisplayCluster/issues/events{/number}', 'events_url': 'https://api.github.com/repos/TACC/DisplayCluster/events', 'assignees_url': 'https://api.github.com/repos/TACC/DisplayCluster/assignees{/user}', 'branches_url': 'https://api.github.com/repos/TACC/DisplayCluster/branches{/branch}', 'tags_url': 'https://api.github.com/repos/TACC/DisplayCluster/tags', 'blobs_url': 'https://api.github.com/repos/TACC/DisplayCluster/git/blobs{/sha}', 'git_tags_url': 'https://api.github.com/repos/TACC/DisplayCluster/git/tags{/sha}', 'git_refs_url': 'https://api.github.com/repos/TACC/DisplayCluster/git/refs{/sha}', 'trees_url': 'https://api.github.com/repos/TACC/DisplayCluster/git/trees{/sha}', 'statuses_url': 'https://api.github.com/repos/TACC/DisplayCluster/statuses/{sha}', 'languages_url': 'https://api.github.com/repos/TACC/DisplayCluster/languages', 'stargazers_url': 'https://api.github.com/repos/TACC/DisplayCluster/stargazers', 'contributors_url': 'https://api.github.com/repos/TACC/DisplayCluster/contributors', 'subscribers_url': 'https://api.github.com/repos/TACC/DisplayCluster/subscribers', 'subscription_url': 'https://api.github.com/repos/TACC/DisplayCluster/subscription', 'commits_url': 'https://api.github.com/repos/TACC/DisplayCluster/commits{/sha}', 'git_commits_url': 'https://api.github.com/repos/TACC/DisplayCluster/git/commits{/sha}', 'comments_url': 'https://api.github.com/repos/TACC/DisplayCluster/comments{/number}', 'issue_comment_url': 'https://api.github.com/repos/TACC/DisplayCluster/issues/comments{/number}', 'contents_url': 'https://api.github.com/repos/TACC/DisplayCluster/contents/{+path}', 'compare_url': 'https://api.github.com/repos/TACC/DisplayCluster/compare/{base}...{head}', 'merges_url': 'https://api.github.com/repos/TACC/DisplayCluster/merges', 'archive_url': 'https://api.github.com/repos/TACC/DisplayCluster/{archive_format}{/ref}', 'downloads_url': 'https://api.github.com/repos/TACC/DisplayCluster/downloads', 'issues_url': 'https://api.github.com/repos/TACC/DisplayCluster/issues{/number}', 'pulls_url': 'https://api.github.com/repos/TACC/DisplayCluster/pulls{/number}', 'milestones_url': 'https://api.github.com/repos/TACC/DisplayCluster/milestones{/number}', 'notifications_url': 'https://api.github.com/repos/TACC/DisplayCluster/notifications{?since,all,participating}', 'labels_url': 'https://api.github.com/repos/TACC/DisplayCluster/labels{/name}', 'releases_url': 'https://api.github.com/repos/TACC/DisplayCluster/releases{/id}', 'deployments_url': 'https://api.github.com/repos/TACC/DisplayCluster/deployments', 'created_at': '2011-08-16T19:05:01Z', 'updated_at': '2025-01-31T23:40:15Z', 'pushed_at': '2026-01-26T18:32:10Z', 'git_url': 'git://github.com/TACC/DisplayCluster.git', 'ssh_url': 'git@github.com:TACC/DisplayCluster.git', 'clone_url': 'https://github.com/TACC/DisplayCluster.git', 'svn_url': 'https://github.com/TACC/DisplayCluster', 'homepage': '', 'size': 129751, 'stargazers_count': 40, 'watchers_count': 40, 'language': 'C++', 'has_issues': True, 'has_projects': True, 'has_downloads': True, 'has_wiki': False, 'has_pages': False, 'has_discussions': False, 'forks_count': 27, 'mirror_url': None, 'archived': False, 'disabled': False, 'open_issues_count': 17, 'license': {'key': 'other', 'name': 'Other', 'spdx_id': 'NOASSERTION', 'url': None, 'node_id': 'MDc6TGljZW5zZTA='}, 'allow_forking': True, 'is_template': False, 'web_commit_signoff_required': False, 'has_pull_requests': True, 'pull_request_creation_policy': 'all', 'topics': [], 'visibility': 'public', 'forks': 27, 'open_issues': 17, 'watchers': 40, 'default_branch': 'main', 'permissions': {'admin': False, 'maintain': False, 'push': False, 'triage': False, 'pull': True}, 'custom_properties': {}}
+    >>> repos = [r['full_name'] for r in tacc_repos]
+    >>> print(repos)
+    ['TACC/DisplayCluster', 'TACC/pylauncher', 'TACC/laser', 'TACC/latex_templates', 'TACC/MassivePixelEnvironment', 'TACC/t3pio', 'TACC/liferay-scala-portlet', 'TACC/GDBase', 'TACC/filemanager', 'TACC/CLUS', 'TACC/launcher', 'TACC/lariat', 'TACC/Lmod', 'TACC/GLuRay', 'TACC/perfexpert', 'TACC/ShellStartupDebug', 'TACC/Hermes', 'TACC/Themis', 'TACC/HPCPerfStats', 'TACC/vtkOSPRay', 'TACC/GraviT', 'TACC/pvOSPRay', 'TACC/visitOSPRay', 'TACC/SDVis', 'TACC/VolViewer', 'TACC/agavepy', 'TACC/abaco', 'TACC/channelpy', 'TACC/remora', 'TACC/hpc_spec']
+    >>> type(repos)
+    <class 'list'>
+    >>>
+
 **Design Principles.** We will use the concept of web APIs in a critical way for developing portable software. As
-web APIs are accessible to any software running in an environment with a stable internet connection, we can build 
-software components distributed across different computers (and even the entire internet) that work together. The 
+web APIs are accessible to any software running in an environment with a stable internet connection, we can build
+software components distributed across different computers (and even the entire internet) that work together. The
 precise locations of the software components won't matter and, when combined with other techniques, we will be able
-to freely move those components around and still have a fully functioning system.  
+to freely move those components around and still have a fully functioning system.
+
+Additional Resources
+--------------------
+
+* Many of the materials in this module were adapted from `COE 332: Software Engineering & Design <https://coe-332-sp26.readthedocs.io/en/latest/unit06/intro_to_apis.html>`_
