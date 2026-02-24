@@ -1,0 +1,28 @@
+{
+  "chains": [
+    {
+      "chain_id": "A",
+      "total_residues": 198,
+      "standard_residues": 141,
+      "hetero_residue_count": 57
+    },
+    {
+      "chain_id": "B",
+      "total_residues": 205,
+      "standard_residues": 146,
+      "hetero_residue_count": 59
+    },
+    {
+      "chain_id": "C",
+      "total_residues": 201,
+      "standard_residues": 141,
+      "hetero_residue_count": 60
+    },
+    {
+      "chain_id": "D",
+      "total_residues": 197,
+      "standard_residues": 146,
+      "hetero_residue_count": 51
+    }
+  ]
+}
