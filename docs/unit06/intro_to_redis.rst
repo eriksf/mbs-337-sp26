@@ -709,6 +709,31 @@ To stop the Redis container, you can use the following command:
     [mbs337-vm]$ docker ps -a
     CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS                     PORTS                                         NAMES
 
+After the last exercise, you should have seen that the data in the Redis database persisted across Python sessions
+but not across container sessions. This is because Redis is fundamentally an in-memory database for performance
+reasons. When the container is stopped, the data in memory is lost. To persist data across container sessions,
+you would need to configure Redis to save data to disk and use a volume to store the data outside of the container.
+
+.. code-block:: console
+
+   [mbs337-vm]$ docker volume create redis-data
+   redis-data
+   [mbs337-vm]$ docker volume ls
+   DRIVER    VOLUME NAME
+   local     redis-data
+   [mbs337-vm]$ docker run --rm --name redis -d -p 6379:6379 -v redis-data:/data redis:8 redis-server --appendonly yes --appendfsync everysec
+   8860df3cc4dda7ae8a53f2aed81ff915a2743a7ac94720fbeb4dcc134a181093
+   [mbs337-vm]$ docker ps
+   CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS                                         NAMES
+   8860df3cc4dd   redis:8   "docker-entrypoint.s…"   27 seconds ago   Up 27 seconds   0.0.0.0:6379->6379/tcp, [::]:6379->6379/tcp   redis
+   [mbs337-vm]$ docker exec redis redis-cli SET mykey "myvalue"
+   OK
+   [mbs337-vm]$ docker restart redis
+   redis
+   [mbs337-vm]$ docker exec redis redis-cli GET mykey
+   myvalue
+
+
 Additional Resources
 --------------------
 
