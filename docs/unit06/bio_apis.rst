@@ -9,7 +9,7 @@ information. After going through this module, students should be able to:
 
 - Understand the purpose and functionality of each API.
 - Make API requests to retrieve data from each platform.
-- Parse and utilize the retrieved data for various applications in bioinformatics.  
+- Parse and utilize the retrieved data for various applications in bioinformatics.
 
 iNaturalist
 -----------
@@ -36,7 +36,7 @@ Let's take a look at the iNaturalist API documentation to understand how to make
 
     iNaturalist API documentation.
 
-As the iNaturalist API documentation shows, we can make requests to retrieve observations. Since it is a 
+As the iNaturalist API documentation shows, we can make requests to retrieve observations. Since it is a
 standard RESTful API, we could use the ``requests`` library in Python to interact with it. But there is an
 easier way to interact with the iNaturalist API using the ``pyinaturalist`` library, which provides a more
 user-friendly interface for accessing the API. So let's install the ``pyinaturalist`` library.
@@ -119,7 +119,7 @@ this:
    >>> pin.pprint(obs)
 
      ID          Taxon ID   Taxon                                  Observed on    User              Location
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    -------------------------------------------------------------------------------------------------------------------------------------
      339941488   18205      Melanerpes carolinus (Red-Bellied      Feb 23, 2026   johnathan12034    W 30th St, Austin, TX, US
                             Woodpecker)
      339919433   1427972    Irpex latemarginatus (Frothy           Feb 23, 2026   kirsten24         701 Dean Keeton/San Jacinto, Austin,
@@ -153,7 +153,7 @@ this:
      339202074                                                     Feb 18, 2026   chrismyzoo        Austin
      339197531   1555999    Nephroia carolina (Carolina            Feb 18, 2026   utfarmstand       E 21st St, Austin, TX, US
                             Snailseed)
-   
+
    >>>
 
 Another nice thing we can do with the ``pyinaturalist`` library is to use their data models. This allows us to
@@ -294,7 +294,7 @@ And we can also access the photos associated with the observation.
 .. figure:: images/observation_photo_grackle_medium.jpg
     :align: center
 
-    Photo of the Great-Tailed Grackle observation.  
+    Photo of the Great-Tailed Grackle observation.
 
 
 RCSB Protein Data Bank
