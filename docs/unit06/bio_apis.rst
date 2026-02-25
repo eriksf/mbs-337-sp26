@@ -27,7 +27,7 @@ including information about the location, date, and species observed.
 
     iNaturalist main site.
 
-Let's take a look at the iNaturalist API documentation to understand how to make requests and retrieve data.
+Let's take a look at the `iNaturalist API documentation <https://api.inaturalist.org/v1/docs/>`_ to understand how to make requests and retrieve data.
 
 
 .. figure:: images/iNaturalist_api.png
@@ -299,3 +299,242 @@ And we can also access the photos associated with the observation.
 
 RCSB Protein Data Bank
 ----------------------
+
+The RCSB Protein Data Bank (PDB) is a repository for the 3D structural data of large biological molecules,
+such as proteins and nucleic acids. The PDB provides a wealth of information about the structure and function
+of these molecules, which is crucial for understanding biological processes and developing new drugs.
+The RCSB PDB API allows users to access this structural data programmatically, enabling researchers to retrieve
+information about specific proteins, their structures, and related data.
+
+.. figure:: images/rcsb-pdb.png
+    :width: 600px
+    :align: center
+
+    RCSB PDB main page.
+
+The RCSB PDB has multiple APIs available, including a Search API for querying the database and a Data API for
+retrieving detailed information about specific entries. Let's first take a look at the `RCSB PDB Search API documentation <https://search.rcsb.org/index.html#search-api>`_.
+
+.. figure:: images/rcsb-pdb-search-api.png
+    :width: 600px
+    :align: center
+
+    RCSB PDB Search API documentation page.
+
+The Search API allows us to perform complex queries to find specific entries in the PDB and is designed to return
+only identifiers (and some additional metadata) for the hits that match the search criteria. The basic idea is to
+send a GET request to `https://search.rcsb.org/rcsbsearch/v2/query?json={search-request}` where ``{search-request}``
+is a structured JSON object that specifies the search criteria. Something like:
+
+.. code-block:: json
+
+  {
+    "query": {
+      "type": "terminal",
+      "service": "full_text",
+      "parameters": {
+        "value": "thymidine kinase"
+      }
+    },
+    "return_type": "entry"
+  }
+
+Again, we could use the lower-level Python ``requests`` library to interact with the Search API (and Data API), but
+there is a more convenient way to interact with the RCSB PDB APIs using the ``rcsb-api`` library, which provides a
+more user-friendly interface for accessing the APIs. So let's install it.
+
+.. code-block:: console
+
+   [mbs337-vm]$ cd $HOME/mbs-337
+   [mbs337-vm]$ source .venv/bin/activate
+   (.venv) [mbs337-vm]$ pip3 install rcsb-api
+   (.venv) [mbs337-vm]$ pip3 list
+   Package              Version
+   -------------------- -----------
+   annotated-types      0.7.0
+   anyio                4.12.1
+   attrs                25.4.0
+   biopython            1.86
+   cattrs               26.1.0
+   certifi              2026.1.4
+   cffi                 2.0.0
+   charset-normalizer   3.4.4
+   cryptography         46.0.5
+   graphql-core         3.2.7
+   h11                  0.16.0
+   httpcore             1.0.9
+   httpx                0.28.1
+   idna                 3.11
+   iniconfig            2.3.0
+   jaraco.classes       3.4.0
+   jaraco.context       6.1.0
+   jaraco.functools     4.4.0
+   jeepney              0.9.0
+   keyring              25.7.0
+   markdown-it-py       4.0.0
+   mdurl                0.1.2
+   more-itertools       10.8.0
+   nest-asyncio         1.6.0
+   numpy                2.4.1
+   packaging            26.0
+   pip                  24.0
+   platformdirs         4.9.2
+   pluggy               1.6.0
+   pycparser            3.0
+   pydantic             2.12.5
+   pydantic_core        2.41.5
+   Pygments             2.19.2
+   pyinaturalist        0.21.1
+   pyrate-limiter       2.10.0
+   pytest               9.0.2
+   python-dateutil      2.9.0.post0
+   rcsb-api             1.5.0
+   redis                7.2.0
+   requests             2.32.5
+   requests-cache       1.3.0
+   requests-ratelimiter 0.8.0
+   rich                 14.3.3
+   rustworkx            0.17.1
+   SecretStorage        3.5.0
+   six                  1.17.0
+   tqdm                 4.67.3
+   typing_extensions    4.15.0
+   typing-inspection    0.4.2
+   url-normalize        2.2.1
+   urllib3              2.6.3
+
+With the ``rcsb-api`` library installed, we can start making requests to the RCSB PDB APIs. Let's first take a
+look at the `rcsb-api documentation <https://rcsbapi.readthedocs.io/en/latest/>`_ to understand how to use the
+library effectively.
+
+.. figure:: images/rcsb-api-docs.png
+    :width: 600px
+    :align: center
+
+    rcsb-api documentation page.
+
+The first thing we're going to do is to use the Search API to find entries in the PDB that match a specific query.
+For example, let's search for entries that contain the term "Hemoglobin". We can use the following code to do this:
+
+.. code-block:: console
+
+   [mbs337-vm]$ python3
+   Python 3.12.3 (main, Jan 22 2026, 20:57:42) [GCC 13.3.0] on linux
+   Type "help", "copyright", "credits" or "license" for more information.
+   >>> from rcsbapi.search import TextQuery
+   >>>
+   >>> query = TextQuery(value="Hemoglobin")
+   >>>
+   >>> results = query()
+   >>> results_list = list(results)
+   >>> len(results_list)
+   8918
+   >>> for rid in sorted(results_list):
+   >>>    print(rid)
+   101M
+   102M
+   103M
+   104M
+   105M
+   106M
+   107M
+   108M
+   109M
+   10NH
+   110M
+   111M
+   112M
+   155C
+   ...
+   4HGJ
+   4HHB
+   4HHR
+   ...
+   9YVV
+   9ZKF
+   9ZLJ
+   9ZLM
+
+Now that we have a list of entry IDs that match our search query, we can use the Data API to retrieve detailed
+information about a specific entry. For example, let's retrieve information about the entry with ID "4HHB", which
+is the PDB ID for human hemoglobin. As we did with the Search API, let's first take a look at the
+`RCSB PDB Data API documentation <https://data.rcsb.org/index.html#data-api>`_.
+
+.. figure:: images/rcsb-pdb-data-api.png
+    :width: 600px
+    :align: center
+
+    RCSB PDB Data API documentation page.
+
+As you can see from the Data API documentation, there are two ways to retrieve data for a specific entry: using
+the RESTful API or using `GraphQL <https://graphql.org/>`_. The RESTful API is a standard way to interact with
+the API using HTTP requests, while GraphQL is a more flexible query language that allows you to specify exactly
+what data you want to retrieve. Since we have already installed the ``rcsb-api`` library, we can use it to
+interact with the Data API in a more convenient way.
+
+To retrieve information about the entry with ID "4HHB", we can use the following code:
+
+.. code-block:: console
+
+   >>> from rcsbapi.data import DataQuery as Query
+   >>>
+   >>> query = Query(
+   ...     input_type="entries",
+   ...     input_ids=["4HHB"],
+   ...     return_data_list=["exptl.method", "struct.title"]
+   ... )
+   >>>
+   >>> result = query.exec()
+   >>>
+   >>> type(result)
+   <class 'dict'>
+   >>> print(result)
+   {'data': {'entries': [{'rcsb_id': '4HHB', 'exptl': [{'method': 'X-RAY DIFFRACTION'}], 'struct': {'title': 'THE CRYSTAL STRUCTURE OF HUMAN DEOXYHAEMOGLOBIN AT 1.74 ANGSTROMS RESOLUTION'}}]}}
+   >>>
+   >>> print(query.get_query())
+   query{entries(entry_ids: ["4HHB"]){
+       rcsb_id
+       exptl{
+         method
+     }
+       struct{
+         title
+     }}}
+   >>>
+
+Downloading PDB files using BioPython
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous sections, we have used BioPython's PDB package to parse PDB files. Now let's see
+how we can use BioPython to download PDB files directly from the RCSB PDB database. This can be done using
+the ``PDBList`` class from the ``Bio.PDB`` module (see `docs <https://biopython.org/docs/1.76/api/Bio.PDB.PDBList.html>`_).
+
+.. code-block:: console
+
+   >>> from Bio.PDB import PDBList
+   >>>
+   >>> pdb_list = PDBList()
+   >>>
+   >>> pdb_list.retrieve_pdb_file("4HHB", file_format="mmCif", pdir=".")
+   Downloading PDB structure '4hhb'...
+   './4hhb.cif'
+   >>>
+   [mbs337-vm]$ ls -l
+   total 764
+   -rw-r--r-- 1 ubuntu ubuntu    540 Feb 21 18:39 4HHB_summary.json
+   -rw-rw-r-- 1 ubuntu ubuntu 764822 Feb 25 02:16 4hhb.cif
+   drwxrwxr-x 4 ubuntu ubuntu   4096 Feb 19 17:58 docker-exercise
+
+NCBI
+----
+
+Additional Resources
+--------------------
+
+* `iNaturalist <https://www.inaturalist.org/>`_
+* `iNaturalist API documentation <https://api.inaturalist.org/v1/docs/>`_
+* `pyinaturalist API documentation <https://pyinaturalist.readthedocs.io/en/stable/reference.html>`_
+* `RCSB Protein Data Bank <https://www.rcsb.org/>`_
+* `RCSB PDB Search API documentation <https://search.rcsb.org/index.html>`_
+* `RCSB PDB Data API documentation <https://data.rcsb.org/index.html>`_
+* `rcsb-api documentation <https://rcsbapi.readthedocs.io/en/latest/>`_
