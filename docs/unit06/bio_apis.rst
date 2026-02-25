@@ -1,5 +1,5 @@
-iNaturalist, RCSB, and NCBI
-===========================
+iNaturalist, RCSB PDB, and NCBI
+===============================
 
 In this section, we will explore three popular APIs in the field of bioinformatics: `iNaturalist <https://www.inaturalist.org/>`_,
 `RCSB Protein Data Bank <https://www.rcsb.org/>`_ (Research Collaboratory for Structural Bioinformatics), and
