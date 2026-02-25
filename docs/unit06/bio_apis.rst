@@ -528,13 +528,138 @@ the ``PDBList`` class from the ``Bio.PDB`` module (see `docs <https://biopython.
 NCBI
 ----
 
+`NCBI <https://www.ncbi.nlm.nih.gov/>`_ (National Center for Biotechnology Information) is a part of the United States National Library of Medicine,
+a branch of the National Institutes of Health. NCBI provides access to a wide range of biological data,
+including genomic sequences, protein sequences, and literature. The NCBI APIs allow users to access this data
+programmatically, enabling researchers to retrieve information about specific genes, proteins, and other
+biological entities.
+
+.. figure:: images/ncbi.png
+    :width: 600px
+    :align: center
+
+    NCBI main page.
+
+NCBI also provides multiple `APIs <https://www.ncbi.nlm.nih.gov/home/develop/api/>`_, including the E-utilities API for accessing all the Entrez databases.
+
+.. figure:: images/ncbi-api.png
+    :width: 600px
+    :align: center
+
+    NCBI APIs page.
+
+
+`Entrez <https://www.ncbi.nlm.nih.gov/search/>`_ is a search and retrieval system that provides access to a
+wide range of biological data, including genomic sequences, protein sequences, and literature. It search
+databases like PubMed, GenBank, GEO, and many others. The E-utilities API allows users to access this data
+programmatically, enabling researchers to retrieve information about specific genes, proteins, and other
+biological entities.
+
+Again, we can turn to the BioPython library to interact with the NCBI APIs in a more convenient way.
+BioPython provides the ``Entrez`` module for accessing the NCBI APIs (see `docs <https://biopython.org/docs/1.76/api/Bio.Entrez.html>`_).
+
+Searching, downloading, and parsing GenBank records
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For example, let's say we're working with Arabidopsis thaliana (thale cress), a small plant that is a popular
+model organism in plant biology, and we want to retrieve the GenBank record for a gene with locus ``AT1G65480``.
+This is a protein-coding gene on chromosome 1 that promotes flowering. Let's first search for the gene so we
+can get its GenBank ID, and then we can use that ID to retrieve the GenBank record and parse it using BioPython.
+
+.. code-block:: console
+
+   [mbs337-vm]$ python3
+   Python 3.12.3 (main, Jan 22 2026, 20:57:42) [GCC 13.3.0] on linux
+   Type "help", "copyright", "credits" or "license" for more information.
+   >>> from Bio import Entrez, SeqIO
+   >>>
+   >>> Entrez.email = "A.N.Other@example.com"
+   >>>
+   >>> with Entrez.esearch(db="protein", term="AT1G65480") as h:
+   ...     results = Entrez.read(h)
+   ...     type(results)
+   ...     print(results)
+   ...
+   <class 'Bio.Entrez.Parser.DictionaryElement'>
+   {'Count': '28', 'RetMax': '20', 'RetStart': '0', 'IdList': ['3178757816', '17432933', '2549168764', '2549167280', '2549167260', '2549163309', '2549152528', '332658914', '1063695107', '15237061', '15218709', '1820247506', '1315962760', '1315962758', '1315962757', '1315946694', '1315946693', '1039007658', '332196260', '508716688'], 'TranslationSet': [], 'TranslationStack': [{'Term': 'AT1G65480[All Fields]', 'Field': 'All Fields', 'Count': '28', 'Explode': 'N'}, 'GROUP'], 'QueryTranslation': 'AT1G65480[All Fields]'}
+   >>>
+
+We'll choose the second ID in the list, ``17432933``, which is the GenBank ID for the protein sequence of the gene.
+
+.. code-block:: console
+
+   >>> gb_rec = None
+   >>> with Entrez.efetch(db="protein", id="17432933", rettype="gb", retmode="text") as h:
+   ...     record = SeqIO.parse(h, "gb")
+   ...     rec_list = list(record)
+   ...     gb_rec = rec_list[0]
+   ...
+   >>>
+   >>> type(gb_rec)
+   <class 'Bio.SeqRecord.SeqRecord'>
+   >>>
+   >>> print(f"ID: {gb_rec.id}\nName: {gb_rec.name}\nDescription: {gb_rec.description}\nSequence: {gb_rec.seq}")
+   ID: Q9SXZ2.2
+   Name: FT_ARATH
+   Description: RecName: Full=Protein FLOWERING LOCUS T
+   Sequence: MSINIRDPLIVSRVVGDVLDPFNRSITLKVTYGQREVTNGLDLRPSQVQNKPRVEIGGEDLRNFYTLVMVDPDVPSPSNPHLREYLHWLVTDIPATTGTTFGNEIVCYENPSPTAGIHRVVFILFRQLGRQTVYAPGWRQNFNTREFAEIYNLGLPVAAVFYNCQRESGCGGRRL
+   >>>
+
+PubMed and Medline
+~~~~~~~~~~~~~~~~~~
+
+To continue with our example, let's say we want to find literature related to the gene ``AT1G65480``.
+We can use the PubMed database to search for articles that mention this gene.
+
+.. code-block:: console
+
+   [mbs337-vm]$ python3
+   Python 3.12.3 (main, Jan 22 2026, 20:57:42) [GCC 13.3.0] on linux
+   Type "help", "copyright", "credits" or "license" for more information.
+   >>> from Bio import Entrez, Medline
+   >>>
+   >>> Entrez.email = "A.N.Other@example.com"
+   >>>
+   >>> idlist = None
+   >>> with Entrez.esearch(db="pubmed", term="AT1G65480") as h:
+   ...     record = Entrez.read(h)
+   ...     idlist = record["IdList"]
+   ...
+   >>> idlist
+   ['31219634', '31009078', '26132805', '19825833']
+
+It looks like there are 4 articles that mention the gene ``AT1G65480``. Let's retrieve the details of the
+third article in the list, ``26132805``.
+
+.. code-block:: console
+
+   >>> art_list = None
+   >>> with Entrez.efetch(db="pubmed", id="26132805", rettype="medline", retmode="text") as h:
+   ...     records = Medline.parse(h)
+   ...     art_list = list(records)
+   ...
+   >>>
+   >>> article = art_list[0]
+   >>> type(article)
+   <class 'Bio.Medline.MedlineRecord'>
+   >>>
+   >>> print(f"ID: {article.get('PMID')}\nTitle: {article.get('TI')}\nAuthors: {article.get('AU')}\nSource: {article.get('SO')}\nAbstract: {article.get('AB')}")
+   ID: 26132805
+   Title: FT overexpression induces precocious flowering and normal reproductive development in Eucalyptus.
+   Authors: ['Klocko AL', 'Ma C', 'Robertson S', 'Esfandiari E', 'Nilsson O', 'Strauss SH']
+   Source: Plant Biotechnol J. 2016 Feb;14(2):808-19. doi: 10.1111/pbi.12431. Epub 2015 Jul 1.
+   Abstract: Eucalyptus trees are among the most important species for industrial forestry worldwide. However, as with most forest trees, flowering does not begin for one to several years after planting which can limit the rate of conventional and molecular breeding. To speed flowering, we transformed a Eucalyptus grandis x urophylla hybrid (SP7) with a variety of constructs that enable overexpression of FLOWERING LOCUS T (FT). We found that FT expression led to very early flowering, with events showing floral buds within 1-5 months of transplanting to the glasshouse. The most rapid flowering was observed when the cauliflower mosaic virus 35S promoter was used to drive the Arabidopsis thaliana FT gene (AtFT). Early flowering was also observed with AtFT overexpression from a 409S ubiquitin promoter and under heat induction conditions with Populus trichocarpa FT1 (PtFT1) under control of a heat-shock promoter. Early flowering trees grew robustly, but exhibited a highly branched phenotype compared to the strong apical dominance of nonflowering transgenic and control trees. AtFT-induced flowers were morphologically normal and produced viable pollen grains and viable self- and cross-pollinated seeds. Many self-seedlings inherited AtFT and flowered early. FT overexpression-induced flowering in Eucalyptus may be a valuable means for accelerating breeding and genetic studies as the transgene can be easily segregated away in progeny, restoring normal growth and form.
+
+
 Additional Resources
 --------------------
 
-* `iNaturalist <https://www.inaturalist.org/>`_
 * `iNaturalist API documentation <https://api.inaturalist.org/v1/docs/>`_
 * `pyinaturalist API documentation <https://pyinaturalist.readthedocs.io/en/stable/reference.html>`_
-* `RCSB Protein Data Bank <https://www.rcsb.org/>`_
+* `PDB-101: Introduction to RCSB PDB APIs <https://pdb101.rcsb.org/learn/guide-to-understanding-pdb-data/introduction-to-rcsb-pdb-apis>`_
 * `RCSB PDB Search API documentation <https://search.rcsb.org/index.html>`_
 * `RCSB PDB Data API documentation <https://data.rcsb.org/index.html>`_
 * `rcsb-api documentation <https://rcsbapi.readthedocs.io/en/latest/>`_
+* `NCBI APIs documentation <https://www.ncbi.nlm.nih.gov/home/develop/api/>`_
+* `BioPython documentation <https://biopython.org/docs/1.76/api/index.html>`_
+* `BioPython Tutorial and Cookbook <https://biopython.org/docs/latest/Tutorial>`_
