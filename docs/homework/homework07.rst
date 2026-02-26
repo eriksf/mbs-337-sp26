@@ -10,7 +10,7 @@ This homework applies to all of Unit 6 (Databases, Redis, APIs, and the NCBI API
 You will first start up the Redis database server in a container as we did in class
 and then you will write a single, well-structured Python script called ``get_ncbi_genbank_records.py``
 that uses BioPython and the NCBI API to retrieve records from GenBank and stores them in the Redis database.
-The script should also dump the records from the Redis database to a TEXT file. Finally write a README that
+The script should also dump the records from the Redis database to a TEXT file. Finally, write a README that
 describes how to start up the container and run the script.
 
 Part 1: Redis Database
@@ -85,6 +85,21 @@ Requirements checklist
 * At least **one try/except** for error handling
 * Output TEXT file matches the required format
 
+.. admonition:: .gitignore
+
+   In this assignment, you have created a directory called ``redis-data`` that is persisting
+   data for the Redis database. We don't actually need (or want) to store that in our GitHub
+   repository, so if you haven't already, create a file called ``.gitignore`` in your root GitHub
+   repository. This files tells Git which files and directories to ignore when you commit and push
+   your work. Add ``redis-data`` to your ``.gitignore`` file to ignore that directory. For Python projects,
+   you might want it to look like:
+
+   .. code-block:: text
+
+      env
+      venv
+      .venv
+      redis-data
 
 What to Turn In
 ---------------
