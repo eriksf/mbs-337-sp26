@@ -34,6 +34,7 @@ research problems.
    homework/homework04
    homework/homework05
    homework/homework06
+   homework/homework07
    homework/midterm
 
 
