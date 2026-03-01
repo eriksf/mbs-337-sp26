@@ -12,4 +12,5 @@ exploratory data analysis and visualization.
    :maxdepth: 1
 
    intro_to_jupyter
+   exploratory_data_analysis
    matplotlib
