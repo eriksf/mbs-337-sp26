@@ -197,6 +197,18 @@ First, let's create a configuration file for Jupyter Notebook/Lab:
    total 4
    -rw-rw-r-- 1 ubuntu ubuntu 241 Mar  1 17:01 jupyter_config.py
 
+
+.. code-block:: python3
+
+   c = get_config()
+   c.IPKernelApp.pylab = "inline"  # if you want plotting support always
+   c.ServerApp.ip = "0.0.0.0"
+   c.ServerApp.port = 8888
+   c.ServerApp.open_browser = False
+   c.ServerApp.allow_origin = "*"
+   c.ServerApp.allow_remote_access = True
+
+
 Now, let's set a password for our Jupyter Notebook/Lab. Run the following command and follow the prompts
 to set a password:
 
@@ -276,7 +288,7 @@ interface at ``http://<your-vm-public-ip>:8888/lab``, you can switch to the clas
 changing the URL to ``http://<your-vm-public-ip>:8888/tree``. Similarly, if you are in the classic notebook
 interface, you can switch to the lab interface by changing the URL to ``http://<your-vm-public-ip>:8888/lab``.
 
-With the interface up and running, you can create a new notebook by clicking on "Python 3" button under the
+With the interface up and running, you can create a new notebook by clicking on the "Python 3" button under the
 "Notebook" section in the "Launcher" tab of JupyterLab,
 
 .. figure:: images/jupyter-lab-select-nb.png
@@ -285,7 +297,7 @@ With the interface up and running, you can create a new notebook by clicking on 
 
     Jupyter Lab Create New Notebook
 
-or by clicking on "New" and then "Python 3" in the classic notebook interface.
+or by clicking on "New" menu and then "Python 3" in the classic notebook interface.
 
 .. figure:: images/jupyter-notebook-create-nb.png
     :width: 600px
@@ -304,8 +316,8 @@ This will open a new notebook where you can start writing and executing code.
 The .ipynb file
 ~~~~~~~~~~~~~~~
 
-A new notebook will be created in the current directory with a .ipynb extension. You should see this file in
-your file browser and the "tab" of your notebook called ``Untitled.ipynb``. This file is a JSON file
+A new notebook will be created in the current directory with a ``.ipynb`` extension. You should see this file in
+your file browser and the "tab" of your notebook called ``Untitled.ipynb``. This is a JSON file
 that contains the code, output, and metadata of the notebook. You can open this file in a text editor to see
 its contents, but it is not meant to be edited directly. Instead, you should use the Jupyter Notebook interface
 to edit and run the notebook. Make sure to save your notebook frequently to avoid losing your work.

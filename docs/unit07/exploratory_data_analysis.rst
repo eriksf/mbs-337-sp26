@@ -1,10 +1,11 @@
 Exploratory Data Analysis with Jupyter Notebooks
 ================================================
 
-The success of a machine learning model is heavily dependent on the quality of the data it is
-trained on. An important first step in a machine learning project is to familiarize yourself with
-the dataset you will be using. This is a process called **exploratory data analysis (EDA)**. We will
-mostly be using Python and the ``pandas`` library for this. We will perform these steps in a Jupyter
+The success of any data science project relies heavily on the quality and understanding of the data
+being analyzed. This includes things like training data for machine learning models, but also applies
+to any kind of data-driven analysis. An important first step is to familiarize yourself with
+the dataset you will be working with. This is a process called **exploratory data analysis (EDA)**. We will
+mostly be using Python and the ``pandas`` library for this process. We will perform these steps in a Jupyter
 Notebook to show you how convenient it is for interactive data analysis and visualization.
 
 By the end of this section, you should be able to:
@@ -619,13 +620,13 @@ Exercise: Which Day Has the Most and Least Outcomes?
     .. code-block:: text
 
         weekday_name
-        Tuesday      6807
-        Saturday     6605
-        Friday       6209
-        Monday       6180
-        Wednesday    5952
-        Thursday     5735
-        Sunday       5647
+        Tuesday      14701
+        Saturday     14025
+        Monday       13933
+        Friday       13740
+        Wednesday    12988
+        Thursday     12757
+        Sunday       12361
         Name: count, dtype: int64
 
     From the result, we can see that Tuesdays had the most outcomes, while Sundays had the fewest
@@ -702,7 +703,7 @@ Next, we plot the results:
    :align: center
 
 From this plot, you can visually compare the activity levels across the week between the two years.
-For example, if adoptions were much lower on Tuesdays and Wednesdays in 2024 compared to 2023, that
+For example, if adoptions were much higher on Tuesdays and Thursdays in 2024 compared to 2023, that
 might signal a shift in shelter scheduling or public behavior.
 
 
