@@ -81,8 +81,13 @@ And make sure they're installed by listing them:
 Getting and Displaying the Data
 -------------------------------
 
-Before starting, you'll need to load the dataset containing animal outcome records from the Austin
-Animal Center. It will be used throughout this tutorial.
+We will be using a dataset from the `City of Austin's Open Data Portal <https://data.austintexas.gov/>`_,
+which contains publicly accessible datasets from the City's data. Specifically, we'll be using a
+`dataset <https://data.austintexas.gov/Health-and-Community-Services/Austin-Animal-Center-Outcomes-10-01-2013-to-05-05-/9t4d-g238/about_data>`_
+from the Austin Animal Center which tracks outcomes (status of animals as they leave the Center) which contains data
+from 10/01/2013 to 05/05/2025. This dataset includes information about the type of animal, its age, name, the
+outcome (e.g., adopted, transferred), and other relevant details. Before starting, you'll need to load the
+this dataset into your Jupyter Notebook. It will be used throughout this section.
 
 Instead of downloading and unzipping the file manually, we can now **programmatically fetch and
 extract the data directly from the URL** using Python. This approach makes your code more portable
@@ -587,6 +592,9 @@ We then extract:
 * The **weekday name** (e.g., 'Monday', 'Tuesday')
 
 .. code-block:: python
+
+   >>> # reset the data_dog DataFrame to include all dogs (not just those with ages)
+   >>> data_dog = data[dog_filter]
 
    >>> # Convert the string to datetime, setting errors='coerce' to safely handle invalid formats
    >>> data_dog['DateTime'] = pd.to_datetime(data_dog['DateTime'], errors='coerce', utc=True)
