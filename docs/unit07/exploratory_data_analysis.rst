@@ -596,8 +596,10 @@ We then extract:
    >>> # reset the data_dog DataFrame to include all dogs (not just those with ages)
    >>> data_dog = data[dog_filter]
 
-   >>> # Convert the string to datetime, setting errors='coerce' to safely handle invalid formats
-   >>> data_dog['DateTime'] = pd.to_datetime(data_dog['DateTime'], errors='coerce', utc=True)
+   >>> # Convert the string to datetime, setting format='mixed' to safely handle different formats
+   >>> data_dog['DateTime'] = pd.to_datetime(data_dog['DateTime'], utc=True, format='mixed')
+   >>> data_dog.head()
+   >>> data_dog.info()
 
    >>> # Extract the weekday number (0 = Monday, 6 = Sunday)
    >>> data_dog['weekday'] = data_dog['DateTime'].dt.weekday
@@ -606,6 +608,7 @@ We then extract:
    >>> data_dog['weekday_name'] = data_dog['DateTime'].dt.day_name()
 
    >>> # Preview the updated DataFrame
+   >>> data_dog.info()
    >>> data_dog.head()
 
 .. image:: ./images/data_weekdays.png
