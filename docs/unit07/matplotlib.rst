@@ -85,30 +85,76 @@ Change the colors and add markers:
 
    plt.plot(x, np.sin(x), 'r-o', x, np.sin(2*x), 'g--')
 
-Matplot lib supports some built-in colors, and others can be accessed using
+Matplotlib supports some built-in colors, and others can be accessed using
 HTML hex strings (e.g. ``'#eeefff'``):
 
-* Blue - 'b'
-* Green - 'g'
-* Red - 'r'
-* Cyan - 'c'
-* Magenta - 'm'
-* Yellow - 'y'
-* Black - 'k'
-* White  - 'w'
++---------+------+
+| Color   | Code |
++=========+======+
+| Blue    | 'b'  |
++---------+------+
+| Green   | 'g'  |
++---------+------+
+| Red     | 'r'  |
++---------+------+
+| Cyan    | 'c'  |
++---------+------+
+| Magenta | 'm'  |
++---------+------+
+| Yellow  | 'y'  |
++---------+------+
+| Black   | 'k'  |
++---------+------+
+| White   | 'w'  |
++---------+------+
 
-Built-in line and marker options:
+Built-in line codes:
 
-* Solid Line - '-'
-* Dashed - '-'
-* Dotted - '.'
-* Dash-dotted - '-:'
-* Point - '.'
-* Pixel - ','
-* Circle - 'o'
-* Square - 's'
-* Triangle - '^'
++----------+--------+
+| Line     | Code   |
++==========+========+
+| Solid    | '-'    |
++----------+--------+
+| Dashed   | '--'   |
++----------+--------+
+| Dash-dot | '-.'   |
++----------+--------+
+| Dotted   | ':'    |
++----------+--------+
+| No line  | 'None' |
++----------+--------+
 
+And marker codes:
+
++-----------------+--------+
+| Marker          | Code   |
++=================+========+
+| Point           | '.'    |
++-----------------+--------+
+| Pixel           | ','    |
++-----------------+--------+
+| Circle          | 'o'    |
++-----------------+--------+
+| Triangle down   | 'v'    |
++-----------------+--------+
+| Triangle up     | '^'    |
++-----------------+--------+
+| Square          | 's'    |
++-----------------+--------+
+| Pentagon        | 'p'    |
++-----------------+--------+
+| Star            | '*'    |
++-----------------+--------+
+| Diamond         | 'D'    |
++-----------------+--------+
+| X marker        | 'x'    |
++-----------------+--------+
+| Plus marker     | '+'    |
++-----------------+--------+
+| Horizontal line | '_'    |
++-----------------+--------+
+| No marker       | 'None' |
++-----------------+--------+
 
 
 Subplots
