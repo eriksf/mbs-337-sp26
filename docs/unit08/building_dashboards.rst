@@ -3,7 +3,7 @@ Building Real Dashboards with Plotly Dash
 
 Now that we have a good understanding of how Dash works and how to create visualizations with Plotly,
 we can start building real dashboards using Plotly Dash. In this section, we will go through the process
-of building a dashboard that interfaces with RCS PDB to grab a pdb file for the chosen ID and display
+of building a dashboard that interfaces with RCS PDB to grab a PDB file for the chosen ID and display
 information from it including a 3D molecular view, header information, and a visualization showing the amino
 acid distribution. We will go through this process step by step, from setting up the environment to deploying
 the dashboard. By the end of this section, you should be able to:
