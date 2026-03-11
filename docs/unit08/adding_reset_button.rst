@@ -1,5 +1,5 @@
-Real Dashboards:Adding a Reset Button
-=====================================
+Real Dashboards: Adding a Reset Button
+======================================
 
 Finally, let's add a reset button to our dashboard that allows users to clear the current molecule,
 header information, and histogram from the dashboard and return to the initial state. This will make
