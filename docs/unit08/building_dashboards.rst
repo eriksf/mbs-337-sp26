@@ -207,9 +207,7 @@ viewer. Let's add the layout code to our ``app.py`` file.
                     value='4HHB',
                     className="mb-2"
                 ),
-                dbc.Row([
-                    dbc.Col(dbc.Button("Load Structure", id='load-button', color="primary"), width="auto")
-                ]),
+                dbc.Button("Load Structure", id='load-button', color="primary"),
                 html.Div(id='status-message', className="mt-3")
             ], width=2),
 
@@ -241,8 +239,8 @@ Callback Function
 
 Now that we have our layout set up, we need to create a callback function that will allow us to update the
 content of our dashboard based on user input. Specifically, we want to update the 3D molecular viewer
-when the user enters a PDB ID and clicks the "Load Structure" button. To do this, we will create a callback
-function that listens for clicks on the "Load Structure" button, and when it detects a click, it will fetch
+when the user enters a PDB ID and clicks the ``Load Structure`` button. To do this, we will create a callback
+function that listens for clicks on the ``Load Structure`` button, and when it detects a click, it will fetch
 the corresponding PDB file from RCSB Protein Data Bank. We will use Biopython's **PDBList** class to download
 the PDB file, and then we will use Dash Bio's **PdbParser** to parse the PDB file and extract the necessary
 information to create a 3D molecular viewer. Also, we will use a helper function called **create_mol3d_style**
@@ -429,9 +427,7 @@ Finally, putting it all together, our complete ``app.py`` file should look like 
                     value='4HHB',
                     className="mb-2"
                 ),
-                dbc.Row([
-                    dbc.Col(dbc.Button("Load Structure", id='load-button', color="primary"), width="auto")
-                ]),
+                dbc.Button("Load Structure", id='load-button', color="primary"),
                 html.Div(id='status-message', className="mt-3")
             ], width=2),
 
@@ -476,6 +472,7 @@ Finally, putting it all together, our complete ``app.py`` file should look like 
             dash_parser = DashPdbParser(pdb_file)
             pdb_data = dash_parser.mol3d_data()  # Get data in format suitable for Molecule3dViewer
             # create styles for visualization needed by Molecule3dViewer
+            # atoms is a list of dictionaries obtained from parsing the PDB file with DashPdbParser
             # visualization_type can be 'cartoon', 'stick', 'sphere'
             # color_element can be 'residue', 'chain', 'element', 'partialCharge'
             styles = create_mol3d_style(

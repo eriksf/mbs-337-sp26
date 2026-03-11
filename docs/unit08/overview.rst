@@ -11,3 +11,6 @@ with other libraries and tools.
 
    intro_to_dash
    building_dashboards
+   adding_header_info
+   adding_histogram
+   adding_reset_button
